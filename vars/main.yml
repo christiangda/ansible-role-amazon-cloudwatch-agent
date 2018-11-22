@@ -1,2 +1,2 @@
 ---
-# vars file for amazon-cloudwatch-agent
+cloudwatch_package: amazon-cloudwatch-agent
