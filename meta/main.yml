@@ -15,6 +15,12 @@ galaxy_info:
     - name: Amazon
       versions:
         - all
+    - name: Ubuntu
+      version:
+        - trusty
+        - xenial
+        - bionic
+        - cuttlefish
 
   galaxy_tags:
     - aws
@@ -25,5 +31,7 @@ galaxy_info:
     - utilities
     - amazon
     - linux
+    - ubuntu
+    - debian
 
 dependencies: []

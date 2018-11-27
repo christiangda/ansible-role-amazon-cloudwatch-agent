@@ -6,14 +6,22 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: centos7
+  - name: centos-7
     image: centos:7
-  - name: centos6
+  - name: centos-6
     image: centos:6
-  - name: amazonlinux2
+  - name: amazonlinux-2
     image: amazonlinux:2
-  - name: amazonlinux1
+  - name: amazonlinux-1
     image: amazonlinux:1
+  - name: ubuntu-14.04
+    image: ubuntu:14.04
+  - name: ubuntu-16.04
+    image: ubuntu:16.04
+  - name: ubuntu-18.04
+    image: ubuntu:18.04
+  - name: ubuntu-18.10
+    image: ubuntu:18.10
 provisioner:
   name: ansible
   lint:

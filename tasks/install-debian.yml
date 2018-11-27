@@ -4,7 +4,45 @@
     update_cache: true
     cache_valid_time: 86400
 
-# - name: install amazon-cloudwatch-agent
-#   apt:
-#     name: {{ }}
-#     state: present
+- name: add {{ cloudwatch_package }} key
+  apt_key:
+    state: present
+    url: "{{ cloudwatch_package_gpg }}"
+
+- name: download {{ cloudwatch_package }}.deb.sig
+  get_url:
+    url: "{{ cloudwatch_package_url }}"
+    dest: "/{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
+  changed_when: false
+
+- name: download {{ cloudwatch_package }}.deb
+  get_url:
+    url: "{{ cloudwatch_package_url }}"
+    dest: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
+  changed_when: false
+
+- name: verify {{ cloudwatch_package }} package signature
+  shell: gpg --verify {{ cloudwatch_package }}.deb.sig {{ cloudwatch_package }}.deb
+  register: verified_sig
+  failed_when: "'BAD' in verified_sig.stderr"
+  changed_when: false
+  args:
+    executable: /bin/bash
+    chdir: /{{ temp_path }}
+
+- name: install {{ cloudwatch_package }} deb
+  apt:
+    deb: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
+    state: present
+
+- name: remove downloaded {{ cloudwatch_package }}.deb.sig
+  file:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
+    state: absent
+  changed_when: false
+
+- name: remove downloaded {{ cloudwatch_package }}.deb
+  file:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
+    state: absent
+  changed_when: false
