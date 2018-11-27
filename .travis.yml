@@ -10,6 +10,10 @@ env:
     - MOLECULE_DISTRO: centos6
     - MOLECULE_DISTRO: amazonlinux:2
     - MOLECULE_DISTRO: amazonlinux:1
+    - MOLECULE_DISTRO: ubuntu-14.04
+    - MOLECULE_DISTRO: ubuntu-16.04
+    - MOLECULE_DISTRO: ubuntu-18.04
+    - MOLECULE_DISTRO: ubuntu-18.10
 install:
   # Install test dependencies.
   - pip install molecule docker
