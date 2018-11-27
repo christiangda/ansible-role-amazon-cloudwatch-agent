@@ -1,4 +1,7 @@
 ---
+# references
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html
+
 # debug
 - name: debug - values from ansible facts
   debug:
@@ -50,6 +53,7 @@
   debug:
     msg:
       - "cloudwatch_package = {{ cloudwatch_package }}"
+      - "cloudwatch_package_gpg = {{ cloudwatch_package_gpg }}"
       - "cloudwatch_package_url = {{ cloudwatch_package_url }}"
       - "cloudwatch_package_signature = {{ cloudwatch_package_signature }}"
   when: show_debug_messages
@@ -58,20 +62,16 @@
 - name: definning global facts
   set_fact:
     cloudwatch_package: "{{ cloudwatch_package }}"
+    cloudwatch_package_gpg: "{{ cloudwatch_package_gpg }}"
     cloudwatch_package_url: "{{ cloudwatch_package_url }}"
     cloudwatch_package_signature: "{{ cloudwatch_package_signature }}"
 
 # Installation tasks
-- name: include tasks for installation on RedHat/CentOS distribution
+- name: include tasks for installation on RedHat/CentOS and Amazon Linux distribution
   include_tasks: "install-{{ ansible_os_family|lower }}.yml"
   when: >
     ansible_os_family == 'RedHat' and (
       ansible_distribution == 'CentOS' or
-      ansible_distribution == 'RedHat'
+      ansible_distribution == 'RedHat' or
+      ansible_distribution == 'Amazon'
     )
-
-- name: include tasks for installation on Amazon distribution
-  include_tasks: "install-{{  ansible_distribution|lower }}.yml"
-  when: >
-    ansible_os_family == 'RedHat' and
-    ansible_distribution == 'Amazon'
