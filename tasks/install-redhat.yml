@@ -4,17 +4,45 @@
     state: present
     key: "{{ cloudwatch_package_gpg }}"
 
+- name: get the {{ cloudwatch_package }}.rpm.sig remote file size
+  uri:
+    url: "{{ cloudwatch_package_signature }}"
+    method: HEAD
+    validate_certs: false
+  register: url_pkg_sig
+
+- name: get the {{ cloudwatch_package }}.rpm remote file size
+  uri:
+    url: "{{ cloudwatch_package_url }}"
+    method: HEAD
+    validate_certs: false
+  register: url_pkg
+
+- name: check if {{ cloudwatch_package }}.rpm.sig file exist before install
+  stat:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
+  register: pkg_sig_file
+
+- name: check if {{ cloudwatch_package }}.rpm file exist before install
+  stat:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
+  register: pkg_file
+
 - name: download {{ cloudwatch_package }}.rpm.sig
   get_url:
-    url: "{{ cloudwatch_package_url }}"
+    url: "{{ cloudwatch_package_signature }}"
     dest: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-  changed_when: false
+  when: >
+    not pkg_sig_file.stat.exists or
+    url_pkg_sig.content_length != pkg_sig_file.stat.size
 
 - name: download {{ cloudwatch_package }}.rpm
   get_url:
     url: "{{ cloudwatch_package_url }}"
     dest: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-  changed_when: false
+  when: >
+    not pkg_file.stat.exists or
+    url_pkg.content_length != pkg_file.stat.size
 
 - name: verify {{ cloudwatch_package }} package signature
   shell: gpg --verify {{ cloudwatch_package }}.rpm.sig {{ cloudwatch_package }}.rpm
@@ -30,14 +58,24 @@
     name: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
     state: latest
 
+- name: check if {{ cloudwatch_package }}.rpm.sig file exist after install
+  stat:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
+  register: pkg_sig_file
+
+- name: check if {{ cloudwatch_package }}.rpm file exist after install
+  stat:
+    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
+  register: pkg_file
+
 - name: remove downloaded {{ cloudwatch_package }}.rpm.sig
   file:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
     state: absent
-  changed_when: false
+  when: pkg_sig_file.stat.exists
 
 - name: remove downloaded {{ cloudwatch_package }}.rpm
   file:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
     state: absent
-  changed_when: false
+  when: pkg_file.stat.exists
