@@ -35,6 +35,7 @@
   when: >
     not pkg_sig_file.stat.exists or
     url_pkg_sig.content_length != pkg_sig_file.stat.size
+  changed_when: false
 
 - name: download {{ cloudwatch_package }}.rpm
   get_url:
@@ -43,6 +44,7 @@
   when: >
     not pkg_file.stat.exists or
     url_pkg.content_length != pkg_file.stat.size
+  changed_when: false
 
 - name: verify {{ cloudwatch_package }} package signature
   shell: gpg --verify {{ cloudwatch_package }}.rpm.sig {{ cloudwatch_package }}.rpm
@@ -53,7 +55,7 @@
     executable: /bin/bash
     chdir: /{{ temp_path }}
 
-- name: install {{ cloudwatch_package }} rpm
+- name: install {{ cloudwatch_package }}.rpm
   yum:
     name: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
     state: latest
@@ -73,9 +75,11 @@
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
     state: absent
   when: pkg_sig_file.stat.exists
+  changed_when: false
 
 - name: remove downloaded {{ cloudwatch_package }}.rpm
   file:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
     state: absent
   when: pkg_file.stat.exists
+  changed_when: false
