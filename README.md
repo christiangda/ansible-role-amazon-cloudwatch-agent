@@ -8,8 +8,8 @@ This module [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWa
 **My apologies, this is a WIP**
 This version only:
 * Download and install CloudWatch Agent
-* Have handlers for Start, Stop and Reload config
-* Config is load form JSON File
+* ~~Have handlers for Start, Stop and Reload config~~
+* ~~Config is load form JSON File~~
 
 Requirements
 ------------
