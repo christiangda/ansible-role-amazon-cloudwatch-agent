@@ -33,4 +33,4 @@
 - name: Install {{ cloudwatch_package }}.deb
   apt:
     deb: "{{ temp_path }}/{{ cloudwatch_package }}.deb"
-    state: latest
+    state: present

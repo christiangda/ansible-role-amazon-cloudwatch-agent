@@ -1,7 +1,7 @@
 Ansible Role: amazon-cloudwatch-agent
 =========
 [![Build Status](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
-[![Ansible Role](https://img.shields.io/ansible/role/33302.svg)](https://galaxy.ansible.com/christiangda/amazon-cloudwatch-agent)
+[![Ansible Role](https://img.shields.io/ansible/role/35159.svg)](https://galaxy.ansible.com/christiangda/amazon-cloudwatch-agent)
 
 This module [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
