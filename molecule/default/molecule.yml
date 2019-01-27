@@ -22,6 +22,14 @@ platforms:
     image: ubuntu:18.04
   - name: ubuntu-18.10
     image: ubuntu:18.10
+  - name: debian-buster
+    image: debian:buster
+  - name: debian-jessie
+    image: debian:jessie
+  - name: debian-sid
+    image: debian:sid
+  - name: debian-stretch
+    image: debian:stretch
 provisioner:
   name: ansible
   lint:

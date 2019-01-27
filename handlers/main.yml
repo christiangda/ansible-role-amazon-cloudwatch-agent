@@ -1,2 +1,10 @@
 ---
 # handlers file for amazon-cloudwatch-agent
+- name: Start {{ cloudwatch_package }} service
+  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start
+
+- name: Stop {{ cloudwatch_package }} service
+  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a stop
+
+- name: Start and reload configuration {{ cloudwatch_package }} service
+  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s

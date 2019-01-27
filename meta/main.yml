@@ -21,7 +21,12 @@ galaxy_info:
     - name: Amazon
       versions:
         - all
-
+    - name: debian
+      versions:
+        - buster
+        - jessie
+        - sid
+        - stretch
   galaxy_tags:
     - aws
     - cloudwatch

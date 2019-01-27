@@ -4,47 +4,17 @@
     state: present
     key: "{{ cloudwatch_package_gpg }}"
 
-- name: Get the {{ cloudwatch_package }}.rpm.sig remote file size
-  uri:
-    url: "{{ cloudwatch_package_signature }}"
-    method: HEAD
-    validate_certs: false
-  register: url_pkg_sig
-
-- name: Get the {{ cloudwatch_package }}.rpm remote file size
-  uri:
-    url: "{{ cloudwatch_package_url }}"
-    method: HEAD
-    validate_certs: false
-  register: url_pkg
-
-- name: Check if {{ cloudwatch_package }}.rpm.sig file exist before install
-  stat:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-  register: pkg_sig_file
-
-- name: Check if {{ cloudwatch_package }}.rpm file exist before install
-  stat:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-  register: pkg_file
-
 - name: Download {{ cloudwatch_package }}.rpm.sig
   get_url:
     url: "{{ cloudwatch_package_signature }}"
-    dest: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-  when: >
-    not pkg_sig_file.stat.exists or
-    url_pkg_sig.content_length != pkg_sig_file.stat.size
-  changed_when: false
+    dest: "{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
+    force: true
 
 - name: Download {{ cloudwatch_package }}.rpm
   get_url:
     url: "{{ cloudwatch_package_url }}"
-    dest: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-  when: >
-    not pkg_file.stat.exists or
-    url_pkg.content_length != pkg_file.stat.size
-  changed_when: false
+    dest: "{{ temp_path }}/{{ cloudwatch_package }}.rpm"
+    force: true
 
 - name: verify {{ cloudwatch_package }} package signature
   shell: gpg --verify {{ cloudwatch_package }}.rpm.sig {{ cloudwatch_package }}.rpm
@@ -53,33 +23,9 @@
   changed_when: false
   args:
     executable: /bin/bash
-    chdir: /{{ temp_path }}
+    chdir: "{{ temp_path }}"
 
 - name: Install {{ cloudwatch_package }}.rpm
   yum:
-    name: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
+    name: "{{ temp_path }}/{{ cloudwatch_package }}.rpm"
     state: latest
-
-- name: Check if {{ cloudwatch_package }}.rpm.sig file exist after install
-  stat:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-  register: pkg_sig_file
-
-- name: Check if {{ cloudwatch_package }}.rpm file exist after install
-  stat:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-  register: pkg_file
-
-- name: Remove downloaded {{ cloudwatch_package }}.rpm.sig
-  file:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-    state: absent
-  when: pkg_sig_file.stat.exists
-  changed_when: false
-
-- name: Remove downloaded {{ cloudwatch_package }}.rpm
-  file:
-    path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-    state: absent
-  when: pkg_file.stat.exists
-  changed_when: false
