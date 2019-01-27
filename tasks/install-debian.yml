@@ -1,39 +1,39 @@
 ---
-- name: update apt cache
+- name: Update apt cache
   apt:
     update_cache: true
     cache_valid_time: 86400
 
-- name: add {{ cloudwatch_package }} key
+- name: Add {{ cloudwatch_package }} key
   apt_key:
     state: present
     url: "{{ cloudwatch_package_gpg }}"
 
-- name: get the {{ cloudwatch_package }}.deb.sig remote file size
+- name: Get the {{ cloudwatch_package }}.deb.sig remote file size
   uri:
     url: "{{ cloudwatch_package_signature }}"
     method: HEAD
     validate_certs: false
   register: url_pkg_sig
 
-- name: get the {{ cloudwatch_package }}.deb remote file size
+- name: Get the {{ cloudwatch_package }}.deb remote file size
   uri:
     url: "{{ cloudwatch_package_url }}"
     method: HEAD
     validate_certs: false
   register: url_pkg
 
-- name: check if {{ cloudwatch_package }}.deb.sig file exist before install
+- name: Check if {{ cloudwatch_package }}.deb.sig file exist before install
   stat:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
   register: pkg_sig_file
 
-- name: check if {{ cloudwatch_package }}.deb file exist before install
+- name: Check if {{ cloudwatch_package }}.deb file exist before install
   stat:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
   register: pkg_file
 
-- name: download {{ cloudwatch_package }}.deb.sig
+- name: Download {{ cloudwatch_package }}.deb.sig
   get_url:
     url: "{{ cloudwatch_package_url }}"
     dest: "/{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
@@ -42,7 +42,7 @@
     url_pkg_sig.content_length != pkg_sig_file.stat.size
   changed_when: false
 
-- name: download {{ cloudwatch_package }}.deb
+- name: Download {{ cloudwatch_package }}.deb
   get_url:
     url: "{{ cloudwatch_package_url }}"
     dest: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
@@ -51,7 +51,7 @@
     url_pkg.content_length != pkg_file.stat.size
   changed_when: false
 
-- name: verify {{ cloudwatch_package }} package signature
+- name: Verify {{ cloudwatch_package }} package signature
   shell: gpg --verify {{ cloudwatch_package }}.deb.sig {{ cloudwatch_package }}.deb
   register: verified_sig
   failed_when: "'BAD' in verified_sig.stderr"
@@ -60,29 +60,29 @@
     executable: /bin/bash
     chdir: /{{ temp_path }}
 
-- name: install {{ cloudwatch_package }}.deb
+- name: Install {{ cloudwatch_package }}.deb
   apt:
     deb: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
     state: present
 
-- name: check if {{ cloudwatch_package }}.rpm.sig file exist after install
+- name: Check if {{ cloudwatch_package }}.rpm.sig file exist after install
   stat:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
   register: pkg_sig_file
 
-- name: check if {{ cloudwatch_package }}.rpm file exist after install
+- name: Check if {{ cloudwatch_package }}.rpm file exist after install
   stat:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.rpm"
   register: pkg_file
 
-- name: remove downloaded {{ cloudwatch_package }}.deb.sig
+- name: Remove downloaded {{ cloudwatch_package }}.deb.sig
   file:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
     state: absent
   when: pkg_sig_file.stat.exists
   changed_when: false
 
-- name: remove downloaded {{ cloudwatch_package }}.deb
+- name: Remove downloaded {{ cloudwatch_package }}.deb
   file:
     path: "/{{ temp_path }}/{{ cloudwatch_package }}.deb"
     state: absent
