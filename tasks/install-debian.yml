@@ -3,34 +3,64 @@
   apt:
     update_cache: true
     cache_valid_time: 86400
+  tags:
+    - update-cache
 
 - name: Add {{ cloudwatch_package }} key
   apt_key:
     state: present
     url: "{{ cloudwatch_package_gpg }}"
+  tags:
+    - add-key
+    - download
+    - install
 
 - name: Download {{ cloudwatch_package }}.deb.sig
   get_url:
     url: "{{ cloudwatch_package_url }}"
     dest: "{{ temp_path }}/{{ cloudwatch_package }}.deb.sig"
     force: true
+  retries: 2
+  delay: 3
+  tags:
+    - download-signature
+    - verify-signature
+    - download
+    - install
 
 - name: Download {{ cloudwatch_package }}.deb
   get_url:
     url: "{{ cloudwatch_package_url }}"
     dest: "{{ temp_path }}/{{ cloudwatch_package }}.deb"
     force: true
+  retries: 2
+  delay: 3
+  tags:
+    - download
+    - verify-signature
+    - install
 
 - name: Verify {{ cloudwatch_package }} package signature
-  shell: gpg --verify {{ cloudwatch_package }}.deb.sig {{ cloudwatch_package }}.deb
+  command: gpg --verify {{ cloudwatch_package }}.deb.sig {{ cloudwatch_package }}.deb
   register: verified_sig
   failed_when: "'BAD' in verified_sig.stderr"
   changed_when: false
   args:
-    executable: /bin/bash
     chdir: "{{ temp_path }}"
+  tags:
+    - verify-signature
+    - install
+
+- name: Install {{ cloudwatch_package }} dependencies packages
+  apt:
+    deb: "{{ dependencies_packages }}"
+    state: present
+  tags:
+    - install
 
 - name: Install {{ cloudwatch_package }}.deb
   apt:
     deb: "{{ temp_path }}/{{ cloudwatch_package }}.deb"
     state: present
+  tags:
+    - install

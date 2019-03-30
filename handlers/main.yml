@@ -1,9 +1,9 @@
 ---
 - name: Start {{ cloudwatch_package }}
-  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start
+  command: "{{ cloudwatch_agent_ctl }} -a start"
 
 - name: Stop {{ cloudwatch_package }}
-  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a stop
+  command: "{{ cloudwatch_agent_ctl }} -a stop"
 
 - name: Reload {{ cloudwatch_package }}
-  command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s
+  command: "{{ cloudwatch_agent_ctl }} -a fetch-config -m {{ agent_mode }} -c file:{{ cloudwatch_agent_config_file }} -s"

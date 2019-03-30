@@ -1,5 +1,17 @@
 ---
 cloudwatch_package: amazon-cloudwatch-agent
+cloudwatch_install_path: /opt/aws/amazon-cloudwatch-agent
+cloudwatch_agent_ctl: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
 cloudwatch_package_gpg: https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg
+cloudwatch_common_config_file: "{{ cloudwatch_install_path }}/etc/common-config.toml"
+cloudwatch_agent_config_file: "{{ cloudwatch_install_path }}/etc/amazon-cloudwatch-agent.json"
+cloudwatch_agent_log_file: "{{ cloudwatch_install_path }}/logs/amazon-cloudwatch-agent.log"
+
+cloudwatch_agent_profile_path: "{{ cloudwatch_install_path }}/etc/aws"
+cloudwatch_agent_profile_config_file: "{{ cloudwatch_agent_profile_path }}/config"
+cloudwatch_agent_profile_credentials_file: "{{ cloudwatch_agent_profile_path }}/credentials"
 
 temp_path: /tmp
+
+dependencies_packages:
+  - collectd

@@ -1,0 +1,33 @@
+---
+- name: Configure aws profile
+  block:
+    - name: Create profile folder
+      file:
+        path: "{{ cloudwatch_agent_profile_path }}"
+        state: directory
+        mode: 0755
+    - name: Deploy config file
+      template:
+        src: config.j2
+        dest: "{{ cloudwatch_agent_profile_config_file }}"
+        force: yes
+    - name: Deploy credentials file
+      template:
+        src: credentials.j2
+        dest: "{{ cloudwatch_agent_profile_credentials_file }}"
+        force: yes
+  when: use_credentials
+
+- name: Deploy {{ cloudwatch_package }} agent configuration file
+  template:
+    src: amazon-cloudwatch-agent.json.j2
+    dest: "{{ cloudwatch_agent_config_file }}"
+    force: yes
+  notify: Reload {{ cloudwatch_package }}
+
+- name: Deploy {{ cloudwatch_package }} common configuration file
+  template:
+    src: common-config.toml.j2
+    dest: "{{ cloudwatch_common_config_file }}"
+    force: yes
+  notify: Reload {{ cloudwatch_package }}
