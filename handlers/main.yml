@@ -1,9 +1,9 @@
 ---
-- name: Start {{ cloudwatch_package }}
-  command: "{{ cloudwatch_agent_ctl }} -a start"
+- name: Start {{ cwa_package }}
+  command: "{{ cwa_agent_ctl }} -a start"
 
-- name: Stop {{ cloudwatch_package }}
-  command: "{{ cloudwatch_agent_ctl }} -a stop"
+- name: Stop {{ cwa_package }}
+  command: "{{ cwa_agent_ctl }} -a stop"
 
-- name: Reload {{ cloudwatch_package }}
-  command: "{{ cloudwatch_agent_ctl }} -a fetch-config -m {{ agent_mode }} -c file:{{ cloudwatch_agent_config_file }} -s"
+- name: Reload {{ cwa_package }}
+  command: "{{ cwa_agent_ctl }} -a fetch-config -m {{ cwa_agent_mode }} -c file:{{ cwa_agent_config_file }} -s"

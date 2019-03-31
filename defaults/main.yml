@@ -1,13 +1,13 @@
 ---
-use_credentials: false
-use_proxy: false
+cwa_use_credentials: false
+cwa_use_proxy: false
 
-http_proxy: "http://192.168.1.253:3128"
-https_proxy: "https://192.168.1.253:3128"
-no_proxy: "http://www.withoutproxy.com,https://www.donotuseproxy.com"
+cwa_http_proxy: "http://192.168.1.253:3128"
+cwa_https_proxy: "https://192.168.1.253:3128"
+cwa_no_proxy: "http://www.withoutproxy.com,https://www.donotuseproxy.com"
 
-agent_mode: "ec2"
-aws_region: "eu-west-1"
-profile: AmazonCloudWatchAgent
-access_key: AKIAIOSFODNN7EXAMPLE
-secret_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+cwa_agent_mode: "ec2"
+cwa_aws_region: "eu-west-1"
+cwa_profile: AmazonCloudWatchAgent
+cwa_access_key: AKIAIOSFODNN7EXAMPLE
+cwa_secret_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY

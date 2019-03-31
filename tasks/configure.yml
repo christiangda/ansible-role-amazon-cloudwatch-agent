@@ -3,31 +3,39 @@
   block:
     - name: Create profile folder
       file:
-        path: "{{ cloudwatch_agent_profile_path }}"
+        path: "{{ cwa_agent_profile_path }}"
         state: directory
-        mode: 0755
+        owner: root
+        group: root
+        mode: 0644
     - name: Deploy config file
       template:
-        src: config.j2
-        dest: "{{ cloudwatch_agent_profile_config_file }}"
+        src: profile/config.j2
+        dest: "{{ cwa_agent_profile_config_file }}"
+        owner: root
+        group: root
+        mode: 0644
         force: yes
     - name: Deploy credentials file
       template:
-        src: credentials.j2
-        dest: "{{ cloudwatch_agent_profile_credentials_file }}"
+        src: profile/credentials.j2
+        dest: "{{ cwa_agent_profile_credentials_file }}"
+        owner: root
+        group: root
+        mode: 0644
         force: yes
-  when: use_credentials
+  when: cwa_use_credentials
 
-- name: Deploy {{ cloudwatch_package }} agent configuration file
+- name: Deploy {{ cwa_package }} agent configuration file
   template:
-    src: amazon-cloudwatch-agent.json.j2
-    dest: "{{ cloudwatch_agent_config_file }}"
+    src: agent/amazon-cloudwatch-agent.json.j2
+    dest: "{{ cwa_agent_config_file }}"
     force: yes
-  notify: Reload {{ cloudwatch_package }}
+  notify: Reload {{ cwa_package }}
 
-- name: Deploy {{ cloudwatch_package }} common configuration file
+- name: Deploy {{ cwa_package }} common configuration file
   template:
-    src: common-config.toml.j2
-    dest: "{{ cloudwatch_common_config_file }}"
+    src: agent/common-config.toml.j2
+    dest: "{{ cwa_common_config_file }}"
     force: yes
-  notify: Reload {{ cloudwatch_package }}
+  notify: Reload {{ cwa_package }}

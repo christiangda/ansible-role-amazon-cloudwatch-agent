@@ -1,17 +1,19 @@
 ---
-cloudwatch_package: amazon-cloudwatch-agent
-cloudwatch_install_path: /opt/aws/amazon-cloudwatch-agent
-cloudwatch_agent_ctl: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
-cloudwatch_package_gpg: https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg
-cloudwatch_common_config_file: "{{ cloudwatch_install_path }}/etc/common-config.toml"
-cloudwatch_agent_config_file: "{{ cloudwatch_install_path }}/etc/amazon-cloudwatch-agent.json"
-cloudwatch_agent_log_file: "{{ cloudwatch_install_path }}/logs/amazon-cloudwatch-agent.log"
+cwa_package: amazon-cloudwatch-agent
+cwa_install_path: /opt/aws/amazon-cloudwatch-agent
+cwa_agent_ctl: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
+cwa_package_gpg: https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg
+cwa_common_config_file: "{{ cwa_install_path }}/etc/common-config.toml"
+cwa_agent_config_file: "{{ cwa_install_path }}/etc/amazon-cloudwatch-agent.json"
+cwa_agent_log_file: "{{ cwa_install_path }}/logs/amazon-cloudwatch-agent.log"
 
-cloudwatch_agent_profile_path: "{{ cloudwatch_install_path }}/etc/aws"
-cloudwatch_agent_profile_config_file: "{{ cloudwatch_agent_profile_path }}/config"
-cloudwatch_agent_profile_credentials_file: "{{ cloudwatch_agent_profile_path }}/credentials"
+cwa_agent_profile_path: /root/.aws
+cwa_agent_profile_config_file: "{{ cwa_agent_profile_path }}/config"
+cwa_agent_profile_credentials_file: "{{ cwa_agent_profile_path }}/credentials"
 
-temp_path: /tmp
-
-dependencies_packages:
+cwa_dependencies_packages:
   - collectd
+
+cwa_global_downloads_timeout: 120
+
+cwa_temp_path: /tmp

@@ -68,14 +68,14 @@
     - include-ubuntu-vars
 
 # Globalize vars
-- name: Set global facts
-  set_fact:
-    cloudwatch_package: "{{ cloudwatch_package }}"
-    cloudwatch_package_gpg: "{{ cloudwatch_package_gpg }}"
-    cloudwatch_package_url: "{{ cloudwatch_package_url }}"
-    cloudwatch_package_signature: "{{ cloudwatch_package_signature }}"
-  tags:
-    - set-global-facts
+# - name: Set global facts
+#   set_fact:
+#     cwa_package: "{{ cwa_package }}"
+#     cwa_package_gpg: "{{ cwa_package_gpg }}"
+#     cwa_package_url: "{{ cwa_package_url }}"
+#     cwa_package_signature: "{{ cwa_package_signature }}"
+#   tags:
+#     - set-global-facts
 
 # Installation tasks
 - name: Include tasks for installation on RedHat/CentOS and Amazon Linux distribution
@@ -99,7 +99,7 @@
   tags:
     - include-debian-tags
 
-- name: Configure {{ cloudwatch_package }}
+- name: Configure {{ cwa_package }}
   include_tasks: "configure.yml"
   tags:
     - configure

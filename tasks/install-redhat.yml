@@ -1,59 +1,57 @@
 ---
-- name: Add {{ cloudwatch_package }} key
+- name: Add {{ cwa_package }} key
   rpm_key:
     state: present
-    key: "{{ cloudwatch_package_gpg }}"
+    key: "{{ cwa_package_gpg }}"
   tags:
     - add-key
     - download
     - install
 
-- name: Download {{ cloudwatch_package }}.rpm.sig
+- name: Download {{ cwa_package }}.rpm.sig
   get_url:
-    url: "{{ cloudwatch_package_signature }}"
-    dest: "{{ temp_path }}/{{ cloudwatch_package }}.rpm.sig"
-    force: true
-  retries: 2
-  delay: 3
+    url: "{{ cwa_package_signature }}"
+    dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm.sig"
+    #force: true
+    timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download-signature
     - verify-signature
     - download
     - install
 
-- name: Download {{ cloudwatch_package }}.rpm
+- name: Download {{ cwa_package }}.rpm
   get_url:
-    url: "{{ cloudwatch_package_url }}"
-    dest: "{{ temp_path }}/{{ cloudwatch_package }}.rpm"
-    force: true
-  retries: 2
-  delay: 3
+    url: "{{ cwa_package_url }}"
+    dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
+    #force: true
+    timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download
     - verify-signature
     - install
 
-- name: Verify {{ cloudwatch_package }} package signature
-  command: gpg --verify {{ cloudwatch_package }}.rpm.sig {{ cloudwatch_package }}.rpm
+- name: Verify {{ cwa_package }} package signature
+  command: gpg --verify {{ cwa_package }}.rpm.sig {{ cwa_package }}.rpm
   register: verified_sig
   failed_when: "'BAD' in verified_sig.stderr"
   changed_when: false
   args:
-    chdir: "{{ temp_path }}"
+    chdir: "{{ cwa_temp_path }}"
   tags:
     - verify-signature
     - install
 
-- name: Install {{ cloudwatch_package }} dependencies packages
+- name: Install {{ cwa_package }} dependencies
   yum:
-    name: "{{ dependencies_packages }}"
+    name: "{{ cwa_dependencies_packages }}"
     state: present
   tags:
     - install
 
-- name: Install {{ cloudwatch_package }}.rpm
+- name: Install {{ cwa_package }}.rpm
   yum:
-    name: "{{ temp_path }}/{{ cloudwatch_package }}.rpm"
+    name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     state: present
   tags:
     - install
