@@ -12,7 +12,6 @@
   get_url:
     url: "{{ cwa_package_signature }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm.sig"
-    #force: true
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download-signature
@@ -24,7 +23,6 @@
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
-    #force: true
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download

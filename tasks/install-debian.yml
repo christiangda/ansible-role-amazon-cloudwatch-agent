@@ -8,6 +8,7 @@
 
 - name: Add {{ cwa_package }} key
   apt_key:
+    id: "{{ cwa_package_gpg_id }}"
     state: present
     url: "{{ cwa_package_gpg }}"
   tags:
@@ -19,7 +20,6 @@
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb.sig"
-    #force: true
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download-signature
@@ -31,7 +31,6 @@
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"
-    #force: true
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
     - download
@@ -51,8 +50,9 @@
 
 - name: Install {{ cwa_package }} dependencies
   apt:
-    deb: "{{ dependencies_packages }}"
+    name: "{{ cwa_dependencies_packages }}"
     state: present
+    force: yes
   tags:
     - install
 

@@ -67,16 +67,6 @@
   tags:
     - include-ubuntu-vars
 
-# Globalize vars
-# - name: Set global facts
-#   set_fact:
-#     cwa_package: "{{ cwa_package }}"
-#     cwa_package_gpg: "{{ cwa_package_gpg }}"
-#     cwa_package_url: "{{ cwa_package_url }}"
-#     cwa_package_signature: "{{ cwa_package_signature }}"
-#   tags:
-#     - set-global-facts
-
 # Installation tasks
 - name: Include tasks for installation on RedHat/CentOS and Amazon Linux distribution
   include_tasks: "install-{{ ansible_os_family|lower }}.yml"

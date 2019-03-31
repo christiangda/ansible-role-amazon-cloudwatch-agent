@@ -3,6 +3,8 @@ cwa_package: amazon-cloudwatch-agent
 cwa_install_path: /opt/aws/amazon-cloudwatch-agent
 cwa_agent_ctl: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
 cwa_package_gpg: https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg
+cwa_package_gpg_id: D58167303B789C72
+
 cwa_common_config_file: "{{ cwa_install_path }}/etc/common-config.toml"
 cwa_agent_config_file: "{{ cwa_install_path }}/etc/amazon-cloudwatch-agent.json"
 cwa_agent_log_file: "{{ cwa_install_path }}/logs/amazon-cloudwatch-agent.log"
