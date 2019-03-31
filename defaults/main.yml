@@ -1,13 +1,15 @@
 ---
-cwa_use_credentials: false
-cwa_use_proxy: false
-
-cwa_http_proxy: "http://192.168.1.253:3128"
-cwa_https_proxy: "https://192.168.1.253:3128"
-cwa_no_proxy: "http://www.withoutproxy.com,https://www.donotuseproxy.com"
-
+# Reference:
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 cwa_agent_mode: "ec2"
+
+cwa_use_credentials: false
 cwa_aws_region: "eu-west-1"
-cwa_profile: AmazonCloudWatchAgent
-cwa_access_key: AKIAIOSFODNN7EXAMPLE
-cwa_secret_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+cwa_profile: "AmazonCloudWatchAgent"
+cwa_access_key: ""
+cwa_secret_key: ""
+
+cwa_use_proxy: false
+cwa_http_proxy: ""
+cwa_https_proxy: ""
+cwa_no_proxy: ""
