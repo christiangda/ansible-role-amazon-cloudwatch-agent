@@ -8,7 +8,7 @@ branches:
 
 env:
   global:
-    - ROLE_NAME=epel-repo
+    - ROLE_NAME=amazon-cloudwatch-agent
   matrix:
     - OS_TYPE=centos OS_VERSION=7
 
