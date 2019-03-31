@@ -8,20 +8,10 @@ branches:
 
 env:
   global:
-    - ROLE_NAME: amazon-cloudwatch-agent
+    - ROLE_NAME=epel-repo
   matrix:
-    - MOLECULE_DISTRO: centos7
-    - MOLECULE_DISTRO: centos6
-    - MOLECULE_DISTRO: amazonlinux:2
-    - MOLECULE_DISTRO: amazonlinux:1
-    - MOLECULE_DISTRO: ubuntu-14.04
-    - MOLECULE_DISTRO: ubuntu-16.04
-    - MOLECULE_DISTRO: ubuntu-18.04
-    - MOLECULE_DISTRO: ubuntu-18.10
-    - MOLECULE_DISTRO: debian:buster
-    - MOLECULE_DISTRO: debian:jessie
-    - MOLECULE_DISTRO: debian:sid
-    - MOLECULE_DISTRO: debian:stretch
+    - OS_TYPE=centos OS_VERSION=7
+
 install:
   # Install test dependencies.
   - pip install molecule docker
@@ -33,7 +23,8 @@ before_script:
   - cd $ROLE_NAME
 
 script:
-  # Run tests.
+  - molecule --version
+  - ansible --version
   - molecule test
 
 notifications:
