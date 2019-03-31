@@ -52,7 +52,7 @@
   apt:
     name: "{{ cwa_dependencies_packages }}"
     state: present
-    force: yes
+    force: true
   tags:
     - install
 

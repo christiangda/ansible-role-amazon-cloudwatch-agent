@@ -15,7 +15,7 @@
         owner: root
         group: root
         mode: 0644
-        force: yes
+        force: true
     - name: Deploy credentials file
       template:
         src: profile/credentials.j2
@@ -23,26 +23,26 @@
         owner: root
         group: root
         mode: 0644
-        force: yes
+        force: true
   when: cwa_use_credentials
 
 - name: Deploy {{ cwa_package }} agent configuration file
   template:
     src: agent/amazon-cloudwatch-agent.json.j2
     dest: "{{ cwa_agent_config_file }}"
-    force: yes
+    force: true
   notify: Reload {{ cwa_package }}
 
 - name: Deploy {{ cwa_package }} common configuration file
   template:
     src: agent/common-config.toml.j2
     dest: "{{ cwa_common_config_file }}"
-    force: yes
+    force: true
   notify: Reload {{ cwa_package }}
 
 - name: Deploy {{ cwa_package }} logrotate configuration file
   template:
     src: logrotate/aws-cwa.j2
     dest: "{{ cwa_logrotate_config_file }}"
-    force: yes
+    force: true
   notify: Reload {{ cwa_logrotate_daemon }}
