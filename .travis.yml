@@ -2,6 +2,10 @@
 language: python
 services: docker
 
+branches:
+  only:
+    - master
+
 env:
   global:
     - ROLE_NAME: amazon-cloudwatch-agent
