@@ -7,3 +7,6 @@
 
 - name: Reload {{ cwa_package }}
   command: "{{ cwa_agent_ctl }} -a fetch-config -m {{ cwa_agent_mode }} -c file:{{ cwa_agent_config_file }} -s"
+
+- name: Reload {{ cwa_logrotate_daemon }}
+  command: "{{ cwa_logrotate_daemon }} -d {{ cwa_logrotate_config_file }}"

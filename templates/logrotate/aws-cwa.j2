@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+{{ cwa_agent_log_file }} {
+    size {{ cwa_logrotate_rotation_file_size }}
+    rotate {{ cwa_logrotate_rotation_files }}
+    compress
+    missingok
+    copytruncate
+    create 0644 root root
+}

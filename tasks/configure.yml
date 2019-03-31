@@ -39,3 +39,10 @@
     dest: "{{ cwa_common_config_file }}"
     force: yes
   notify: Reload {{ cwa_package }}
+
+- name: Deploy {{ cwa_package }} logrotate configuration file
+  template:
+    src: logrotate/aws-cwa.j2
+    dest: "{{ cwa_logrotate_config_file }}"
+    force: yes
+  notify: Reload {{ cwa_logrotate_daemon }}
