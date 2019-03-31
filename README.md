@@ -1,4 +1,4 @@
-Ansible Role: amazon-cloudwatch-agent
+Ansible Role: christiangda.amazon-cloudwatch-agent
 =========
 [![Build Status](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 [![Ansible Role](https://img.shields.io/ansible/role/35159.svg)](https://galaxy.ansible.com/christiangda/amazon-cloudwatch-agent)
@@ -7,9 +7,9 @@ This module [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWa
 
 **My apologies, this is a WIP**
 This version only:
-* Download and install CloudWatch Agent
-* ~~Have handlers for Start, Stop and Reload config~~
-* ~~Config is load form JSON File~~
+* Download and install CloudWatch Agent from AWS OS Package
+* Have handlers to reload configuration
+* Have a default Advanced configuration file, your configuration could be load form JSON File
 
 Requirements
 ------------
@@ -43,8 +43,7 @@ Role Variables
 Dependencies
 ------------
 
-None.
-
+* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) (when is used with RedHat family)
 
 Example Playbook
 ----------------
