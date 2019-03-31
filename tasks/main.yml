@@ -3,6 +3,10 @@
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html
 
+# - name: Debugging virtualization
+#   debug:
+#     msg: "System: {{ inventory_hostname }}, role: {{ ansible_virtualization_role }}, type: {{ ansible_virtualization_type }}"
+
 # Selective include of vars
 - name: Include variables for RHEL - 6/7
   include_vars: "{{ item }}"

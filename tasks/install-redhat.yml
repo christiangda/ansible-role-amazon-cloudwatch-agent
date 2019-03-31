@@ -41,11 +41,16 @@
     - install
 
 - name: Install {{ cwa_package }} dependencies
-  yum:
-    name: "{{ cwa_dependencies_packages }}"
-    state: present
-  tags:
-    - install
+  block:
+    - name: Include role christiangda.epel_repo from Galaxy
+      include_role:
+        name: christiangda.epel_repo
+    - name: Install "{{ cwa_dependencies_packages }}" dependecy
+      yum:
+        name: "{{ cwa_dependencies_packages }}"
+        state: present
+      tags:
+        - install
 
 - name: Install {{ cwa_package }}.rpm
   yum:

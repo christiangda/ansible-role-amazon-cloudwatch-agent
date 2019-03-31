@@ -40,4 +40,5 @@ galaxy_info:
     - debian
     - centos
 
-dependencies: []
+dependencies:
+  - { role: christiangda.epel_repo }

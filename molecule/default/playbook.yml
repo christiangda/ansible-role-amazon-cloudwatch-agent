@@ -10,4 +10,11 @@
       changed_when: false
 
   roles:
+    - role: christiangda.epel_repo
+      when: >
+        ansible_os_family == 'RedHat' and (
+          ansible_distribution == 'CentOS' or
+          ansible_distribution == 'RedHat' or
+          ansible_distribution == 'Amazon'
+        )
     - role: amazon-cloudwatch-agent
