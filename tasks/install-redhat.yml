@@ -45,7 +45,7 @@
     - name: Include role christiangda.epel_repo from Galaxy
       include_role:
         name: christiangda.epel_repo
-    - name: Install "{{ cwa_dependencies_packages }}" dependecy
+    - name: Install "{{ cwa_dependencies_packages }}" dependency
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present

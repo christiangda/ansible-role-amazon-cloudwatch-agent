@@ -1,15 +1,17 @@
 Ansible Role: christiangda.amazon-cloudwatch-agent
 =========
 [![Build Status](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
-[![Ansible Role](https://img.shields.io/ansible/role/35159.svg)](https://galaxy.ansible.com/christiangda/amazon-cloudwatch-agent)
+[![Ansible Role](https://img.shields.io/ansible/role/39191.svg)](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
 
 This module [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
 **My apologies, this is a WIP**
+
 This version only:
 * Download and install CloudWatch Agent from AWS OS Package
-* Have handlers to reload configuration
-* Have a default Advanced configuration file, your configuration could be load form JSON File
+* Has handlers to reload configuration
+* Has a default agent configuration file
+* ~~Load my own configuration file~~
 
 Requirements
 ------------
@@ -39,11 +41,12 @@ specific version:
 Role Variables
 --------------
 
+WIP
 
 Dependencies
 ------------
 
-* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) (when is used with RedHat family)
+* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with RedHat family
 
 Example Playbook
 ----------------
@@ -53,7 +56,9 @@ for RedHat/CentOS 6/7
     - hosts: servers
       gather_facts: True
       roles:
-         - christiangda.amazon-cloudwatch-agent
+        - role: christiangda.amazon-cloudwatch-agent
+          vars:
+            cwa_agent_mode: ec2
 
 for Amazon Linux 1/2 (my-playbook.yml)
 
@@ -64,7 +69,9 @@ for Amazon Linux 1/2 (my-playbook.yml)
       become_method: sudo
       remote_user: ec2-user
       roles:
-        - christiangda.amazon-cloudwatch-agent
+        - role: christiangda.amazon-cloudwatch-agent
+          vars:
+            cwa_agent_mode: ec2
 
 Inventory file sample (inventory)
 
@@ -86,11 +93,46 @@ How to used it
       --become \
       --become-user=ec2-user \
       --user ec2-user
-      [--extra-vars "show_debug_messages=True"] --> additional
 
 Development / Contributing
 --------------------------
 
+This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/) and was developed using
+[Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
+
+Prepare your environment
+
+```bash
+mkdir ansible-roles
+cd ansible-roles/
+
+virtualenv --no-site-packages --python /usr/bin/python2.7 vend
+source vend/bin/activate
+pip install pip --upgrade
+pip install pytest
+pip install pytest-mock
+pip install pylint
+pip install rope
+pip install autopep8
+pip install yamllint
+pip install molecule
+pip install ansible
+pip install docker-py
+```
+
+Clone the role repository and create symbolic link
+```bash
+git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
+ln -s ansible-role-amazon-cloudwatch-agent amazon-cloudwatch-agent
+cd ansible-role-amazon-cloudwatch-agent
+```
+
+Execute the test
+```bash
+molecule test
+```
+
+Additionally if you want to test using VMs, I have a very nice [ansible-playground project](https://github.com/christiangda/ansible-playground) that use Vagrant and VirtualBox, try it!.
 
 License
 -------

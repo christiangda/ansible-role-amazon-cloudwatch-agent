@@ -1,5 +1,9 @@
 ---
 language: python
+python:
+  - "2.7"
+  - "3.6"
+
 services: docker
 
 branches:
@@ -8,17 +12,21 @@ branches:
 
 env:
   global:
-    - ROLE_NAME=amazon-cloudwatch-agent
+    - ROLE_NAME=epel-repo
   matrix:
-    - OS_TYPE=centos OS_VERSION=7
+    - ANSIBLE_VERSION=">=2.7"
+    - ANSIBLE_VERSION=">=2.6,<2.7"
+    - ANSIBLE_VERSION=">=2.5,<2.6"
 
 install:
-  # Install test dependencies.
-  - pip install molecule docker
+  - pip install ansible"${ANSIBLE_VERSION}"
+  - pip install molecule
+  - pip install docker
 
 before_script:
-  # Use actual Ansible Galaxy role name for the project directory.
+  - ls -la
   - cd ../
+  - ls -la
   - mv ansible-role-$ROLE_NAME $ROLE_NAME
   - cd $ROLE_NAME
 
