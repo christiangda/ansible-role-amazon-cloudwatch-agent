@@ -27,6 +27,7 @@ galaxy_info:
         - jessie
         - sid
         - stretch
+
   galaxy_tags:
     - aws
     - cloudwatch
