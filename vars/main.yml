@@ -22,5 +22,8 @@ cwa_dependencies_packages:
   - collectd
 
 cwa_global_downloads_timeout: 120
-
 cwa_temp_path: /tmp
+
+# Conditional variables
+cwa_use_credentials: "{{ true if cwa_agent_mode == 'onPremise' else false }}"
+cwa_use_proxy: "{{ true if cwa_http_proxy is defined and cwa_http_proxy|length > 0  else false }}"
