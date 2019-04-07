@@ -61,3 +61,13 @@ cwa_https_proxy: ""
 # notes:
 # * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
 cwa_no_proxy: ""
+
+# posible values:
+# - https://linux.die.net/man/8/logrotate
+# default value: "10M"
+cwa_logrotate_file_size: "10M"
+
+# posible values:
+# - https://linux.die.net/man/8/logrotate
+# default value: 5
+cwa_logrotate_files: 5

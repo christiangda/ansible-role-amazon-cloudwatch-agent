@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 {{ cwa_agent_log_file }} {
-    size {{ cwa_logrotate_rotation_file_size }}
-    rotate {{ cwa_logrotate_rotation_files }}
+    size {{ cwa_logrotate_file_size }}
+    rotate {{ cwa_logrotate_files }}
     compress
     missingok
     copytruncate

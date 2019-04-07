@@ -117,6 +117,20 @@ cwa_https_proxy: ""
 cwa_no_proxy: ""
 ```
 
+```yaml
+# posible values:
+# - https://linux.die.net/man/8/logrotate
+# default value: "10M"
+cwa_logrotate_file_size: "10M"
+```
+
+```yaml
+# posible values:
+# - https://linux.die.net/man/8/logrotate
+# default value: 5
+cwa_logrotate_files: 5
+```
+
 ## Dependencies
 
 * [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with RedHat family, so you don't need to add this to your ansible playbook
