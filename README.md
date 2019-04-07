@@ -12,7 +12,8 @@ This version only:
 * Has handlers to reload configuration
 * Has a default agent configuration file
 * Rotate the CloudWatch Agent Log
-* ~~Load my own configuration file~~
+* Load my own configuration file
+* ~~Load configuration from Parameter store (ssm)~~
 
 ## Requirements
 
@@ -40,6 +41,21 @@ specific version:
   * stretch
 
 ## Role Variables
+
+**Files:**
+
+* defaults/main.yml
+
+```yaml
+# posible values:
+# - "{{ lookup('file', 'files/your-cloudwatch-config.json') }}" where your-cloudwatch-config.json is your custom
+#   configuration file according to reference doc.
+# reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
+# default value: ""
+# notes:
+# * when is empty the role deploy a custom json configuration via template
+cwa_conf_json_file_content: ""
+```
 
 ```yaml
 # posible values:
@@ -137,7 +153,7 @@ cwa_logrotate_files: 5
 
 ## Example Playbook
 
-for RedHat/CentOS 6/7
+### RedHat/CentOS, Ubuntu and Debian
 
 ```yaml
 - hosts: servers
@@ -145,10 +161,11 @@ for RedHat/CentOS 6/7
     roles:
     - role: christiangda.amazon-cloudwatch-agent
         vars:
-        cwa_agent_mode: "ec2"
+            cwa_agent_mode: "ec2"
+            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
 ```
 
-for Amazon Linux 1/2 (my-playbook.yml)
+###  Amazon Linux 1/2 (my-playbook.yml)
 
 ```yaml
 - hosts: all
@@ -160,7 +177,8 @@ for Amazon Linux 1/2 (my-playbook.yml)
     roles:
     - role: christiangda.amazon-cloudwatch-agent
         vars:
-        cwa_agent_mode: "ec2"
+            cwa_agent_mode: "ec2"
+            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
 ```
 
 Inventory file sample (inventory)
@@ -188,7 +206,7 @@ ansible-playbook my-playbook.yml \
     --user ec2-user
 ```
 
-Variables examples:
+### Variables examples:
 
 ```yaml
 cwa_agent_mode: "onPremise"

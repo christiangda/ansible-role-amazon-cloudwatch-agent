@@ -3,6 +3,15 @@
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 
 # posible values:
+# - "{{ lookup('file', 'files/your-cloudwatch-config.json') }}" where your-cloudwatch-config.json is your custom
+#   configuration file according to reference doc.
+# reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
+# default value: ""
+# notes:
+# * when is empty the role deploy a custom json configuration via template
+cwa_conf_json_file_content: ""
+
+# posible values:
 # - "ec2"
 # - "onPremise"
 # default value: "ec2"

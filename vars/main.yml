@@ -24,4 +24,5 @@ cwa_temp_path: /tmp
 
 # Conditional variables
 cwa_use_credentials: "{{ true if cwa_agent_mode == 'onPremise' else false }}"
-cwa_use_proxy: "{{ true if cwa_http_proxy is defined and cwa_http_proxy|length > 0  else false }}"
+cwa_use_proxy: "{{ true if cwa_http_proxy is defined and cwa_http_proxy|length > 0 else false }}"
+cwa_use_conf_json_template: "{{ false if cwa_conf_json_file_content is defined and cwa_conf_json_file_content|length > 0 else true }}"
