@@ -5,15 +5,13 @@
 
 This role [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-**My apologies, this is a WIP**
-
-This version only:
-* Download and install CloudWatch Agent from AWS OS Package
-* Has handlers to reload configuration
-* Has a default agent configuration file
-* Rotate the CloudWatch Agent Log
-* Load my own configuration file
-* ~~Load configuration from Parameter store (ssm)~~
+Functionality:
+* It downloads and installs CloudWatch Agent from AWS OS distribution package
+* It has handlers to reload the configuration
+* It has a default agent configuration file (a minimal configuration)
+* It rotate the CloudWatch Agent Log
+* It loads your own configuration file
+* ~~It load configuration from Parameter store (ssm)~~
 
 ## Requirements
 
