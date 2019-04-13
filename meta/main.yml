@@ -12,12 +12,6 @@ galaxy_info:
       versions:
         - 6
         - 7
-    - name: Ubuntu
-      version:
-        - trusty
-        - xenial
-        - bionic
-        - cuttlefish
     - name: Amazon
       versions:
         - all
@@ -27,6 +21,12 @@ galaxy_info:
         - jessie
         - sid
         - stretch
+    - name: Ubuntu
+      version:
+        - trusty
+        - xenial
+        - bionic
+        - cuttlefish
 
   galaxy_tags:
     - aws

@@ -5,7 +5,7 @@
 
 This role [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-Functionality:
+**Functionality:**
 * It downloads and installs CloudWatch Agent from AWS OS distribution package
 * It has handlers to reload the configuration
 * It has a default agent configuration file (a minimal configuration)

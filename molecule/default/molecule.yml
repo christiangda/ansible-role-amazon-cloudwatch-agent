@@ -1,10 +1,13 @@
 ---
 dependency:
   name: galaxy
+
 driver:
   name: docker
+
 lint:
   name: yamllint
+
 platforms:
   - name: centos-7
     image: centos:7
@@ -30,12 +33,17 @@ platforms:
     image: debian:sid
   - name: debian-stretch
     image: debian:stretch
+
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+    options:
+      x: ["403"]
+
 scenario:
   name: default
+
 verifier:
   name: testinfra
   lint:
