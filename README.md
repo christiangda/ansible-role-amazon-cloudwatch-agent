@@ -157,7 +157,7 @@ cwa_logrotate_files: 5
 - hosts: servers
     gather_facts: True
     roles:
-    - role: christiangda.amazon-cloudwatch-agent
+    - role: christiangda.amazon_cloudwatch_agent
         vars:
             cwa_agent_mode: "ec2"
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
@@ -173,7 +173,7 @@ cwa_logrotate_files: 5
     become_method: sudo
     remote_user: ec2-user
     roles:
-    - role: christiangda.amazon-cloudwatch-agent
+    - role: christiangda.amazon_cloudwatch_agent
         vars:
             cwa_agent_mode: "ec2"
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
