@@ -5,19 +5,17 @@
 
 This role [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-**Functionality:**
-* It downloads and installs CloudWatch Agent from AWS OS distribution package
-* It has handlers to reload the configuration
-* It has a default agent configuration file (a minimal configuration)
-* It rotate the CloudWatch Agent Log
-* It loads your own configuration file
+**Features:**
+* Downloads and installs CloudWatch Agent from AWS distribution package
+* Reload service when configuration is changed
+* Provide a default agent configuration file (a minimal configuration, does not recommended)
+* Rotate CloudWatch Agent Log file
+* Allow your to load your own JSON file or YAML file or INLINE configuration for agent, metrics and logs
 * ~~It load configuration from Parameter store (ssm)~~
 
 ## Requirements
 
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
-
-specific version:
 
 * RedHat
   * 6
@@ -46,8 +44,27 @@ specific version:
 
 ```yaml
 # posible values:
-# - "{{ lookup('file', 'files/your-cloudwatch-config.json') }}" where your-cloudwatch-config.json is your custom
-#   configuration file according to reference doc.
+# - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
+#   configuration file according to docs reference.
+# - "{{ lookup('file', 'files/your-cloudwatch-config.yaml') | from_yaml }}" where your-cloudwatch-config.yaml is your custom
+#   configuration file according to docs reference.
+#
+# Also is possible to define inline configuration as YAML
+#    cwa_conf_json_file_content:
+#      metrics:
+#        append_dimensions:
+#          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
+#          ImageId: "${!aws:ImageId}"
+#          InstanceId: "${!aws:InstanceId}"
+#          InstanceType: "${!aws:InstanceType}"
+#        metrics_collected:
+#          mem:
+#            measurement:
+#              - mem_used_percent
+#          swap:
+#            measurement:
+#              - swap_used_percent
+#
 # reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
 # default value: ""
 # notes:
@@ -153,6 +170,8 @@ cwa_logrotate_files: 5
 
 ### RedHat/CentOS, Ubuntu and Debian
 
+**Reading config file from JSON configuration file**
+
 ```yaml
 - hosts: servers
     gather_facts: True
@@ -160,7 +179,94 @@ cwa_logrotate_files: 5
     - role: christiangda.amazon_cloudwatch_agent
         vars:
             cwa_agent_mode: "ec2"
-            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
+            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+```
+
+**Reading config file from YAML configuration file**
+
+```yaml
+- hosts: servers
+    gather_facts: True
+    roles:
+    - role: christiangda.amazon_cloudwatch_agent
+        vars:
+            cwa_agent_mode: "ec2"
+            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
+```
+
+**Using INLINE YAML configuration file**
+
+```yaml
+---
+- hosts: centos7, centos6, ubuntu1804, ubuntu1810, debian8, debian9, amzn2
+  become: True
+  roles:
+    - role: christiangda.amazon_cloudwatch_agent
+      vars:
+        cwa_agent_mode: onPremise
+        cwa_aws_region: "eu-west-1"
+        cwa_access_key: "AKIAIOSFODNN7EXAMPLE"
+        cwa_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+        cwa_conf_json_file_content:
+          agent:
+            metrics_collection_interval: 60
+            region: es-west-1
+            logfile: "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+            debug: false
+          metrics:
+            metrics_collected:
+              collectd: {}
+              cpu:
+                resources:
+                  - "*"
+                measurement:
+                  - name: cpu_usage_idle
+                    rename: CPU_USAGE_IDLE
+                    unit: Percent
+                  - name: cpu_usage_nice
+                    unit: Percent
+                  - cpu_usage_guest
+                totalcpu: false
+                metrics_collection_interval: 10
+                append_dimensions:
+                  test: test1
+                  date: "2017-10-01"
+              netstat:
+                measurement:
+                  - tcp_established
+                  - tcp_syn_sent
+                  - tcp_close
+                metrics_collection_interval: 60
+              processes:
+                measurement:
+                  - running
+                  - sleeping
+                  - dead
+            append_dimensions:
+              ImageId: "${aws:ImageId}"
+              InstanceId: "${aws:InstanceId}"
+              InstanceType: "${aws:InstanceType}"
+              AutoScalingGroupName: "${aws:AutoScalingGroupName}"
+            aggregation_dimensions:
+              - - AutoScalingGroupName
+              - - InstanceId
+                - InstanceType
+              - []
+          logs:
+            logs_collected:
+              files:
+                collect_list:
+                  - file_path: "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+                    log_group_name: amazon-cloudwatch-agent.log
+                    log_stream_name: amazon-cloudwatch-agent.log
+                    timezone: UTC
+                  - file_path: "/opt/aws/amazon-cloudwatch-agent/logs/test.log"
+                    log_group_name: test.log
+                    log_stream_name: test.log
+                    timezone: Local
+            log_stream_name: my_log_stream_name
+            force_flush_interval: 15
 ```
 
 ###  Amazon Linux 1/2 (my-playbook.yml)
@@ -176,10 +282,10 @@ cwa_logrotate_files: 5
     - role: christiangda.amazon_cloudwatch_agent
         vars:
             cwa_agent_mode: "ec2"
-            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') }}"
+            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
-Inventory file sample (inventory)
+**Inventory file sample (inventory)**
 
 ```ini
 [all]
@@ -193,7 +299,7 @@ Inventory file sample (inventory)
 10.14.v.z
 ```
 
-How to used it
+**How to used it**
 
 ```bash
 ansible-playbook my-playbook.yml \
@@ -207,6 +313,9 @@ ansible-playbook my-playbook.yml \
 ### Variables examples:
 
 ```yaml
+#cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
+
 cwa_agent_mode: "onPremise"
 cwa_aws_region: "eu-west-1"
 
@@ -236,7 +345,7 @@ cwa_secret_key: !vault |
 This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/) and was developed using
 [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
 
-Prepare your environment
+**Prepare your environment**
 
 ```bash
 mkdir ansible-roles
@@ -256,19 +365,21 @@ pip install ansible
 pip install docker-py
 ```
 
-Clone the role repository and create symbolic link
+**Clone the role repository and create symbolic link**
+
 ```bash
 git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
 ln -s ansible-role-amazon-cloudwatch-agent amazon-cloudwatch-agent
 cd ansible-role-amazon-cloudwatch-agent
 ```
 
-Execute the test
+**Execute the test**
+
 ```bash
 molecule test
 ```
 
-Additionally if you want to test using VMs, I have a very nice [ansible-playground project](https://github.com/christiangda/ansible-playground) that use Vagrant and VirtualBox, try it!.
+**Additionally if you want to test it using VMs, I have a very nice [ansible-playground project](https://github.com/christiangda/ansible-playground) that use Vagrant and VirtualBox, try it!.**
 
 ## License
 

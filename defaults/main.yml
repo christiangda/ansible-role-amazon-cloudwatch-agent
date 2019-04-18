@@ -1,10 +1,26 @@
 ---
-# Reference:
-# https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-
 # posible values:
-# - "{{ lookup('file', 'files/your-cloudwatch-config.json') }}" where your-cloudwatch-config.json is your custom
-#   configuration file according to reference doc.
+# - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
+#   configuration file according to docs reference.
+# - "{{ lookup('file', 'files/your-cloudwatch-config.yaml') | from_yaml }}" where your-cloudwatch-config.yaml is your custom
+#   configuration file according to docs reference.
+#
+# Also is possible to define inline configuration as YAML
+#    cwa_conf_json_file_content:
+#      metrics:
+#        append_dimensions:
+#          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
+#          ImageId: "${!aws:ImageId}"
+#          InstanceId: "${!aws:InstanceId}"
+#          InstanceType: "${!aws:InstanceType}"
+#        metrics_collected:
+#          mem:
+#            measurement:
+#              - mem_used_percent
+#          swap:
+#            measurement:
+#              - swap_used_percent
+#
 # reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
 # default value: ""
 # notes:
