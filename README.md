@@ -10,7 +10,7 @@ This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloud
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
-* Allow you to load you own JSON file or YAML file or INLINE configuration for agent, metrics and logs sections
+* **Allow you to load you own JSON file or YAML file or INLINE configuration for agent, metrics and logs sections***
 * ~~Allow you to load you own configuration from Parameter store (ssm)~~
 
 ## Requirements
@@ -37,10 +37,6 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * stretch
 
 ## Role Variables
-
-**Files:**
-
-* defaults/main.yml
 
 ```yaml
 # posible values:
@@ -164,7 +160,7 @@ cwa_logrotate_files: 5
 
 ## Dependencies
 
-* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with RedHat family, so you don't need to add this to your ansible playbook
+* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with Red Hat family, so you don't need to add this to your ansible playbook.
 
 ## Example Playbook
 
