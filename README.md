@@ -1,17 +1,17 @@
-# Ansible Role: christiangda.amazon-cloudwatch-agent
+# Ansible Role: christiangda.amazon_cloudwatch_agent
 
 [![Build Status](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 [![Ansible Role](https://img.shields.io/ansible/role/39191.svg)](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
 
-This role [Install CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
+This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
 **Features:**
-* Downloads and installs CloudWatch Agent from AWS distribution package
+* Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
-* Allow your to load your own JSON file or YAML file or INLINE configuration for agent, metrics and logs
-* ~~It load configuration from Parameter store (ssm)~~
+* Allow you to load you own JSON file or YAML file or INLINE configuration for agent, metrics and logs sections
+* ~~Allow you to load you own configuration from Parameter store (ssm)~~
 
 ## Requirements
 
