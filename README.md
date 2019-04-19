@@ -10,7 +10,7 @@ This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloud
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
-* **Allow you to load you own JSON file or YAML file or INLINE configuration for agent, metrics and logs sections***
+* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections***
 * ~~Allow you to load you own configuration from Parameter store (ssm)~~
 
 ## Requirements
