@@ -50,9 +50,9 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 #      metrics:
 #        append_dimensions:
 #          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
-#          ImageId: "${!aws:ImageId}"
-#          InstanceId: "${!aws:InstanceId}"
-#          InstanceType: "${!aws:InstanceType}"
+#          ImageId: "${aws:ImageId}"
+#          InstanceId: "${aws:InstanceId}"
+#          InstanceType: "${aws:InstanceType}"
 #        metrics_collected:
 #          mem:
 #            measurement:
