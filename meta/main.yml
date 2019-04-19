@@ -40,6 +40,9 @@ galaxy_info:
     - ubuntu
     - debian
     - centos
+    - cloud
+    - logs
+    - metrics
 
 dependencies:
   - { role: christiangda.epel_repo }
