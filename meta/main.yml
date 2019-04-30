@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: amazon-cloudwatch-agent
+  role_name: amazon_cloudwatch_agent
   author: Christian González Di Antonio
   description: Ansible Role for AWS CloudWatch Agent
   license: license GPLv3

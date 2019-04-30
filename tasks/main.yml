@@ -4,7 +4,7 @@
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html
 
 # Selective include of vars
-- name: Include variables for RHEL - 6/7
+- name: Include variables for RHEL
   include_vars: "{{ item }}"
   with_first_found:
     - "redhat.yml"
@@ -19,7 +19,7 @@
   tags:
     - include-redhat-vars
 
-- name: Include variables for CentOS - 6/7
+- name: Include variables for CentOS
   include_vars: "{{ item }}"
   with_first_found:
     - "centos.yml"
@@ -68,7 +68,7 @@
     - include-ubuntu-vars
 
 # Installation tasks
-- name: Include tasks for installation on RedHat/CentOS and Amazon Linux distribution
+- name: Include tasks for installation on RedHat/CentOS/Amazon Linux distribution
   include_tasks: "install-{{ ansible_os_family|lower }}.yml"
   when: >
     ansible_os_family == 'RedHat' and (
