@@ -121,8 +121,6 @@ cwa_secret_key: ""
 # posible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
 cwa_http_proxy: ""
 ```
 
@@ -130,18 +128,15 @@ cwa_http_proxy: ""
 # posible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
 cwa_https_proxy: ""
 ```
 
 ```yaml
 # posible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_no_proxy: ""
+# default value: "169.254.169.254"
+# * Always disable proxy for aws metadata ip (169.254.169.254)
+cwa_no_proxy: "169.254.169.254"
 ```
 
 ```yaml
