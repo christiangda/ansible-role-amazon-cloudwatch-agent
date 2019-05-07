@@ -50,9 +50,9 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 #      metrics:
 #        append_dimensions:
 #          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
-#          ImageId: "${aws:ImageId}"
-#          InstanceId: "${aws:InstanceId}"
-#          InstanceType: "${aws:InstanceType}"
+#          ImageId: "${!aws:ImageId}"
+#          InstanceId: "${!aws:InstanceId}"
+#          InstanceType: "${!aws:InstanceType}"
 #        metrics_collected:
 #          mem:
 #            measurement:
@@ -235,10 +235,10 @@ cwa_logrotate_files: 5
                   - sleeping
                   - dead
             append_dimensions:
-              ImageId: "${aws:ImageId}"
-              InstanceId: "${aws:InstanceId}"
-              InstanceType: "${aws:InstanceType}"
-              AutoScalingGroupName: "${aws:AutoScalingGroupName}"
+              ImageId: "${!aws:ImageId}"
+              InstanceId: "${!aws:InstanceId}"
+              InstanceType: "${!aws:InstanceType}"
+              AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
             aggregation_dimensions:
               - - AutoScalingGroupName
               - - InstanceId
@@ -342,8 +342,8 @@ This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/)
 mkdir ansible-roles
 cd ansible-roles/
 
-virtualenv --no-site-packages --python /usr/bin/python2.7 vend
-source vend/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 pip install pip --upgrade
 pip install pytest
 pip install pytest-mock
@@ -360,8 +360,8 @@ pip install docker-py
 
 ```bash
 git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
-ln -s ansible-role-amazon-cloudwatch-agent amazon-cloudwatch-agent
-cd ansible-role-amazon-cloudwatch-agent
+ln -s ansible-role-amazon-cloudwatch-agent christiangda.amazon_cloudwatch_agent
+cd christiangda.amazon_cloudwatch_agent
 ```
 
 **Execute the test**
