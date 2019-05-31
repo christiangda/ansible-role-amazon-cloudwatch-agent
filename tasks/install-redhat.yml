@@ -57,8 +57,8 @@
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     state: present
   register: package_ok
-  retries: 5
-  delay: 2
+  retries: "{{ cwa_global_downloads_retries }}"
+  delay: "{{ cwa_global_downloads_delay }}"
   until: package_ok is success
   tags:
     - install

@@ -17,4 +17,4 @@
           ansible_distribution == 'RedHat' or
           ansible_distribution == 'Amazon'
         )
-    - role: amazon-cloudwatch-agent
+    - role: christiangda.amazon_cloudwatch_agent
