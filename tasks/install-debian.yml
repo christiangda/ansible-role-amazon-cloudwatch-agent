@@ -53,6 +53,10 @@
     name: "{{ cwa_dependencies_packages }}"
     state: present
     force: true
+  register: package_ok
+  retries: 5
+  delay: 2
+  until: package_ok is success
   tags:
     - install
 
