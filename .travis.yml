@@ -12,7 +12,8 @@ branches:
 
 env:
   global:
-    - ROLE_NAME=amazon-cloudwatch-agent
+    - GITHUB_ROLE_NAME="ansible-role-amazon-cloudwatch-agent"
+    - GALAXY_ROLE_NAME="christiangda.amazon_cloudwatch_agent"
   matrix:
     #- ANSIBLE_VERSION=">=2.8,<2.9"
     - ANSIBLE_VERSION=">=2.7,<2.8"
@@ -28,8 +29,8 @@ before_script:
   - ls -la
   - cd ../
   - ls -la
-  - mv ansible-role-$ROLE_NAME $ROLE_NAME
-  - cd $ROLE_NAME
+  - mv $GITHUB_ROLE_NAME $GALAXY_ROLE_NAME
+  - cd $GALAXY_ROLE_NAME
 
 script:
   - molecule --version
