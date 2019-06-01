@@ -49,6 +49,10 @@
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present
+      register: package_ok
+      retries: "{{ cwa_global_downloads_retries }}"
+      delay: "{{ cwa_global_downloads_delay }}"
+      until: package_ok is success
       tags:
         - install
 
