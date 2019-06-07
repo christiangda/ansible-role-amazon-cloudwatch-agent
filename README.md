@@ -36,6 +36,8 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * sid
   * stretch
 
+To see the compatibility matrix of Python vs. Ansible see the project [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
+
 ## Role Variables
 
 ```yaml
@@ -347,7 +349,7 @@ cd ansible-roles/
 python3 -m venv venv
 source venv/bin/activate
 pip install pip --upgrade
-pip install ansible">=2.7,<2.8"  # Ansible 2.8.0 has some bugs with yum module and fail in amz linux
+pip install ansible
 pip install selinux
 pip install docker
 pip install pytest
