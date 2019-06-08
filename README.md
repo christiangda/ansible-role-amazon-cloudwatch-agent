@@ -340,7 +340,7 @@ This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/)
 
 **Prepare your environment**
 
-Python 3
+**Python 3**
 
 ```bash
 mkdir ansible-roles
@@ -350,6 +350,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
+pip install molecule">=2.22rc1"
 pip install selinux
 pip install docker
 pip install pytest
@@ -358,8 +359,37 @@ pip install pylint
 pip install rope
 pip install autopep8
 pip install yamllint
-pip install molecule
-pip install molecule[vagrant]
+pip install flake8
+```
+
+**Python 2.7**
+
+Dependencies
+
+```bash
+sudo dnf install redhat-rpm-config
+sudo dnf install python-devel
+sudo dnf install libselinux-python
+```
+
+```bash
+mkdir ansible-roles
+cd ansible-roles/
+
+python2.7 -m virtualenv venv
+source venv/bin/activate
+pip install pip --upgrade
+pip install ansible
+pip install molecule">=2.22rc1"
+pip install selinux
+pip install docker
+pip install pytest
+pip install pytest-mock
+pip install pylint
+pip install rope
+pip install autopep8
+pip install yamllint
+pip install flake8
 ```
 
 **Clone the role repository and create symbolic link**

@@ -22,8 +22,14 @@ env:
 
 install:
   - pip install ansible"${ANSIBLE_VERSION}"
-  - pip install molecule
+  # - pip install molecule
+  - pip install molecule">=2.22rc1"
   - pip install docker
+  - pip install flake8
+  - pip install selinux
+  - pip install docker
+  - pip install pylint
+  - pip install rope
 
 before_script:
   - ls -la
