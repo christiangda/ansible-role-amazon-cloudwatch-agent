@@ -29,4 +29,3 @@ cwa_temp_path: /tmp
 cwa_use_credentials: "{{ true|bool if cwa_agent_mode == 'onPremise' else false|bool }}"
 cwa_use_proxy: "{{ true|bool if cwa_http_proxy is defined and cwa_http_proxy|length > 0 else false|bool }}"
 cwa_use_conf_json_template: "{{ false|bool if cwa_conf_json_file_content is defined and cwa_conf_json_file_content|length > 0 else true|bool }}"
-cwa_use_epel_role: true
