@@ -18,3 +18,5 @@
           ansible_distribution == 'Amazon'
         )
     - role: christiangda.amazon_cloudwatch_agent
+      vars:
+        cwa_agent_mode: "onPremise"
