@@ -351,6 +351,7 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule">=2.22rc1"
+pip install molecule[vagrant]
 pip install selinux
 pip install docker
 pip install pytest
@@ -381,6 +382,7 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule">=2.22rc1"
+pip install molecule[vagrant]
 pip install selinux
 pip install docker
 pip install pytest
