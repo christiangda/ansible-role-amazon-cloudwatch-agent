@@ -154,6 +154,12 @@ cwa_logrotate_file_size: "10M"
 # default value: 5
 cwa_logrotate_files: 5
 ```
+```yaml
+# Do we use the christiangda.epel_repo or manage it ourselves?
+# posible values:
+# default value: true
+cwa_use_epel_role: true
+```
 
 ## Dependencies
 
