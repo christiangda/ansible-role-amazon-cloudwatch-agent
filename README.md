@@ -155,6 +155,14 @@ cwa_logrotate_file_size: "10M"
 cwa_logrotate_files: 5
 ```
 
+```yaml
+# Do we use the christiangda.epel_repo or manage it ourselves?
+# - https://galaxy.ansible.com/christiangda/epel_repo
+# posible values:
+# default value: true
+cwa_use_epel_role: true
+```
+
 ## Dependencies
 
 * [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with Red Hat family, so you don't need to add this to your ansible playbook.
@@ -351,6 +359,7 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule">=2.22rc1"
+pip install molecule[vagrant]
 pip install selinux
 pip install docker
 pip install pytest
@@ -381,6 +390,7 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule">=2.22rc1"
+pip install molecule[vagrant]
 pip install selinux
 pip install docker
 pip install pytest

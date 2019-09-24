@@ -45,6 +45,7 @@
     - name: Include role christiangda.epel_repo from Galaxy
       include_role:
         name: christiangda.epel_repo
+      when: cwa_use_epel_role
     - name: Install "{{ cwa_dependencies_packages }}" dependency
       yum:
         name: "{{ cwa_dependencies_packages }}"
@@ -59,6 +60,7 @@
 - name: Install {{ cwa_package }}.rpm
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
+    disable_gpg_check: yes
     state: present
   register: package_ok
   retries: "{{ cwa_global_downloads_retries }}"
