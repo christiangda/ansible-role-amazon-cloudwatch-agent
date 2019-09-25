@@ -17,7 +17,7 @@ cwa_agent_profile_config_file: "{{ cwa_agent_profile_path }}/config"
 cwa_agent_profile_credentials_file: "{{ cwa_agent_profile_path }}/credentials"
 
 cwa_dependencies_packages:
-  - collectd
+    #  - collectd
 
 cwa_global_downloads_timeout: 240
 cwa_global_downloads_retries: 5
