@@ -45,4 +45,4 @@ galaxy_info:
     - metrics
 
 dependencies:
-  - { role: christiangda.epel_repo }
+    - { role: christiangda.epel_repo, when: cwa_use_epel_repo|bool }
