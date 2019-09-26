@@ -16,7 +16,8 @@ cwa_agent_profile_path: /root/.aws
 cwa_agent_profile_config_file: "{{ cwa_agent_profile_path }}/config"
 cwa_agent_profile_credentials_file: "{{ cwa_agent_profile_path }}/credentials"
 
-cwa_dependencies_packages: []
+cwa_dependencies_packages:
+    - collectd
 cwa_global_downloads_timeout: 240
 cwa_global_downloads_retries: 5
 cwa_global_downloads_delay: 2
