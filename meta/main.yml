@@ -45,4 +45,7 @@ galaxy_info:
     - metrics
 
 dependencies:
-  - { role: christiangda.epel_repo }
+  - {
+      role: christiangda.epel_repo,
+      when: ansible_os_family == 'RedHat' and cwa_use_epel_role,
+    }
