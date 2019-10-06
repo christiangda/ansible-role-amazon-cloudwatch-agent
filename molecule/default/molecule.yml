@@ -36,9 +36,6 @@ platforms:
   - name: ubuntu-18.04
     image: ubuntu:18.04
 
-  - name: ubuntu-18.10
-    image: ubuntu:18.10
-
   - name: debian-buster
     image: debian:buster
 
