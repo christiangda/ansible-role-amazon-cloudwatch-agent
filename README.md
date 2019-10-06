@@ -6,6 +6,7 @@
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
 **Features:**
+
 * Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
@@ -20,9 +21,11 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 * RedHat
   * 6
   * 7
+  * 8
 * CentOS
   * 6
   * 7
+  * 8
 * Amazon Linux
   * 1
   * 2
@@ -38,10 +41,14 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 To see the compatibility matrix of Python vs. Ansible see the project [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 
+**RedHat Notes:**
+
+Is important to have a valid subscription in order to avoid dependencies packages installation problems.
+
 ## Role Variables
 
 ```yaml
-# posible values:
+# possible values:
 # - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
 #   configuration file according to docs reference.
 # - "{{ lookup('file', 'files/your-cloudwatch-config.yaml') | from_yaml }}" where your-cloudwatch-config.yaml is your custom
@@ -71,7 +78,7 @@ cwa_conf_json_file_content: ""
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - "ec2"
 # - "onPremise"
 # default value: "ec2"
@@ -82,7 +89,7 @@ cwa_agent_mode: "ec2"
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/general/latest/gr/rande.html
 # default value: "eu-west-1"
 # notes:
@@ -91,7 +98,7 @@ cwa_aws_region: "eu-west-1"
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
@@ -100,7 +107,7 @@ cwa_profile: "AmazonCloudWatchAgent"
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 # - https://docs.ansible.com/ansible/latest/user_guide/vault.html
 # default value: ""
@@ -110,7 +117,7 @@ cwa_access_key: ""
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 # - https://docs.ansible.com/ansible/latest/user_guide/vault.html
 # default value: ""
@@ -120,21 +127,21 @@ cwa_secret_key: ""
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
 cwa_http_proxy: ""
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
 cwa_https_proxy: ""
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "169.254.169.254"
 # * Always disable proxy for aws metadata ip (169.254.169.254)
@@ -142,14 +149,14 @@ cwa_no_proxy: "169.254.169.254"
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://linux.die.net/man/8/logrotate
 # default value: "10M"
 cwa_logrotate_file_size: "10M"
 ```
 
 ```yaml
-# posible values:
+# possible values:
 # - https://linux.die.net/man/8/logrotate
 # default value: 5
 cwa_logrotate_files: 5
@@ -158,7 +165,7 @@ cwa_logrotate_files: 5
 ```yaml
 # Do we use the christiangda.epel_repo or manage it ourselves?
 # - https://galaxy.ansible.com/christiangda/epel_repo
-# posible values:
+# possible values:
 # default value: true
 cwa_use_epel_role: true
 ```
@@ -270,7 +277,7 @@ cwa_use_epel_role: true
             force_flush_interval: 15
 ```
 
-###  Amazon Linux 1/2 (my-playbook.yml)
+### Amazon Linux 1/2 (my-playbook.yml)
 
 ```yaml
 - hosts: all

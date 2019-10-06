@@ -7,3 +7,9 @@
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal python-zipstream)
       become: true
       changed_when: false
+      when: >
+        ansible_os_family == 'RedHat' and (
+          ansible_distribution == 'CentOS' or
+          ansible_distribution == 'RedHat'
+        ) and
+        ansible_distribution_major_version == '8'

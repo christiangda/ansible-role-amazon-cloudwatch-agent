@@ -29,16 +29,6 @@ platforms:
     memory: 512
     cpus: 1
 
-  - name: ubuntu-14.04
-    box: ubuntu/trusty64
-    memory: 512
-    cpus: 1
-
-  - name: ubuntu-16.04
-    box: ubuntu/xenial64
-    memory: 512
-    cpus: 1
-
   - name: ubuntu-18.04
     box: ubuntu/bionic64
     memory: 512
