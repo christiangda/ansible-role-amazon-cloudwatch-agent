@@ -9,6 +9,7 @@ services: docker
 branches:
   only:
     - master
+    - develop
 
 env:
   global:
@@ -45,6 +46,7 @@ script:
 
 notifications:
   webhooks:
+    if: branch = master
     urls:
       - https://galaxy.ansible.com/api/v1/notifications/
     on_success: always
