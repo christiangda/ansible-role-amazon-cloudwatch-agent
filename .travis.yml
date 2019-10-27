@@ -1,9 +1,8 @@
----
 language: python
-python:
-  - "2.7"
-  - "3.6"
 
+python:
+  - '2.7'
+  - '3.7'
 services: docker
 
 branches:
@@ -23,7 +22,6 @@ env:
 
 install:
   - pip install ansible"${ANSIBLE_VERSION}"
-  # - pip install molecule
   - pip install molecule">=2.22rc1"
   - pip install docker
   - pip install flake8
@@ -43,6 +41,41 @@ script:
   - molecule --version
   - ansible --version
   - molecule test
+
+stages:
+  - name: Test
+  - name: GitHub Release
+    if: branch = master
+
+jobs:
+  include:
+    - stage: GitHub Release
+      python:
+        - '3.7'
+      script:
+        - skip
+      before_deploy:
+        - export COMMITTER_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
+        - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+        - export VERSION_TAG=$(cat VERSION)
+        - echo "$VERSION_TAG" "$TRAVIS_COMMIT"
+        - git config --local user.name "$AUTHOR_NAME"
+        - git config --local user.email "$COMMITTER_EMAIL"
+        - git tag -a $VERSION_TAG -m "$TRAVIS_COMMIT"
+        - git tag -l
+      deploy:
+        - provider: releases
+          tag_name: "$VERSION_TAG"
+          target_commitish: "$TRAVIS_COMMIT"
+          name: "$VERSION_TAG"
+          #overwrite: false
+          skip_cleanup: true
+          api_key:
+            secure: M3Y3p+WYZK7ERqDztFNNgkIt9gR2uIx8uOyPX2PRxYDHJdbk3fRRxAPb0irDagwlcDsm9wj2aXROwyCk2CcZrw/4kGtMZSxH1LissM4ftfA46kD0vitO2yp2gy8WYnt7V0phvXR9mqiZbrhie8Le7Ys/lOJbFS96P2r9JvFOQWQzcfnNzwwAKKWoGfX9up4gZx6+KQ6KrVPugptTlav4pIJA3XKQvz26LuTHJq5NZeeUIZLxdC+nb56aJMWJXIBKOTtKw3Y7PTMx0gUjZkCPNHfvnpgmuuk0Duup+5SrvmKXIwk6hoddGsbBugPhZ6lhUG/SQ3dq1MvqLoAVJdvRbj5ri6TdfWsog41RnE71aFSe7T7Irj9ToCQCR2fpzkrS3/fsPAkhQdEz4BgbqZYs78k/ym9/Z1jgv+L6imBqK/KSE9rYIz9lu0In1LeQlokLskdZpNMbaki5w+E5x3J5hnq16OmvrYYUDJGxCotNjoEbaX7MtEYS7rs4lT33QmcYfQ95jIprbxXiyQtKnbTCtHUg4cgzSzpuLrPcZLk1KHozNZoS3kCX/NKDjKgZsjwTqHzrilX9Co/axs0MvMRH3SXtDjgySswqz+3RFcXwSg8yKRgXo8zVvpvV9LhJLNMaa4CEbQtgv1YQz8lS2Fb1b6vnvKVJDapsvdMC1pJkFe4=
+          file: "*"
+          on:
+            repo: christiangda/$GITHUB_ROLE_NAME
+            branch: master
 
 notifications:
   webhooks:
