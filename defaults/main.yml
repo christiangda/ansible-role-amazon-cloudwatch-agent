@@ -37,34 +37,33 @@ cwa_conf_json_file_content: ""
 cwa_agent_mode: "ec2"
 
 # possible values:
-# - https://docs.aws.amazon.com/general/latest/gr/rande.html
-# default value: "eu-west-1"
+# - true
+# - false
+# default value: false
 # notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_aws_region: "eu-west-1"
+# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Obligatory in true when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+cwa_use_credentials: false
 
 # possible values:
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * Only necessary when use **cwa_agent_mode:** "onPremise", you could use other profile if it is configured properly
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Use the role "christiangda.awscli_configure" to create the profile "AmazonCloudWatchAgent"
+# * This variable depends of variable cwa_use_credentials
 cwa_profile: "AmazonCloudWatchAgent"
 
 # possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
+# - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
+# default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_access_key: ""
-
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_secret_key: ""
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Use the role "christiangda.awscli_configure" to create the profile and credentials in this path
+# * This variable depends of variable cwa_use_credentials
+cwa_agent_profile_path: /root
 
 # possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html

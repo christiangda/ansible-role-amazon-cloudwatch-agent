@@ -80,23 +80,6 @@
       tags:
         - install
 
-    # - name: Install "{{ cwa_dependencies_packages }}" dependency on ReHat/CentOS 8
-    #   dnf:
-    #     name: "{{ cwa_dependencies_packages }}"
-    #     state: present
-    #   register: package_ok
-    #   retries: "{{ cwa_global_downloads_retries }}"
-    #   delay: "{{ cwa_global_downloads_delay }}"
-    #   until: package_ok is success
-    #   when: >
-    #     ansible_os_family == 'RedHat' and (
-    #       ansible_distribution == 'CentOS' or
-    #       ansible_distribution == 'RedHat'
-    #     ) and
-    #     ansible_distribution_major_version == '8'
-    #   tags:
-    #     - install
-
 - name: Install {{ cwa_package }}.rpm on Amazon 1/2
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
