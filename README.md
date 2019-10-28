@@ -178,7 +178,7 @@ cwa_use_epel_role: true
 
 ### RedHat/CentOS, Ubuntu and Debian
 
-**Reading config file from JSON configuration file**
+Reading config file from JSON configuration file
 
 ```yaml
 - hosts: servers
@@ -190,7 +190,7 @@ cwa_use_epel_role: true
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
-**Reading config file from YAML configuration file**
+Reading config file from YAML configuration file
 
 ```yaml
 - hosts: servers
@@ -202,7 +202,7 @@ cwa_use_epel_role: true
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
 ```
 
-**Using INLINE YAML configuration file**
+Using INLINE YAML configuration file
 
 ```yaml
 ---
@@ -293,7 +293,7 @@ cwa_use_epel_role: true
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
-**Inventory file sample (inventory)**
+Inventory file sample (inventory)
 
 ```ini
 [all]
@@ -307,7 +307,7 @@ cwa_use_epel_role: true
 10.14.v.z
 ```
 
-**How to used it**
+How to used it
 
 ```bash
 ansible-playbook my-playbook.yml \
@@ -318,7 +318,7 @@ ansible-playbook my-playbook.yml \
     --user ec2-user
 ```
 
-### Variables examples:
+### Variables examples
 
 ```yaml
 #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
@@ -353,9 +353,9 @@ cwa_secret_key: !vault |
 This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/) and was developed using
 [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
 
-**Prepare your environment**
+Prepare your environment
 
-**Python 3**
+* Python 3
 
 ```bash
 mkdir ansible-roles
@@ -378,7 +378,7 @@ pip install yamllint
 pip install flake8
 ```
 
-**Python 2.7**
+* Python 2.7
 
 Dependencies
 
@@ -409,7 +409,7 @@ pip install yamllint
 pip install flake8
 ```
 
-**Clone the role repository and create symbolic link**
+Clone the role repository and create symbolic link
 
 ```bash
 git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
@@ -417,7 +417,7 @@ ln -s ansible-role-amazon-cloudwatch-agent christiangda.amazon_cloudwatch_agent
 cd christiangda.amazon_cloudwatch_agent
 ```
 
-**Execute the test**
+Execute the test
 
 Using docker in local
 
