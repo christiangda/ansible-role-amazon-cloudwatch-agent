@@ -32,7 +32,6 @@ cwa_conf_json_file_content: ""
 # - "onPremise"
 # default value: "ec2"
 # notes:
-# * not necessary when you deploy the agent into AWS, default value is fine.
 # * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region", "cwa_access_key", "cwa_secret_key" also
 cwa_agent_mode: "ec2"
 
@@ -41,16 +40,16 @@ cwa_agent_mode: "ec2"
 # - false
 # default value: false
 # notes:
-# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory in true when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Obligatory in true when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 cwa_use_credentials: false
 
 # possible values:
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch / AWS and CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 # * Use the role "christiangda.awscli_configure" to create the profile "AmazonCloudWatchAgent"
 # * This variable depends of variable cwa_use_credentials
 cwa_profile: "AmazonCloudWatchAgent"
@@ -59,8 +58,8 @@ cwa_profile: "AmazonCloudWatchAgent"
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 # * Use the role "christiangda.awscli_configure" to create the profile and credentials in this path
 # * This variable depends of variable cwa_use_credentials
 cwa_agent_profile_path: /root

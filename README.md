@@ -88,7 +88,6 @@ cwa_conf_json_file_content: ""
 # - "onPremise"
 # default value: "ec2"
 # notes:
-# * not necessary when you deploy the agent into AWS, default value is fine.
 # * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region", "cwa_access_key", "cwa_secret_key" also
 cwa_agent_mode: "ec2"
 ```
@@ -99,8 +98,8 @@ cwa_agent_mode: "ec2"
 # - false
 # default value: false
 # notes:
-# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory in true when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Obligatory in true when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 cwa_use_credentials: false
 ```
 
@@ -109,8 +108,8 @@ cwa_use_credentials: false
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch / AWS and CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 # * Use the role "christiangda.awscli_configure" to create the profile "AmazonCloudWatchAgent"
 # * This variable depends of variable cwa_use_credentials
 cwa_profile: "AmazonCloudWatchAgent"
@@ -121,8 +120,8 @@ cwa_profile: "AmazonCloudWatchAgent"
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs and CloudWatch Service
-# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs and CloudWatch Service
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
 # * Use the role "christiangda.awscli_configure" to create the profile and credentials in this path
 # * This variable depends of variable cwa_use_credentials
 cwa_agent_profile_path: /root
@@ -180,7 +179,7 @@ cwa_use_epel_role: true
 
 ### RedHat/CentOS, Ubuntu and Debian
 
-**Reading config file from JSON configuration file**
+Reading config file from JSON configuration file
 
 ```yaml
 - hosts: servers
@@ -192,7 +191,7 @@ cwa_use_epel_role: true
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
-**Reading config file from YAML configuration file**
+Reading config file from YAML configuration file
 
 ```yaml
 - hosts: servers
@@ -308,7 +307,7 @@ cwa_use_epel_role: true
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
-**Inventory file sample (inventory)**
+Inventory file sample (inventory)
 
 ```ini
 [all]
@@ -322,7 +321,7 @@ cwa_use_epel_role: true
 10.14.v.z
 ```
 
-**How to used it**
+How to used it
 
 ```bash
 ansible-playbook my-playbook.yml \
@@ -333,7 +332,7 @@ ansible-playbook my-playbook.yml \
     --user ec2-user
 ```
 
-### Variables examples:
+### Variables examples
 
 ```yaml
 #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
@@ -368,9 +367,9 @@ cwa_secret_key: !vault |
 This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/) and was developed using
 [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
 
-**Prepare your environment**
+Prepare your environment
 
-**Python 3**
+Python 3
 
 ```bash
 mkdir ansible-roles
@@ -393,7 +392,7 @@ pip install yamllint
 pip install flake8
 ```
 
-**Python 2.7**
+Python 2.7
 
 Dependencies
 
@@ -424,7 +423,7 @@ pip install yamllint
 pip install flake8
 ```
 
-**Clone the role repository and create symbolic link**
+Clone the role repository and create symbolic link
 
 ```bash
 git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
@@ -432,7 +431,7 @@ ln -s ansible-role-amazon-cloudwatch-agent christiangda.amazon_cloudwatch_agent
 cd christiangda.amazon_cloudwatch_agent
 ```
 
-**Execute the test**
+Execute the test
 
 Using docker in local
 
