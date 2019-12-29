@@ -17,6 +17,18 @@
           ansible_distribution == 'RedHat' or
           ansible_distribution == 'Amazon'
         )
+    - role: christiangda.awscli_configure
+      vars:
+        awscliconf_path: '/root'
+        awscliconf_files:
+          credentials:
+            - AmazonCloudWatchAgent:
+                aws_access_key_id: 'AKIAIOSFODNN7EXAMPLE'
+                aws_secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+          config:
+            - profile AmazonCloudWatchAgent:
+                region: eu-west-1
     - role: christiangda.amazon_cloudwatch_agent
       vars:
         cwa_agent_mode: "onPremise"
+        cwa_profile: "AmazonCloudWatchAgent"

@@ -1,4 +1,5 @@
 ---
+# description: Store the CloudWatch Agent configuration
 # possible values:
 # - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
 #   configuration file according to docs reference.
@@ -24,18 +25,19 @@
 # reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
 # default value: ""
 # notes:
-# * when is empty the role deploy a custom json configuration via template
+# * When is empty the role deploy a custom json configuration via template (see: templates/agent/amazon-cloudwatch-agent.json.j2)
 cwa_conf_json_file_content: ""
 
+# description: Define if the agent is running on AWS EC2 instance or outside AWS, in your On Premise infrastructure
 # possible values:
 # - "ec2"
 # - "onPremise"
 # default value: "ec2"
 # notes:
-# * not necessary when you deploy the agent into AWS, default value is fine.
-# * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region", "cwa_access_key", "cwa_secret_key" also
+# * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region" also
 cwa_agent_mode: "ec2"
 
+# description: AWS Region where you want the AWS CloudWatch Logs
 # possible values:
 # - https://docs.aws.amazon.com/general/latest/gr/rande.html
 # default value: "eu-west-1"
@@ -43,57 +45,65 @@ cwa_agent_mode: "ec2"
 # * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
 cwa_aws_region: "eu-west-1"
 
+# description: Define if you want to use AWS CLI Credentials or the AWS EC2 Instance Role
+# possible values:
+# - true
+# - false
+# default value: false
+# notes:
+# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Automatically set to true when **cwa_agent_mode:** "onPremise"
+cwa_use_credentials: false
+
+# description: Define the name of the role configured at AWC CLI Profile to be used when send the logs/metrics to AWS CloudWatch
 # possible values:
 # - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "AmazonCloudWatchAgent"
 # notes:
-# * Only necessary when use **cwa_agent_mode:** "onPremise", you could use other profile if it is configured properly
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch / AWS and CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Use the role "christiangda.awscli_configure" to create the profile "AmazonCloudWatchAgent"
+# * This variable depends of variable cwa_use_credentials
 cwa_profile: "AmazonCloudWatchAgent"
 
+# description: Path where is the AWS CLI Profile folder ( .aws/ with .aws/config and .aws/credentials files)
 # possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
+# - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
+# default value: "AmazonCloudWatchAgent"
 # notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_access_key: ""
+# * This is necessary when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Obligatory when you use **cwa_agent_mode:** "onPremise", this is the only way to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
+# * Use the role "christiangda.awscli_configure" to create the profile and credentials in this path
+# * This variable depends of variable cwa_use_credentials
+cwa_agent_profile_path: /root
 
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_secret_key: ""
-
+# description: The proxy configuration to be used by AWS CloudWatch Agent
 # possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
 cwa_http_proxy: ""
 
+# description: The proxy configuration to be used by AWS CloudWatch Agent
 # possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: ""
 cwa_https_proxy: ""
 
+# description: The proxy configuration to be used by AWS CloudWatch Agent
 # possible values:
 # - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
 # default value: "169.254.169.254"
 # * Always disable proxy for aws metadata ip (169.254.169.254)
 cwa_no_proxy: "169.254.169.254"
 
+# description: The max size of the file for the log before be rotated
 # possible values:
 # - https://linux.die.net/man/8/logrotate
 # default value: "10M"
 cwa_logrotate_file_size: "10M"
 
+# description: The max number of file to keep after rotation
 # possible values:
 # - https://linux.die.net/man/8/logrotate
 # default value: 5
 cwa_logrotate_files: 5
-
-# Do we use the christiangda.epel_repo or manage it ourselves?
-# - https://galaxy.ansible.com/christiangda/epel_repo
-# possible values:
-# default value: true
-cwa_use_epel_role: true

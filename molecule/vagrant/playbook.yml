@@ -12,19 +12,38 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
-    - name: Install libselinux-python on redhat/centos 6
-      yum:
-        name: libselinux-python
-        state: present
+    # - name: Install libselinux-python on redhat/centos 6
+    #   yum:
+    #     name: libselinux-python
+    #     state: present
+    #   when: >
+    #     ansible_os_family == 'RedHat' and (
+    #       ansible_distribution == 'CentOS' or
+    #       ansible_distribution == 'RedHat'
+    #     )
+    #     and ansible_distribution_major_version == '6'
+    #   changed_when: false
+
+  roles:
+    - role: christiangda.epel_repo
       when: >
         ansible_os_family == 'RedHat' and (
           ansible_distribution == 'CentOS' or
-          ansible_distribution == 'RedHat'
+          ansible_distribution == 'RedHat' or
+          ansible_distribution == 'Amazon'
         )
-        and ansible_distribution_major_version == '6'
-      changed_when: false
-
-  roles:
+    - role: christiangda.awscli_configure
+      vars:
+        awscliconf_path: '/root'
+        awscliconf_files:
+          credentials:
+            - AmazonCloudWatchAgent:
+                aws_access_key_id: 'AKIAIOSFODNN7EXAMPLE'
+                aws_secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+          config:
+            - profile AmazonCloudWatchAgent:
+                region: eu-west-1
     - role: christiangda.amazon_cloudwatch_agent
       vars:
         cwa_agent_mode: "onPremise"
+        cwa_profile: "AmazonCloudWatchAgent"
