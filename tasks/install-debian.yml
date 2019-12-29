@@ -16,7 +16,7 @@
     - download
     - install
 
-- name: Download {{ cwa_package }}.deb.sig
+- name: Download {{ cwa_package }}.deb.sig file
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb.sig"
@@ -27,7 +27,7 @@
     - download
     - install
 
-- name: Download {{ cwa_package }}.deb
+- name: Download {{ cwa_package }}.deb file
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"

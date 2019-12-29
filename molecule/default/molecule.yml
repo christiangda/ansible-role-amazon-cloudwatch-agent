@@ -15,38 +15,42 @@ platforms:
   - name: redhat-8
     image: registry.access.redhat.com/ubi8/ubi
 
-  - name: centos-8
-    image: centos:8
-
   - name: redhat-7
     image: registry.access.redhat.com/ubi7/ubi
+
+  - name: centos-8
+    image: centos:8
 
   - name: centos-7
     image: centos:7
 
-  - name: centos-6
-    image: centos:6
+  # - name: centos-6
+  #   image: centos:6
 
   - name: amazonlinux-2
     image: amazonlinux:2
 
-  - name: amazonlinux-1
-    image: amazonlinux:1
+  # - name: amazonlinux-1
+  #   image: amazonlinux:1
+
+  - name: ubuntu-19.04
+    image: ubuntu:19.04
 
   - name: ubuntu-18.04
     image: ubuntu:18.04
 
-  - name: debian-buster
-    image: debian:buster
-
-  - name: debian-jessie
-    image: debian:jessie
-
   - name: debian-sid
     image: debian:sid
 
+  - name: debian-buster
+    image: debian:buster
+
   - name: debian-stretch
     image: debian:stretch
+
+  # - name: debian-jessie
+  #   image: debian:jessie
+
 
 provisioner:
   name: ansible

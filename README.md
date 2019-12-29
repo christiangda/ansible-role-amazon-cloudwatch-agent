@@ -5,38 +5,45 @@
 
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
+**NOTES:**
+
+* The version 2.x.y is not compatible with version 1.x.y
+* This role no longer installs [EPEL Repository](https://fedoraproject.org/wiki/EPEL) by default, now you need to take care of this, I recommend my role [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) instead
+* This role no longer creates [AWS CLI profile (config and credentials)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), now you need to take care of this, I recommend my roles [christiangda.awscli](https://galaxy.ansible.com/christiangda/awscli) and [christiangda.awscli_configure](https://galaxy.ansible.com/christiangda/awscli_configure) instead.  See examples under (when cwa_agent_mode: "onPremise")
+
 **Features:**
 
 * Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
-* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections***
+* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections**
 
 ## Requirements
 
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 * RedHat
-  * 6
+  * 6 (out of tests, maybe you find problems with this OS)
   * 7
   * 8
 * CentOS
-  * 6
+  * 6 (out of tests, maybe you find problems with this OS)
   * 7
   * 8
 * Amazon Linux
-  * 1
+  * 1 (out of tests, maybe you find problems with this OS)
   * 2
 * Ubuntu
-  * 14.04
-  * 16.04
-  * 18.10
+  * 14.04 (out of tests, maybe you find problems with this OS)
+  * 16.04 (out of tests, maybe you find problems with this OS)
+  * 18.04
+  * 19.04
 * Debian
-  * buster
-  * jessie
-  * sid
-  * stretch
+  * jessie (8) (out of tests, maybe you find problems with this OS)
+  * stretch (9)
+  * buster (10)
+  * sid (unstable)
 
 To see the compatibility matrix of Python vs. Ansible see the project [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 
@@ -46,159 +53,131 @@ Is important to have a valid subscription in order to avoid dependencies package
 
 ## Role Variables
 
-```yaml
-# possible values:
-# - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
-#   configuration file according to docs reference.
-# - "{{ lookup('file', 'files/your-cloudwatch-config.yaml') | from_yaml }}" where your-cloudwatch-config.yaml is your custom
-#   configuration file according to docs reference.
-#
-# Also is possible to define inline configuration as YAML
-#    cwa_conf_json_file_content:
-#      metrics:
-#        append_dimensions:
-#          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
-#          ImageId: "${!aws:ImageId}"
-#          InstanceId: "${!aws:InstanceId}"
-#          InstanceType: "${!aws:InstanceType}"
-#        metrics_collected:
-#          mem:
-#            measurement:
-#              - mem_used_percent
-#          swap:
-#            measurement:
-#              - swap_used_percent
-#
-# reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
-# default value: ""
-# notes:
-# * when is empty the role deploy a custom json configuration via template
-cwa_conf_json_file_content: ""
-```
+| Variable                   | Default Value           |
+| -------------------------- | ----------------------- |
+| cwa_conf_json_file_content | "" --> Empty            |
+| cwa_agent_mode             | "ec2"                   |
+| cwa_aws_region             | "eu-west-1"             |
+| cwa_use_credentials        | false                   |
+| cwa_profile                | "AmazonCloudWatchAgent" |
+| cwa_agent_profile_path     | /root                   |
+| cwa_http_proxy             | "" --> Empty            |
+| cwa_https_proxy            | "" --> Empty            |
+| cwa_no_proxy               | "169.254.169.254"       |
+| cwa_logrotate_file_size    | "10M"                   |
+| cwa_logrotate_files        | 5                       |
 
-```yaml
-# possible values:
-# - "ec2"
-# - "onPremise"
-# default value: "ec2"
-# notes:
-# * not necessary when you deploy the agent into AWS, default value is fine.
-# * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region", "cwa_access_key", "cwa_secret_key" also
-cwa_agent_mode: "ec2"
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/general/latest/gr/rande.html
-# default value: "eu-west-1"
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_aws_region: "eu-west-1"
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: "AmazonCloudWatchAgent"
-# notes:
-# * Only necessary when use **cwa_agent_mode:** "onPremise", you could use other profile if it is configured properly
-cwa_profile: "AmazonCloudWatchAgent"
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_access_key: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_secret_key: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: ""
-cwa_http_proxy: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: ""
-cwa_https_proxy: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: "169.254.169.254"
-# * Always disable proxy for aws metadata ip (169.254.169.254)
-cwa_no_proxy: "169.254.169.254"
-```
-
-```yaml
-# possible values:
-# - https://linux.die.net/man/8/logrotate
-# default value: "10M"
-cwa_logrotate_file_size: "10M"
-```
-
-```yaml
-# possible values:
-# - https://linux.die.net/man/8/logrotate
-# default value: 5
-cwa_logrotate_files: 5
-```
-
-```yaml
-# Do we use the christiangda.epel_repo or manage it ourselves?
-# - https://galaxy.ansible.com/christiangda/epel_repo
-# possible values:
-# default value: true
-cwa_use_epel_role: true
-```
+*More Details:* See the file [defaults/main.yaml](defaults/main.yaml)
 
 ## Dependencies
 
-* [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) imported dynamically in the code when is used with Red Hat family, so you don't need to add this to your ansible playbook.
+* In case of OS Family RedHat/Centos EPEL repository could be necessary
+* If you set `cwa_agent_mode: "onPremise"` the [AWS CLI Profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) configuration is needed
 
 ## Example Playbook
 
-### RedHat/CentOS, Ubuntu and Debian
+### When cwa_agent_mode: "onPremise"
+
+```yaml
+# You should use ansible-vault to provision it
+# Example:
+# ansible-vault encrypt_string --ask-vault-pass --name 'cwa_access_key' 'AKIAIOSFODNN7EXAMPLE'
+# ansible-vault encrypt_string --ask-vault-pass --name 'cwa_secret_key' 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+
+- hosts: servers
+    gather_facts: True
+    roles:
+      - role: christiangda.epel_repo # If you don't have installed EPEL Repository
+        when: >
+          ansible_os_family == 'RedHat' and (
+            ansible_distribution == 'CentOS' or
+            ansible_distribution == 'RedHat' or
+            ansible_distribution == 'Amazon'
+          )
+      - role: christiangda.awscli_configure # If you don't have configure AWS CLI Profiles
+        vars:
+          awscliconf_path: '/root'
+          awscliconf_files:
+            credentials:
+              - AmazonCloudWatchAgent:
+                  aws_access_key_id: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    30376338613338326663373366303234623665633339303338613463313564633832363237306137
+                    3362643039616631323339383332306536333962346133310a383265376665316235653261616136
+                    61306566623531356263346439633761633830323636646236373736353530396134636536666532
+                    3939636433636364310a316639366139366566623337623536346661633339343766323936346336
+                    65333035366635396138656132643262626438333961326266396466626464643766
+                  aws_secret_access_key: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    65643230613939303737336632346432393234616437383532386139616364316233333933643735
+                    6633636261383163323362623562323333323533336564310a323030343431366135343035326635
+                    33623161376634643939636464306139386662303034616531346632303039643238373834616266
+                    3064623232373233610a346432646565396235316631626137653731376365333531323866626665
+                    62656638623330643539653763636364363738653932653831316238633939356462653636633463
+                    6130613761633565616533633332376565373062396565396261
+            config:
+              - profile AmazonCloudWatchAgent:
+                  region: "eu-west-1"
+      - role: christiangda.amazon_cloudwatch_agent
+          vars:
+              cwa_agent_mode: "onPremise"
+              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
+              cwa_aws_region: "eu-west-1"
+              cwa_profile: "AmazonCloudWatchAgent"
+```
+
+### When cwa_agent_mode: "ec2"
 
 Reading config file from JSON configuration file
 
 ```yaml
+---
 - hosts: servers
     gather_facts: True
     roles:
-    - role: christiangda.amazon_cloudwatch_agent
+      - role: christiangda.amazon_cloudwatch_agent
+          vars:
+              cwa_agent_mode: "ec2"
+              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+```
+
+```yaml
+---
+- hosts: servers
+    gather_facts: True
+    roles:
+      - role: christiangda.epel_repo
+        when: >
+          ansible_os_family == 'RedHat' and (
+            ansible_distribution == 'CentOS' or
+            ansible_distribution == 'RedHat' or
+            ansible_distribution == 'Amazon'
+          )
+      - role: christiangda.awscli_configure
         vars:
-            cwa_agent_mode: "ec2"
-            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+          awscliconf_path: '/root'
+          awscliconf_files:
+            credentials:
+              - AmazonCloudWatchAgent:
+                  aws_access_key_id: 'AKIAIOSFODNN7EXAMPLE'
+                  aws_secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+      - role: christiangda.amazon_cloudwatch_agent
+          vars:
+              cwa_agent_mode: "ec2"
+              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
 Reading config file from YAML configuration file
 
 ```yaml
+---
 - hosts: servers
     gather_facts: True
     roles:
-    - role: christiangda.amazon_cloudwatch_agent
-        vars:
-            cwa_agent_mode: "ec2"
-            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
+      - role: christiangda.amazon_cloudwatch_agent
+          vars:
+              cwa_agent_mode: "ec2"
+              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
 ```
 
 Using INLINE YAML configuration file
@@ -208,12 +187,42 @@ Using INLINE YAML configuration file
 - hosts: centos7, centos6, ubuntu1804, ubuntu1810, debian8, debian9, amzn2
   become: True
   roles:
+    - role: christiangda.epel_repo # If you don't have installed EPEL Repository
+        when: >
+          ansible_os_family == 'RedHat' and (
+            ansible_distribution == 'CentOS' or
+            ansible_distribution == 'RedHat' or
+            ansible_distribution == 'Amazon'
+          )
+      - role: christiangda.awscli_configure # If you don't have configure AWS CLI Profiles
+        vars:
+          awscliconf_path: '/root'
+          awscliconf_files:
+            credentials:
+              - AmazonCloudWatchAgent:
+                  aws_access_key_id: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    30376338613338326663373366303234623665633339303338613463313564633832363237306137
+                    3362643039616631323339383332306536333962346133310a383265376665316235653261616136
+                    61306566623531356263346439633761633830323636646236373736353530396134636536666532
+                    3939636433636364310a316639366139366566623337623536346661633339343766323936346336
+                    65333035366635396138656132643262626438333961326266396466626464643766
+                  aws_secret_access_key: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    65643230613939303737336632346432393234616437383532386139616364316233333933643735
+                    6633636261383163323362623562323333323533336564310a323030343431366135343035326635
+                    33623161376634643939636464306139386662303034616531346632303039643238373834616266
+                    3064623232373233610a346432646565396235316631626137653731376365333531323866626665
+                    62656638623330643539653763636364363738653932653831316238633939356462653636633463
+                    6130613761633565616533633332376565373062396565396261
+            config:
+              - profile AmazonCloudWatchAgent:
+                  region: "eu-west-1"
     - role: christiangda.amazon_cloudwatch_agent
       vars:
         cwa_agent_mode: onPremise
         cwa_aws_region: "eu-west-1"
-        cwa_access_key: "AKIAIOSFODNN7EXAMPLE"
-        cwa_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        cwa_profile: "AmazonCloudWatchAgent"
         #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
         cwa_conf_json_file_content:
           agent:
@@ -276,9 +285,10 @@ Using INLINE YAML configuration file
             force_flush_interval: 15
 ```
 
-### Amazon Linux 1/2 (my-playbook.yml)
+Minimal configuration on AWS EC2 instance
 
 ```yaml
+---
 - hosts: all
     gather_facts: True
     become: true
@@ -288,7 +298,6 @@ Using INLINE YAML configuration file
     roles:
     - role: christiangda.amazon_cloudwatch_agent
         vars:
-            cwa_agent_mode: "ec2"
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
@@ -315,36 +324,6 @@ ansible-playbook my-playbook.yml \
     --become \
     --become-user=ec2-user \
     --user ec2-user
-```
-
-### Variables examples
-
-```yaml
-#cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
-cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
-
-cwa_agent_mode: "onPremise"
-cwa_aws_region: "eu-west-1"
-
-# You should use ansible-vault to provision it
-# Example:
-# ansible-vault encrypt_string --ask-vault-pass --name 'cwa_access_key' 'AKIAIOSFODNN7EXAMPLE'
-# ansible-vault encrypt_string --ask-vault-pass --name 'cwa_secret_key' 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-cwa_access_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          30376338613338326663373366303234623665633339303338613463313564633832363237306137
-          3362643039616631323339383332306536333962346133310a383265376665316235653261616136
-          61306566623531356263346439633761633830323636646236373736353530396134636536666532
-          3939636433636364310a316639366139366566623337623536346661633339343766323936346336
-          65333035366635396138656132643262626438333961326266396466626464643766
-cwa_secret_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          65643230613939303737336632346432393234616437383532386139616364316233333933643735
-          6633636261383163323362623562323333323533336564310a323030343431366135343035326635
-          33623161376634643939636464306139386662303034616531346632303039643238373834616266
-          3064623232373233610a346432646565396235316631626137653731376365333531323866626665
-          62656638623330643539653763636364363738653932653831316238633939356462653636633463
-          6130613761633565616533633332376565373062396565396261
 ```
 
 ## Development / Contributing
