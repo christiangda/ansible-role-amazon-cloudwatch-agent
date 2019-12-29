@@ -5,7 +5,7 @@
       stat:
         path: "{{ cwa_agent_profile_credentials_file }}"
       register: profile_credentials_file
-      #failed_when: profile_credentials_file.stat.exists == False
+      #failed_when: not profile_credentials_file.stat.exists
 
     - name: Fails when AWS CLI profiles configuration doesn't exist
       debug:
@@ -13,8 +13,8 @@
           The variable 'cwa_agent_mode: 'onPremise'' is set or 'cwa_use_credentials is true' and you don't have configure
           the aws profile correctly, please check the value of
           'cwa_profile' and 'cwa_agent_profile_path'
-      failed_when: profile_credentials_file.stat.exists == False
-      when: profile_credentials_file.stat.exists == False
+      failed_when: not profile_credentials_file.stat.exists
+      when: not profile_credentials_file.stat.exists
 
     - name: Check if profile name {{ cwa_profile }} exist into {{ cwa_agent_profile_credentials_file }} file
       lineinfile:
