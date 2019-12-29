@@ -225,6 +225,9 @@ None
                     3064623232373233610a346432646565396235316631626137653731376365333531323866626665
                     62656638623330643539653763636364363738653932653831316238633939356462653636633463
                     6130613761633565616533633332376565373062396565396261
+            config:
+              - profile AmazonCloudWatchAgent:
+                  region: eu-west-1
       - role: christiangda.amazon_cloudwatch_agent
           vars:
               cwa_agent_mode: "onPremise"
