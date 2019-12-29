@@ -10,7 +10,7 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 6
+        # - 6
         - 7
         - 8
     - name: Amazon
@@ -21,13 +21,14 @@ galaxy_info:
         - sid
         - buster
         - stretch
-        - jessie
+        # - jessie
     - name: Ubuntu
       version:
-        - trusty
-        - xenial
+        #- trusty
+        #- xenial
         - bionic
-        - cuttlefish
+        - disco
+        #- cuttlefish
 
   galaxy_tags:
     - aws
@@ -45,8 +46,4 @@ galaxy_info:
     - logs
     - metrics
 
-dependencies:
-  - {
-      role: christiangda.epel_repo,
-      when: ansible_os_family == 'RedHat' and cwa_use_epel_role,
-    }
+dependencies: []

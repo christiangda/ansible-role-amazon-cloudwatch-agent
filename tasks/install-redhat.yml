@@ -40,13 +40,8 @@
     - verify-signature
     - install
 
-- name: Install {{ cwa_package }} dependencies
+- name: Install {{ cwa_package }} dependencies (it depend on EPEL Repositories, you ned to take care of that)
   block:
-    - name: Include role christiangda.epel_repo from Galaxy
-      include_role:
-        name: christiangda.epel_repo
-      when: cwa_use_epel_role
-
     - name: Install "{{ cwa_dependencies_packages }}" dependency on Amazon 1/2
       yum:
         name: "{{ cwa_dependencies_packages }}"

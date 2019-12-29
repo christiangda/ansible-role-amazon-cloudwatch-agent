@@ -30,8 +30,11 @@ platforms:
   - name: amazonlinux-2
     image: amazonlinux:2
 
-  - name: amazonlinux-1
-    image: amazonlinux:1
+  # - name: amazonlinux-1
+  #   image: amazonlinux:1
+
+  - name: ubuntu-19.04
+    image: ubuntu:19.04
 
   - name: ubuntu-18.04
     image: ubuntu:18.04
@@ -45,8 +48,8 @@ platforms:
   - name: debian-stretch
     image: debian:stretch
 
-  - name: debian-jessie
-    image: debian:jessie
+  # - name: debian-jessie
+  #   image: debian:jessie
 
 
 provisioner:

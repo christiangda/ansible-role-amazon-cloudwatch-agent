@@ -34,8 +34,23 @@ platforms:
     memory: 512
     cpus: 1
 
+  - name: ubuntu-19.04
+    box: ubuntu/disco64
+    memory: 512
+    cpus: 1
+
   - name: ubuntu-18.04
     box: ubuntu/bionic64
+    memory: 512
+    cpus: 1
+
+  - name: debian-sid
+    box: debian/testing64
+    memory: 512
+    cpus: 1
+
+  - name: debian-10
+    box: debian/buster64
     memory: 512
     cpus: 1
 
@@ -44,10 +59,10 @@ platforms:
     memory: 512
     cpus: 1
 
-  - name: debian-8
-    box: debian/jessie64
-    memory: 512
-    cpus: 1
+  # - name: debian-8
+  #   box: debian/jessie64
+  #   memory: 512
+  #   cpus: 1
 
 provisioner:
   name: ansible
