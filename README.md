@@ -5,19 +5,24 @@
 
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-**NOTES:**
-
-* The version 2.x.y is not compatible with version 1.x.y
-* This role no longer installs [EPEL Repository](https://fedoraproject.org/wiki/EPEL) by default, now you need to take care of this, I recommend my role [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) instead
-* This role no longer creates [AWS CLI profile (config and credentials)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), now you need to take care of this, I recommend my roles [christiangda.awscli](https://galaxy.ansible.com/christiangda/awscli) and [christiangda.awscli_configure](https://galaxy.ansible.com/christiangda/awscli_configure) instead.  See examples under (when cwa_agent_mode: "onPremise")
-
 **Features:**
 
+* Works on "AWS EC2 instances"/"On-Premise Instances"
+* Support different versions of Python, Ansible and Operating Systems (see the [Continuos integration matrix for details](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent))
 * Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
 * **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections**
+
+**NOTES:**
+
+* The version 2.x.y is not compatible with version 1.x.y
+* Since version 2.x.y this role no longer installs [EPEL Repository](https://fedoraproject.org/wiki/EPEL) by default, now you need to take care of this, I recommend my role [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) instead
+* Since version 2.x.y this role no longer creates [AWS CLI profile (config and credentials)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), now you need to take care of this, I recommend my roles [christiangda.awscli](https://galaxy.ansible.com/christiangda/awscli) and [christiangda.awscli_configure](https://galaxy.ansible.com/christiangda/awscli_configure) instead.  See examples under (when cwa_agent_mode: "onPremise")
+* Install automatically the "collectd" package when detect the use of [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) in the configuration file
+
+More details in [VERSION.md](VERSION.md) file
 
 ## Requirements
 
