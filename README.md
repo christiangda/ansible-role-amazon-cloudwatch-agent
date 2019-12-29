@@ -73,6 +73,7 @@ Is important to have a valid subscription in order to avoid dependencies package
 
 * In case of OS Family RedHat/Centos EPEL repository could be necessary
 * If you set `cwa_agent_mode: "onPremise"` the [AWS CLI Profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) configuration is needed
+* If you [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) the package `collectd` will installed automatically
 
 ## Example Playbook
 
@@ -232,7 +233,6 @@ Using INLINE YAML configuration file
             debug: false
           metrics:
             metrics_collected:
-              collectd: {}
               cpu:
                 resources:
                   - "*"
