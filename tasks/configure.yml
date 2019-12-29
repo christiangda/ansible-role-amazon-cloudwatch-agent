@@ -32,7 +32,6 @@
           - "Line [{{ cwa_profile }}] is not present in file {{ cwa_agent_profile_credentials_file }}"
       failed_when: presence.changed
       when: profile_credentials_file.stat.exists is defined and profile_credentials_file.stat.exists and presence.changed
-
   when: cwa_use_credentials
 
 - name: Deploy {{ cwa_package }} common configuration file

@@ -53,140 +53,30 @@ Is important to have a valid subscription in order to avoid dependencies package
 
 ## Role Variables
 
-```yaml
-# possible values:
-# - "{{ lookup('file', 'files/your-cloudwatch-config.json') | from_json }}" where your-cloudwatch-config.json is your custom
-#   configuration file according to docs reference.
-# - "{{ lookup('file', 'files/your-cloudwatch-config.yaml') | from_yaml }}" where your-cloudwatch-config.yaml is your custom
-#   configuration file according to docs reference.
-#
-# Also is possible to define inline configuration as YAML
-#    cwa_conf_json_file_content:
-#      metrics:
-#        append_dimensions:
-#          AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
-#          ImageId: "${!aws:ImageId}"
-#          InstanceId: "${!aws:InstanceId}"
-#          InstanceType: "${!aws:InstanceType}"
-#        metrics_collected:
-#          mem:
-#            measurement:
-#              - mem_used_percent
-#          swap:
-#            measurement:
-#              - swap_used_percent
-#
-# reference: https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
-# default value: ""
-# notes:
-# * when is empty the role deploy a custom json configuration via template
-cwa_conf_json_file_content: ""
-```
+| Variable                   | Default Value           |
+| -------------------------- | ----------------------- |
+| cwa_conf_json_file_content | "" --> Empty            |
+| cwa_agent_mode             | "ec2"                   |
+| cwa_aws_region             | "eu-west-1"             |
+| cwa_use_credentials        | false                   |
+| cwa_profile                | "AmazonCloudWatchAgent" |
+| cwa_agent_profile_path     | /root                   |
+| cwa_http_proxy             | "" --> Empty            |
+| cwa_https_proxy            | "" --> Empty            |
+| cwa_no_proxy               | "169.254.169.254"       |
+| cwa_logrotate_file_size    | "10M"                   |
+| cwa_logrotate_files        | 5                       |
 
-```yaml
-# possible values:
-# - "ec2"
-# - "onPremise"
-# default value: "ec2"
-# notes:
-# * not necessary when you deploy the agent into AWS, default value is fine.
-# * when you set the value 'onPremise' is because you installed the agent outside AWS, so is necessary to set the variables "cwa_aws_region" also
-cwa_agent_mode: "ec2"
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/general/latest/gr/rande.html
-# default value: "eu-west-1"
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_aws_region: "eu-west-1"
-```
-
-```yaml
-# possible values:
-# - true
-# - false
-# default value: false
-# notes:
-# * Set this true when use **cwa_agent_mode:** "ec2" and you are not using the EC2 Instance Role to get access to the AWS CloudWatch Logs / AWS CloudWatch Service
-cwa_use_credentials: false
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: "AmazonCloudWatchAgent"
-# notes:
-# * Only necessary when use **cwa_agent_mode:** "onPremise", you could use other profile if it is configured properly
-cwa_profile: "AmazonCloudWatchAgent"
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_access_key: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-# - https://docs.ansible.com/ansible/latest/user_guide/vault.html
-# default value: ""
-# notes:
-# * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_secret_key: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: ""
-cwa_http_proxy: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: ""
-cwa_https_proxy: ""
-```
-
-```yaml
-# possible values:
-# - https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-commandline-fleet.html
-# default value: "169.254.169.254"
-# * Always disable proxy for aws metadata ip (169.254.169.254)
-cwa_no_proxy: "169.254.169.254"
-```
-
-```yaml
-# possible values:
-# - https://linux.die.net/man/8/logrotate
-# default value: "10M"
-cwa_logrotate_file_size: "10M"
-```
-
-```yaml
-# possible values:
-# - https://linux.die.net/man/8/logrotate
-# default value: 5
-cwa_logrotate_files: 5
-```
+*More Details:* See the file [defaults/main.yaml](defaults/main.yaml)
 
 ## Dependencies
 
-None
+* In case of OS Family RedHat/Centos EPEL repository could be necessary
+* If you set `cwa_agent_mode: "onPremise"` the [AWS CLI Profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) configuration is needed
 
 ## Example Playbook
 
-### RedHat/CentOS, Ubuntu and Debian
-
-#### When cwa_agent_mode: "onPremise"
+### When cwa_agent_mode: "onPremise"
 
 ```yaml
 # You should use ansible-vault to provision it
@@ -227,7 +117,7 @@ None
                     6130613761633565616533633332376565373062396565396261
             config:
               - profile AmazonCloudWatchAgent:
-                  region: eu-west-1
+                  region: "eu-west-1"
       - role: christiangda.amazon_cloudwatch_agent
           vars:
               cwa_agent_mode: "onPremise"
@@ -236,7 +126,7 @@ None
               cwa_profile: "AmazonCloudWatchAgent"
 ```
 
-#### When cwa_agent_mode: "ec2"
+### When cwa_agent_mode: "ec2"
 
 Reading config file from JSON configuration file
 
@@ -297,12 +187,42 @@ Using INLINE YAML configuration file
 - hosts: centos7, centos6, ubuntu1804, ubuntu1810, debian8, debian9, amzn2
   become: True
   roles:
+    - role: christiangda.epel_repo # If you don't have installed EPEL Repository
+        when: >
+          ansible_os_family == 'RedHat' and (
+            ansible_distribution == 'CentOS' or
+            ansible_distribution == 'RedHat' or
+            ansible_distribution == 'Amazon'
+          )
+      - role: christiangda.awscli_configure # If you don't have configure AWS CLI Profiles
+        vars:
+          awscliconf_path: '/root'
+          awscliconf_files:
+            credentials:
+              - AmazonCloudWatchAgent:
+                  aws_access_key_id: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    30376338613338326663373366303234623665633339303338613463313564633832363237306137
+                    3362643039616631323339383332306536333962346133310a383265376665316235653261616136
+                    61306566623531356263346439633761633830323636646236373736353530396134636536666532
+                    3939636433636364310a316639366139366566623337623536346661633339343766323936346336
+                    65333035366635396138656132643262626438333961326266396466626464643766
+                  aws_secret_access_key: !vault |
+                    $ANSIBLE_VAULT;1.1;AES256
+                    65643230613939303737336632346432393234616437383532386139616364316233333933643735
+                    6633636261383163323362623562323333323533336564310a323030343431366135343035326635
+                    33623161376634643939636464306139386662303034616531346632303039643238373834616266
+                    3064623232373233610a346432646565396235316631626137653731376365333531323866626665
+                    62656638623330643539653763636364363738653932653831316238633939356462653636633463
+                    6130613761633565616533633332376565373062396565396261
+            config:
+              - profile AmazonCloudWatchAgent:
+                  region: "eu-west-1"
     - role: christiangda.amazon_cloudwatch_agent
       vars:
         cwa_agent_mode: onPremise
         cwa_aws_region: "eu-west-1"
-        cwa_access_key: "AKIAIOSFODNN7EXAMPLE"
-        cwa_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        cwa_profile: "AmazonCloudWatchAgent"
         #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
         cwa_conf_json_file_content:
           agent:
@@ -365,7 +285,7 @@ Using INLINE YAML configuration file
             force_flush_interval: 15
 ```
 
-### Amazon Linux 1/2 (my-playbook.yml)
+Minimal configuration on AWS EC2 instance
 
 ```yaml
 ---
@@ -378,7 +298,6 @@ Using INLINE YAML configuration file
     roles:
     - role: christiangda.amazon_cloudwatch_agent
         vars:
-            cwa_agent_mode: "ec2"
             cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 

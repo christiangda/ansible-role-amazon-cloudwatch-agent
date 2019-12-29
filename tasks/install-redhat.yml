@@ -8,7 +8,7 @@
     - download
     - install
 
-- name: Download {{ cwa_package }}.rpm.sig
+- name: Download {{ cwa_package }}.rpm.sig file
   get_url:
     url: "{{ cwa_package_signature }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm.sig"
@@ -19,7 +19,7 @@
     - download
     - install
 
-- name: Download {{ cwa_package }}.rpm
+- name: Download {{ cwa_package }}.rpm file
   get_url:
     url: "{{ cwa_package_url }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
