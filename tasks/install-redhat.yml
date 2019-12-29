@@ -75,6 +75,7 @@
         )
       tags:
         - install
+  when: cwa_conf_json_file_content is search("collectd")
 
 - name: Install {{ cwa_package }}.rpm on Amazon 1/2
   yum:
