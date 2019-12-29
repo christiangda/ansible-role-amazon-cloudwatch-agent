@@ -5,7 +5,7 @@ galaxy_info:
   description: Ansible Role for AWS CloudWatch Agent
   license: license GPLv3
   company: No Company
-  min_ansible_version: 2.5
+  min_ansible_version: 2.7
 
   platforms:
     - name: EL
@@ -18,10 +18,10 @@ galaxy_info:
         - all
     - name: Debian
       versions:
-        - buster
-        - jessie
         - sid
+        - buster
         - stretch
+        - jessie
     - name: Ubuntu
       version:
         - trusty

@@ -11,32 +11,32 @@ This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloud
 * Reload service when configuration is changed
 * Provide a default agent configuration file (a minimal configuration, does not recommended)
 * Rotate CloudWatch Agent Log file
-* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections***
+* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections**
 
 ## Requirements
 
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 * RedHat
-  * 6
+  * 6 (out of tests, maybe you find problems with this OS)
   * 7
   * 8
 * CentOS
-  * 6
+  * 6 (out of tests, maybe you find problems with this OS)
   * 7
   * 8
 * Amazon Linux
   * 1
   * 2
 * Ubuntu
-  * 14.04
+  * 14.04 (out of tests, maybe you find problems with this OS)
   * 16.04
   * 18.10
 * Debian
-  * buster
-  * jessie
-  * sid
-  * stretch
+  * jessie (8)
+  * stretch (9)
+  * buster (10)
+  * sid (unstable)
 
 To see the compatibility matrix of Python vs. Ansible see the project [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 

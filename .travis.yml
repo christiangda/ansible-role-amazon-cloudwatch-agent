@@ -15,10 +15,11 @@ env:
     - GITHUB_ROLE_NAME="ansible-role-amazon-cloudwatch-agent"
     - GALAXY_ROLE_NAME="christiangda.amazon_cloudwatch_agent"
   matrix:
+    - ANSIBLE_VERSION=">=2.9,<2.10"
     - ANSIBLE_VERSION=">=2.8.1,<2.9"
     - ANSIBLE_VERSION=">=2.7,<2.8"
-    - ANSIBLE_VERSION=">=2.6,<2.7"
-    - ANSIBLE_VERSION=">=2.5,<2.6"
+    #- ANSIBLE_VERSION=">=2.6,<2.7"
+    #- ANSIBLE_VERSION=">=2.5,<2.6"
 
 install:
   - pip install ansible"${ANSIBLE_VERSION}"

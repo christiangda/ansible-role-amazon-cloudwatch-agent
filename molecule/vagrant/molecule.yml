@@ -14,8 +14,8 @@ lint:
       ignore: venv
 
 platforms:
-  - name: centos-6
-    box: centos/6
+  - name: centos-8
+    box: centos/8
     memory: 512
     cpus: 1
 
@@ -23,6 +23,11 @@ platforms:
     box: centos/7
     memory: 512
     cpus: 1
+
+  # - name: centos-6
+  #   box: centos/6
+  #   memory: 512
+  #   cpus: 1
 
   - name: amazonlinux-2
     box: gbailey/amzn2
@@ -34,13 +39,13 @@ platforms:
     memory: 512
     cpus: 1
 
-  - name: debian-8
-    box: debian/jessie64
+  - name: debian-9
+    box: debian/stretch64
     memory: 512
     cpus: 1
 
-  - name: debian-9
-    box: debian/stretch64
+  - name: debian-8
+    box: debian/jessie64
     memory: 512
     cpus: 1
 
