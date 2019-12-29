@@ -365,7 +365,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
-pip install molecule">=2.22rc1"
+pip install molecule
 pip install molecule[vagrant]
 pip install selinux
 pip install docker
