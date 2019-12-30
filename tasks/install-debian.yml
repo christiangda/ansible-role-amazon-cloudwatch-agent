@@ -64,5 +64,6 @@
   apt:
     deb: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - install
