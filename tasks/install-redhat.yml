@@ -89,6 +89,7 @@
   when: >
     ansible_os_family == 'RedHat' and
     ansible_distribution == 'Amazon'
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - install
 
@@ -109,6 +110,7 @@
       ansible_distribution_major_version == '7' or
       ansible_distribution_major_version == '6'
     )
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - install
 
@@ -127,5 +129,6 @@
       ansible_distribution == 'RedHat'
     ) and
     ansible_distribution_major_version == '8'
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - install
