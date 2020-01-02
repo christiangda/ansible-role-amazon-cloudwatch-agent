@@ -7,59 +7,58 @@ This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloud
 
 **Features:**
 
-* Works on "AWS EC2 instances"/"On-Premise Instances"
+* Works on [AWS EC2 instances](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-EC2-Instance-fleet.html)/[On-Premise Instances](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-premise.html)
 * Support different versions of Python, Ansible and Operating Systems (see the [Continuos integration matrix for details](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent))
 * Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
-* Provide a default agent configuration file (a minimal configuration, does not recommended)
+* Provides a default [agent configuration](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) file (a minimal configuration, It is not recommended)
 * Rotate CloudWatch Agent Log file
-* **Allow you to load you own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) or YAML file or INLINE configuration for agent, metrics and logs sections**
+* **Allow you to load your own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) / YAML file or INLINE configuration for agent, metrics and logs sections**
 
-**NOTES:**
+**Notes:**
 
-* The version 2.x.y is not compatible with version 1.x.y
-* Since version 2.x.y this role no longer installs [EPEL Repository](https://fedoraproject.org/wiki/EPEL) by default, now you need to take care of this, I recommend my role [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) instead
-* Since version 2.x.y this role no longer creates [AWS CLI profile (config and credentials)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), now you need to take care of this, I recommend my roles [christiangda.awscli](https://galaxy.ansible.com/christiangda/awscli) and [christiangda.awscli_configure](https://galaxy.ansible.com/christiangda/awscli_configure) instead.  See examples under (when cwa_agent_mode: "onPremise")
-* Install automatically the "collectd" package when detect the use of [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) in the configuration file
+* The version **2**.x.y is not compatible with version **1**.x.y
+* Since version **2**.x.y this role no longer installs [EPEL Repository](https://fedoraproject.org/wiki/EPEL) by default, now you need to take care of this, I recommend my `ansible role` [christiangda.epel_repo](https://galaxy.ansible.com/christiangda/epel_repo) instead
+* Since version **2**.x.y this role no longer creates [AWS CLI profile (config and credentials)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), now you need to take care of this, I recommend my `ansible roles` [christiangda.awscli](https://galaxy.ansible.com/christiangda/awscli) and [christiangda.awscli_configure](https://galaxy.ansible.com/christiangda/awscli_configure) instead.  See examples under (when cwa_agent_mode: "onPremise")
+* Installs automatically the `collectd OS package` when detecting the use of [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) in the configuration file. Depending on the `OS` the `collectd package` could need [EPEL Repository](https://fedoraproject.org/wiki/EPEL)
+* **RedHat users** It is important to have a valid subscription in order to avoid dependencies packages installation problems.
 
-More details in [VERSION.md](VERSION.md) file
+More details in [VERSION.md](VERSION.md)
 
 ## Requirements
 
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 * RedHat
-  * 6 (out of tests, maybe you find problems with this OS)
+  * 6 (*)
   * 7
   * 8
 * CentOS
-  * 6 (out of tests, maybe you find problems with this OS)
+  * 6 (*)
   * 7
   * 8
 * Amazon Linux
-  * 1 (out of tests, maybe you find problems with this OS)
+  * 1 (*)
   * 2
 * Ubuntu
-  * 14.04 (out of tests, maybe you find problems with this OS)
-  * 16.04 (out of tests, maybe you find problems with this OS)
+  * 14.04 (*)
+  * 16.04 (*)
   * 18.04
   * 19.04
 * Debian
-  * jessie (8) (out of tests, maybe you find problems with this OS)
+  * jessie (8) (*)
   * stretch (9)
   * buster (10)
   * sid (unstable)
 
-To see the compatibility matrix of Python vs. Ansible see the project [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
+**(*)** Out of tests, maybe you find problems with this OS
 
-**RedHat Notes:**
-
-Is important to have a valid subscription in order to avoid dependencies packages installation problems.
+To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 
 ## Role Variables
 
 | Variable                   | Default Value           |
-| -------------------------- | ----------------------- |
+| :------------------------- | :---------------------- |
 | cwa_conf_json_file_content | "" --> Empty            |
 | cwa_agent_mode             | "ec2"                   |
 | cwa_aws_region             | "eu-west-1"             |
@@ -72,13 +71,13 @@ Is important to have a valid subscription in order to avoid dependencies package
 | cwa_logrotate_file_size    | "10M"                   |
 | cwa_logrotate_files        | 5                       |
 
-*More Details:* See the file [defaults/main.yaml](defaults/main.yaml)
+**More Details:** See the file [defaults/main.yaml](defaults/main.yaml)
 
 ## Dependencies
 
-* In case of OS Family RedHat/Centos EPEL repository could be necessary
+* In case of OS Family RedHat/Centos [EPEL Repository](https://fedoraproject.org/wiki/EPEL) could be necessary
 * If you set `cwa_agent_mode: "onPremise"` the [AWS CLI Profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) configuration is needed
-* If you [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) the package `collectd` will installed automatically
+* If you [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) the package `collectd` will installed automatically and depending of the `OS` the [EPEL Repository](https://fedoraproject.org/wiki/EPEL) could be necessary
 
 ## Example Playbook
 
@@ -100,7 +99,7 @@ Is important to have a valid subscription in order to avoid dependencies package
             ansible_distribution == 'RedHat' or
             ansible_distribution == 'Amazon'
           )
-      - role: christiangda.awscli_configure # If you don't have configure AWS CLI Profiles
+      - role: christiangda.awscli_configure # If you don't have configured AWS CLI Profiles
         vars:
           awscliconf_path: '/root'
           awscliconf_files:
@@ -124,10 +123,9 @@ Is important to have a valid subscription in order to avoid dependencies package
             config:
               - profile AmazonCloudWatchAgent:
                   region: "eu-west-1"
-      - role: christiangda.amazon_cloudwatch_agent
+      - role: christiangda.amazon_cloudwatch_agent # Using minimal agent configuration provided by the role
           vars:
               cwa_agent_mode: "onPremise"
-              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
               cwa_aws_region: "eu-west-1"
               cwa_profile: "AmazonCloudWatchAgent"
 ```
@@ -141,7 +139,7 @@ Reading config file from JSON configuration file
 - hosts: servers
     gather_facts: True
     roles:
-      - role: christiangda.amazon_cloudwatch_agent
+      - role: christiangda.amazon_cloudwatch_agent # Using a JSON file provided by you at location `files/CloudWatch.json` relative to this playbook
           vars:
               cwa_agent_mode: "ec2"
               cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
@@ -167,10 +165,9 @@ Reading config file from JSON configuration file
               - AmazonCloudWatchAgent:
                   aws_access_key_id: 'AKIAIOSFODNN7EXAMPLE'
                   aws_secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-      - role: christiangda.amazon_cloudwatch_agent
+      - role: christiangda.amazon_cloudwatch_agent # Using minimal agent configuration provided by the role
           vars:
               cwa_agent_mode: "ec2"
-              cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
 ```
 
 Reading config file from YAML configuration file
@@ -180,7 +177,7 @@ Reading config file from YAML configuration file
 - hosts: servers
     gather_facts: True
     roles:
-      - role: christiangda.amazon_cloudwatch_agent
+      - role: christiangda.amazon_cloudwatch_agent # Using a YAML file provided by you at location `files/CloudWatch.yaml` relative to this playbook
           vars:
               cwa_agent_mode: "ec2"
               cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.yaml') | from_yaml }}"
@@ -224,12 +221,11 @@ Using INLINE YAML configuration file
             config:
               - profile AmazonCloudWatchAgent:
                   region: "eu-west-1"
-    - role: christiangda.amazon_cloudwatch_agent
+    - role: christiangda.amazon_cloudwatch_agent # Using ONLINE YAML configuration for your agent
       vars:
         cwa_agent_mode: onPremise
         cwa_aws_region: "eu-west-1"
         cwa_profile: "AmazonCloudWatchAgent"
-        #cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
         cwa_conf_json_file_content:
           agent:
             metrics_collection_interval: 60
@@ -301,9 +297,7 @@ Minimal configuration on AWS EC2 instance
     become_method: sudo
     remote_user: ec2-user
     roles:
-    - role: christiangda.amazon_cloudwatch_agent
-        vars:
-            cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+    - role: christiangda.amazon_cloudwatch_agent # Assuming you are on "EC2 instance" and the default agent configuration from role
 ```
 
 Inventory file sample (inventory)
@@ -349,37 +343,6 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule
-pip install molecule[vagrant]
-pip install selinux
-pip install docker
-pip install pytest
-pip install pytest-mock
-pip install pylint
-pip install rope
-pip install autopep8
-pip install yamllint
-pip install flake8
-```
-
-* Python 2.7
-
-Dependencies (based on Fedora)
-
-```bash
-sudo dnf install redhat-rpm-config
-sudo dnf install python-devel
-sudo dnf install libselinux-python
-```
-
-```bash
-mkdir ansible-roles
-cd ansible-roles/
-
-python2.7 -m virtualenv venv
-source venv/bin/activate
-pip install pip --upgrade
-pip install ansible
-pip install molecule">=2.22rc1"
 pip install molecule[vagrant]
 pip install selinux
 pip install docker
