@@ -28,4 +28,4 @@ cwa_use_proxy: "{{ true|bool if cwa_http_proxy is defined and cwa_http_proxy|len
 cwa_use_conf_json_template: "{{ false|bool if cwa_conf_json_file_content is defined and cwa_conf_json_file_content|length > 0 else true|bool }}"
 
 # defined in defaults/main.yaml
-cwa_use_credentials: "{{ true|bool if cwa_agent_mode == 'onPremise' }}"
+cwa_use_credentials: "{{ true|bool if cwa_agent_mode == 'onPremise' else cwa_use_credentials }}"
