@@ -34,7 +34,7 @@
       when: profile_credentials_file.stat.exists is defined and profile_credentials_file.stat.exists and presence.changed
 
   ignore_errors: "{{ ansible_check_mode }}"
-  when: cwa_use_credentials
+  when: cwa_need_credentials
 
 - name: Deploy {{ cwa_package }} common configuration file
   template:
