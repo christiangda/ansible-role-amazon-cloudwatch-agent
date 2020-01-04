@@ -5,7 +5,7 @@
 ## Default credential strategy will be used if it is absent here:
 ##            Instance role is used for EC2 case by default.
 ##            AmazonCloudWatchAgent profile is used for onPremise case by default.
-{% if cwa_use_credentials %}
+{% if cwa_need_credentials %}
 [credentials]
     shared_credential_profile = "{{ cwa_profile }}"
     shared_credential_file= "{{ cwa_agent_profile_credentials_file }}"
