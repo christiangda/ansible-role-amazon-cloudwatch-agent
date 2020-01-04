@@ -348,6 +348,7 @@ pip install pip --upgrade
 pip install ansible
 pip install molecule
 pip install molecule[vagrant]
+pip install python-vagrant
 pip install selinux
 pip install docker
 pip install pytest

@@ -16,20 +16,11 @@
         ansible_distribution == 'RedHat' and
         ansible_distribution_major_version == '7'
 
-    - name: Install python for Ansible
-      raw: |
-        if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y python sudo bash ca-certificates && apt-get clean; \
-        elif [ $(command -v dnf) ] && [ $(rpm --query 'centos-release-8*' 'redhat-release-8*' | grep -v 'is not installed') ]; then dnf install -y python3 python3-devel python3-dnf python3-pip && dnf clean all && ln -s /usr/bin/python3 /usr/bin/python; \
-        elif [ $(command -v dnf) ] && ![ $(rpm --query 'centos-release-8*' 'redhat-release-8*' | grep -v 'is not installed') ]; then dnf makecache && dnf --assumeyes install python sudo python-devel python2-dnf bash && dnf clean all; \
-        elif [ $(command -v yum) ] && ![ $(rpm --query 'centos-release-8*' 'redhat-release-8*' | grep -v 'is not installed') ]; then yum makecache fast && yum install -y python sudo yum-plugin-ovl bash && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all; \
-        elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python sudo bash python-xml && zypper clean -a; \
-        elif [ $(command -v apk) ]; then apk update && apk add --no-cache python sudo bash ca-certificates; \
-        elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python sudo bash ca-certificates && xbps-remove -O; fi
-      become: true
-      changed_when: false
+    - name: Install RedHat 8 yajl package from mirror.centos.org to avoid Subscription Manager dependencies
+      dnf:
+        name: 'http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/yajl-2.1.0-10.el8.x86_64.rpm'
+        state: present
       when: >
-        ansible_os_family == 'RedHat' and (
-          ansible_distribution == 'CentOS' or
-          ansible_distribution == 'RedHat'
-        ) and
+        ansible_os_family == 'RedHat' and
+        ansible_distribution == 'RedHat' and
         ansible_distribution_major_version == '8'

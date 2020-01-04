@@ -3,6 +3,7 @@
 ## 2.0.3
 
 * Fixed variable problem reporte in issue #14 [cwa_use_credentials: false is not working for role based installation](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/issues/14)
+* Debian Family now detect automatically the installation of collectd dependency
 
 ## 2.0.2
 
