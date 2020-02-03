@@ -29,7 +29,7 @@
 
 - name: Download {{ cwa_package }}.deb file
   get_url:
-    url: "{{ cwa_package_url }}"
+    url: "{{ cwa_package_signature }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
