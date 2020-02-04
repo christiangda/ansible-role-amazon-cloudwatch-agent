@@ -18,7 +18,7 @@
 
 - name: Download {{ cwa_package }}.deb.sig file
   get_url:
-    url: "{{ cwa_package_url }}"
+    url: "{{ cwa_package_signature }}"
     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb.sig"
     timeout: "{{ cwa_global_downloads_timeout }}"
   tags:
@@ -40,7 +40,7 @@
 - name: Verify {{ cwa_package }} package signature
   command: gpg --verify {{ cwa_package }}.deb.sig {{ cwa_package }}.deb
   register: verified_sig
-  failed_when: "'BAD' in verified_sig.stderr"
+  failed_when: "'BAD' in verified_sig.stderr or 'gpg: no valid OpenPGP data found' in verified_sig.stderr"
   changed_when: false
   args:
     chdir: "{{ cwa_temp_path }}"

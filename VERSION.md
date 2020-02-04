@@ -1,5 +1,9 @@
 # VERSION Details
 
+## 2.0.4
+
+* Fixed ubuntu: fix gpg signature download #18 [ubuntu: fix gpg signature download](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/pull/18)
+
 ## 2.0.3
 
 * Fixed variable problem reporte in issue #14 [cwa_use_credentials: false is not working for role based installation](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/issues/14)
