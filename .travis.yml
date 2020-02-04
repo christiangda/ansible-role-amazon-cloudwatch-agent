@@ -1,8 +1,8 @@
 language: python
 
 python:
-  - '2.7'
-  - '3.7'
+  - "2.7"
+  - "3.7"
 services: docker
 
 branches:
@@ -23,7 +23,7 @@ env:
 
 install:
   - pip install ansible"${ANSIBLE_VERSION}"
-  - pip install molecule">=2.22rc1"
+  - pip install molecule
   - pip install docker
   - pip install flake8
   - pip install selinux
@@ -37,6 +37,7 @@ before_script:
   - ls -la
   - mv $GITHUB_ROLE_NAME $GALAXY_ROLE_NAME
   - cd $GALAXY_ROLE_NAME
+  - ls -la
 
 script:
   - molecule --version
@@ -52,7 +53,7 @@ jobs:
   include:
     - stage: GitHub Release
       python:
-        - '3.7'
+        - "3.7"
       script:
         - skip
       before_deploy:
