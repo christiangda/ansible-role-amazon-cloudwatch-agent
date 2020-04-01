@@ -57,7 +57,7 @@
   retries: "{{ cwa_global_downloads_retries }}"
   delay: "{{ cwa_global_downloads_delay }}"
   until: package_ok is success
-  when: cwa_conf_json_file_content is search("collectd")
+  when: "'collectd' in cwa_conf_json_file_content"
   tags:
     - install
 
