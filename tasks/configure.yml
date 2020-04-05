@@ -5,7 +5,7 @@
       stat:
         path: "{{ cwa_agent_profile_credentials_file }}"
       register: profile_credentials_file
-      #failed_when: not profile_credentials_file.stat.exists
+      # failed_when: not profile_credentials_file.stat.exists
 
     - name: Fails when AWS CLI profiles configuration doesn't exist
       debug:
@@ -20,9 +20,9 @@
       lineinfile:
         path: "{{ cwa_agent_profile_credentials_file }}"
         line: "[{{ cwa_profile }}]"
-      check_mode: yes
+      check_mode: true
       register: presence
-      #failed_when: presence.changed
+      # failed_when: presence.changed
       when: profile_credentials_file.stat.exists is defined and profile_credentials_file.stat.exists
 
     - name: Fails when AWS CLI profile {{ cwa_profile }} doesn't exist into file {{ cwa_agent_profile_credentials_file }}

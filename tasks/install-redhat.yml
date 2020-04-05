@@ -80,7 +80,7 @@
 - name: Install {{ cwa_package }}.rpm on Amazon 1/2
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
-    disable_gpg_check: yes
+    disable_gpg_check: true
     state: present
   register: package_ok
   retries: "{{ cwa_global_downloads_retries }}"
@@ -96,7 +96,7 @@
 - name: Install {{ cwa_package }}.rpm on ReHat/CentOS 6/7
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
-    disable_gpg_check: yes
+    disable_gpg_check: true
     state: present
   register: package_ok
   retries: "{{ cwa_global_downloads_retries }}"
@@ -117,7 +117,7 @@
 - name: Install {{ cwa_package }}.rpm on ReHat/CentOS 8
   dnf:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
-    disable_gpg_check: yes
+    disable_gpg_check: true
     state: present
   register: package_ok
   retries: "{{ cwa_global_downloads_retries }}"

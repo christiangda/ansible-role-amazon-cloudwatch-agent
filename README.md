@@ -81,7 +81,7 @@ To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI bu
 
 * In case of OS Family RedHat/Centos [EPEL Repository](https://fedoraproject.org/wiki/EPEL) could be necessary
 * If you set `cwa_agent_mode: "onPremise"` the [AWS CLI Profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) configuration is needed
-* If you [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) the package `collectd` will installed automatically and depending of the `OS` the [EPEL Repository](https://fedoraproject.org/wiki/EPEL) could be necessary
+* If you [Retrieve Custom Metrics with collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html) the package `collectd` will installed automatically and depending on the `OS` the [EPEL Repository](https://fedoraproject.org/wiki/EPEL) could be necessary
 
 ## Example Playbook
 
@@ -334,7 +334,24 @@ ansible-playbook my-playbook.yml \
 This role is tested using [Molecule](https://molecule.readthedocs.io/en/latest/) and was developed using
 [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
 
-Prepare your environment
+Also, we used to main git branch
+
+* master
+* develop
+
+If you want to contribute to this project what you want to do is
+
+* [Fork the project](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+* [Prepare your environment](#prepare-your-environment)
+* Fix the problem in `develop` branch
+* Execute `molecule test`
+* Create a Pull Request to official project `develop` branch
+
+References
+* [Fork a repo](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+* [Creating a pull request from a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+
+### Prepare your environment
 
 * Python 3
 
@@ -347,7 +364,7 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule
-pip install molecule[vagrant]
+pip install molecule-vagrant
 pip install python-vagrant
 pip install selinux
 pip install docker
@@ -358,19 +375,33 @@ pip install rope
 pip install autopep8
 pip install yamllint
 pip install flake8
+pip install ansible-lint
 ```
 
-Clone the role repository and create symbolic link
+### Clone the role repository (From your fork) and create symbolic link
 
 ```bash
-git clone https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent.git
+git clone https://github.com/<your github user>/ansible-role-amazon-cloudwatch-agent.git
 ln -s ansible-role-amazon-cloudwatch-agent christiangda.amazon_cloudwatch_agent
 cd christiangda.amazon_cloudwatch_agent
 ```
 
-Execute the test
+### Execute the molecule test
 
 Using docker in local
+
+Step by step
+
+```bash
+molecule create [--scenario-name default]
+molecule converge [--scenario-name default]
+molecule verify [--scenario-name default]
+molecule destroy [--scenario-name default]
+```
+
+or
+
+All in one
 
 ```bash
 molecule test [--scenario-name default]
@@ -378,19 +409,24 @@ molecule test [--scenario-name default]
 
 Using vagrant in local
 
+Step by step
+
 ```bash
 molecule create --scenario-name vagrant
 molecule converge --scenario-name vagrant
 molecule verify --scenario-name vagrant
+molecule destroy --scenario-name vagrant
 ```
 
 or
+
+All in one
 
 ```bash
 molecule test --scenario-name vagrant
 ```
 
-**Additionally if you want to test it using VMs, I have a very nice [ansible-playground project](https://github.com/christiangda/ansible-playground) that use Vagrant and VirtualBox, try it!.**
+**Additionally, if you want to test it using VMs, I have a very nice [ansible-playground project](https://github.com/christiangda/ansible-playground) that use Vagrant and VirtualBox, try it!.**
 
 ## License
 

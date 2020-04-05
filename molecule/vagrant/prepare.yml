@@ -9,8 +9,8 @@
         description: CentOS-7 - Base
         file: CentOS-Base.repo
         baseurl: http://mirror.centos.org/centos/7/os/$basearch/
-        enabled: yes
-        gpgcheck: no
+        enabled: true
+        gpgcheck: false
       when: >
         ansible_os_family == 'RedHat' and
         ansible_distribution == 'RedHat' and

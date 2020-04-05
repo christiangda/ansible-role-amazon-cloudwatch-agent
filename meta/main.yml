@@ -24,11 +24,11 @@ galaxy_info:
         # - jessie
     - name: Ubuntu
       version:
-        #- trusty
-        #- xenial
+        # - trusty
+        # - xenial
         - bionic
         - disco
-        #- cuttlefish
+        # - cuttlefish
 
   galaxy_tags:
     - aws
