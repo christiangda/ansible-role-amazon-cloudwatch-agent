@@ -1,5 +1,11 @@
 # VERSION Details
 
+## 2.0.5
+
+* Fix collectd search failed #23 [ubuntu: fix gpg signature download](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/pull/23)
+* Refactored to support molecule 3.x
+* Documentation improved
+
 ## 2.0.4
 
 * Fixed ubuntu: fix gpg signature download #18 [ubuntu: fix gpg signature download](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/pull/18)
