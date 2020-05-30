@@ -23,9 +23,6 @@ platforms:
   - name: ubuntu-18.04
     image: ubuntu:18.04
 
-  - name: debian-sid
-    image: debian:sid
-
   - name: debian-buster
     image: debian:buster
 
