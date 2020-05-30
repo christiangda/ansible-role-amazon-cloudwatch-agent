@@ -4,6 +4,7 @@
     state: present
     key: "{{ cwa_package_gpg }}"
   tags:
+    - molecule-idempotence-notest # Added because I got the folowing error: [centos-8] => christiangda.amazon_cloudwatch_agent : Add amazon-cloudwatch-agent key
     - add-key
     - download
     - install

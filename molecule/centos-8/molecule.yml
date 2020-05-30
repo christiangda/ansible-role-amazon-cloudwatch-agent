@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+platforms:
+  - name: centos-8
+    image: centos:8
+
+provisioner:
+  name: ansible
+  #log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: centos-8

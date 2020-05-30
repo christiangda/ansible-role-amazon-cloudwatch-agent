@@ -35,3 +35,4 @@
       vars:
         cwa_agent_mode: "onPremise"
         cwa_profile: "AmazonCloudWatchAgent"
+        cwa_aws_region: "eu-west-1"

@@ -39,11 +39,12 @@ cwa_agent_mode: "ec2"
 
 # description: AWS Region where you want the AWS CloudWatch Logs
 # possible values:
-# - https://docs.aws.amazon.com/general/latest/gr/rande.html
-# default value: "eu-west-1"
+# - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
+# default value: ""
 # notes:
 # * This is the region where the agent have access to push logs/metrics, only necessary when use **cwa_agent_mode:** "onPremise"
-cwa_aws_region: "eu-west-1"
+# * If you are inside EC2 and left the region variable blank, it will getting from metadata
+cwa_aws_region: ""
 
 # description: Define if you want to use AWS CLI Credentials or the AWS EC2 Instance Role
 # possible values:
