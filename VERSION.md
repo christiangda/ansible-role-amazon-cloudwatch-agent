@@ -2,7 +2,7 @@
 
 ## 2.0.6
 
-* Improved the use of the `cwa_aws_region` Variable, issue #24[Leaving the Region Value out of amazon-cloudwatch-agent.json #24](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/issues/24)
+* Improved the use of the `cwa_aws_region` Variable, resolve issue #24[Leaving the Region Value out of amazon-cloudwatch-agent.json #24](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/issues/24)
 * Now the variable `cwa_aws_region` is empty by default, so you need to take care to define it when are you are in OnPremise
 
 ## 2.0.5
