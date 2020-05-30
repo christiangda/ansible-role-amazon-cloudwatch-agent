@@ -8,6 +8,14 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
+    - name: Install gnupg
+      apt: 
+        name: gnupg
+        state: latest
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+
   roles:
     - role: christiangda.epel_repo
       when: >
@@ -31,3 +39,4 @@
       vars:
         cwa_agent_mode: "onPremise"
         cwa_profile: "AmazonCloudWatchAgent"
+        cwa_aws_region: "eu-west-1"

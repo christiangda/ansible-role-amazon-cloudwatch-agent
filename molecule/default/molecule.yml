@@ -2,29 +2,6 @@
 dependency:
   name: galaxy
 
-# lint:
-#   name: yamllint
-#   enabled: true
-#   options:
-#     config-data:
-#       ignore: venv
-# provisioner:
-#   name: ansible
-#   lint:
-#     name: ansible-lint
-#     options:
-#       x: ["403"]
-# verifier:
-#   name: testinfra
-#   lint:
-#     name: flake8
-
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
-  flake8
-
 driver:
   name: docker
 platforms:
@@ -43,9 +20,6 @@ platforms:
   - name: amazonlinux-2
     image: amazonlinux:2
 
-  - name: ubuntu-19.04
-    image: ubuntu:19.04
-
   - name: ubuntu-18.04
     image: ubuntu:18.04
 
@@ -57,6 +31,36 @@ platforms:
 
   - name: debian-stretch
     image: debian:stretch
+
+# lint:
+#   name: yamllint
+#   enabled: true
+#   options:
+#     config-data:
+#       ignore: venv
+# provisioner:
+#   name: ansible
+#   lint:
+#     name: ansible-lint
+#     options:
+#       x: ["403"]
+# verifier:
+#   name: testinfra
+#   lint:
+#     name: flake8
+
+# lint: |
+#   set -e
+#   yamllint .
+#   ansible-lint
+#   flake8
+
+provisioner:
+  name: ansible
+  #log: true
+
+verifier:
+  name: ansible
 
 scenario:
   name: default

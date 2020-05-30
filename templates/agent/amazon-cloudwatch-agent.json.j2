@@ -1,7 +1,9 @@
 {
     "agent": {
         "metrics_collection_interval": 60,
+        {% if cwa_aws_region is not none and cwa_aws_region|length > 0 -%}
         "region": "{{ cwa_aws_region }}",
+        {% endif -%}
         "logfile": "{{ cwa_agent_log_file }}",
         "debug": false
     },

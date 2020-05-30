@@ -48,7 +48,6 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * 14.04 (*)
   * 16.04 (*)
   * 18.04
-  * 19.04
 * Debian
   * jessie (8) (*)
   * stretch (9)
@@ -65,7 +64,7 @@ To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI bu
 | :------------------------- | :---------------------- |
 | cwa_conf_json_file_content | "" --> Empty            |
 | cwa_agent_mode             | "ec2"                   |
-| cwa_aws_region             | "eu-west-1"             |
+| cwa_aws_region             | ""                      |
 | cwa_use_credentials        | false                   |
 | cwa_profile                | "AmazonCloudWatchAgent" |
 | cwa_agent_profile_path     | /root                   |
@@ -348,6 +347,7 @@ If you want to contribute to this project what you want to do is
 * Create a Pull Request to official project `develop` branch
 
 References
+
 * [Fork a repo](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
 * [Creating a pull request from a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 
@@ -364,6 +364,8 @@ source venv/bin/activate
 pip install pip --upgrade
 pip install ansible
 pip install molecule
+pip install 'molecule[docker]'
+pip install 'molecule[lint]'
 pip install molecule-vagrant
 pip install python-vagrant
 pip install selinux
