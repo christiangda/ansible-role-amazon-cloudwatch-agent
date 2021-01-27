@@ -264,10 +264,10 @@ Using INLINE YAML configuration file
                   - sleeping
                   - dead
             append_dimensions:
-              ImageId: "${!aws:ImageId}"
-              InstanceId: "${!aws:InstanceId}"
-              InstanceType: "${!aws:InstanceType}"
-              AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
+              ImageId: "${aws:ImageId}"
+              InstanceId: "${aws:InstanceId}"
+              InstanceType: "${aws:InstanceType}"
+              AutoScalingGroupName: "${aws:AutoScalingGroupName}"
             aggregation_dimensions:
               - - AutoScalingGroupName
               - - InstanceId
