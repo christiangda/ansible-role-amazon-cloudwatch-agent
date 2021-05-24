@@ -8,6 +8,13 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
+    - name: Install gnupg
+      apt:
+        name: gnupg
+        state: latest
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
   tasks:
     - name: "Include christiangda.epel_repo"
       include_role:
