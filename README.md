@@ -365,6 +365,7 @@ pip install pip --upgrade
 pip install ansible
 pip install molecule
 pip install 'molecule[docker]'
+pip install 'molecule[podman]'
 pip install 'molecule[lint]'
 pip install molecule-vagrant
 pip install python-vagrant
