@@ -9,3 +9,8 @@ rules:
     max-spaces-inside: 1
     level: error
   line-length: disable
+
+ignore: |
+  .travis.yml
+  .ansible-lint
+  .yamllint

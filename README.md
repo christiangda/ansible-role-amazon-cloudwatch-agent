@@ -390,7 +390,12 @@ cd christiangda.amazon_cloudwatch_agent
 
 ### Execute the molecule test
 
-Using docker in local
+Scenearios availables:
+* default --> `--driver-name docker`
+* podman --> `--driver-name podman`
+* vagrant --> `--driver-name vagrant`
+
+#### scenario default
 
 Step by step
 
@@ -409,7 +414,26 @@ All in one
 molecule test [--scenario-name default]
 ```
 
-Using vagrant in local
+#### scenario podman
+
+Step by step
+
+```bash
+molecule create --scenario-name podman
+molecule converge --scenario-name podman
+molecule verify --scenario-name podman
+molecule destroy --scenario-name podman
+```
+
+or
+
+All in one
+
+```bash
+molecule test --scenario-name podman
+```
+
+#### scenario vagrant
 
 Step by step
 

@@ -9,7 +9,7 @@ driver:
 
 provisioner:
   name: ansible
-  #log: true
+  # log: true
 
 verifier:
   name: ansible
@@ -28,23 +28,26 @@ platforms:
     box: centos/8
     memory: 512
     cpus: 1
-  # - name: centos-7
-  #   box: centos/7
-  #   memory: 512
-  #   cpus: 1
-  # - name: amazonlinux-2
-  #   box: gbailey/amzn2
-  #   memory: 512
-  #   cpus: 1
-  # - name: ubuntu-18.04
-  #   box: ubuntu/bionic64
-  #   memory: 512
-  #   cpus: 1
-  # - name: debian-10
-  #   box: debian/buster64
-  #   memory: 512
-  #   cpus: 1
-  # - name: debian-9
-  #   box: debian/stretch64
-  #   memory: 512
-  #   cpus: 1
+  - name: ubuntu-20.04
+    box: generic/ubuntu2004
+    memory: 512
+# - name: centos-7
+#   box: centos/7
+#   memory: 512
+#   cpus: 1
+# - name: amazonlinux-2
+#   box: gbailey/amzn2
+#   memory: 512
+#   cpus: 1
+# - name: ubuntu-18.04
+#   box: ubuntu/bionic64
+#   memory: 512
+#   cpus: 1
+# - name: debian-10
+#   box: debian/buster64
+#   memory: 512
+#   cpus: 1
+# - name: debian-9
+#   box: debian/stretch64
+#   memory: 512
+#   cpus: 1

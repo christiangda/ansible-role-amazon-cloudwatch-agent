@@ -1,16 +1,16 @@
 ---
 galaxy_info:
   role_name: amazon_cloudwatch_agent
+  namespace: christiangda
   author: Christian González Di Antonio
   description: Ansible Role for AWS CloudWatch Agent
   license: license GPLv3
   company: No Company
-  min_ansible_version: 2.7
+  min_ansible_version: 2.9
 
   platforms:
     - name: EL
       versions:
-        # - 6
         - 7
         - 8
     - name: Amazon
@@ -21,14 +21,10 @@ galaxy_info:
         - sid
         - buster
         - stretch
-        # - jessie
     - name: Ubuntu
       version:
-        # - trusty
-        # - xenial
         - bionic
         - disco
-        # - cuttlefish
 
   galaxy_tags:
     - aws

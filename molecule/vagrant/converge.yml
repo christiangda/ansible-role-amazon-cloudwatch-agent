@@ -21,10 +21,6 @@
       include_role:
         name: christiangda.awscli_configure
 
-    - name: "Include christiangda.awscli_configure"
-      include_role:
-        name: christiangda.awscli_configure
-
   roles:
     - role: christiangda.epel_repo
       when: >

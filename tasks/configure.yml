@@ -5,8 +5,8 @@
       stat:
         path: "{{ cwa_agent_profile_credentials_file }}"
       register: profile_credentials_file
-      # failed_when: not profile_credentials_file.stat.exists
 
+      # failed_when: not profile_credentials_file.stat.exists
     - name: Fails when AWS CLI profiles configuration doesn't exist
       debug:
         msg: >
@@ -40,6 +40,7 @@
   template:
     src: agent/common-config.toml.j2
     dest: "{{ cwa_common_config_file }}"
+    mode: 0644
     force: true
   notify: Reload {{ cwa_package }}
 
@@ -47,6 +48,7 @@
   template:
     src: logrotate/aws-cwa.j2
     dest: "{{ cwa_logrotate_config_file }}"
+    mode: 0644
     force: true
   notify: Reload {{ cwa_logrotate_daemon }}
 
@@ -55,6 +57,7 @@
   template:
     src: agent/amazon-cloudwatch-agent.json.j2
     dest: "{{ cwa_agent_config_file }}"
+    mode: 0644
     force: true
   notify: Reload {{ cwa_package }}
   when: cwa_use_conf_json_template
@@ -64,5 +67,6 @@
   copy:
     content: "{{ cwa_conf_json_file_content | to_nice_json }}"
     dest: "{{ cwa_agent_config_file }}"
+    mode: 0644
   notify: Reload {{ cwa_package }}
   when: not cwa_use_conf_json_template
