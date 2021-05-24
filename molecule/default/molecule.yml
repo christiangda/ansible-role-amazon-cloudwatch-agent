@@ -24,6 +24,5 @@ platforms:
 
   - name: amazonlinux-2
     image: public.ecr.aws/amazonlinux/amazonlinux:2
-
-  - name: ubuntu-20.04
-    image: public.ecr.aws/ubuntu/ubuntu:20.04
+  # - name: ubuntu-20.04
+  #   image: public.ecr.aws/ubuntu/ubuntu:20.04
