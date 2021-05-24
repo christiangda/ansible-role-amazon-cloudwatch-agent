@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 
 driver:
-  name: docker
+  name: podman
 
 provisioner:
   name: ansible
@@ -13,7 +13,7 @@ verifier:
   name: ansible
 
 scenario:
-  name: default
+  name: podman
 
 platforms:
   - name: redhat-8
@@ -30,6 +30,9 @@ platforms:
 
   - name: amazonlinux-2
     image: amazonlinux:2
+
+  - name: ubuntu-18.04
+    image: ubuntu:18.04
 
   - name: ubuntu-20.04
     image: ubuntu:20.04

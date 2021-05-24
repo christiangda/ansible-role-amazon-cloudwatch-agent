@@ -5,7 +5,7 @@
 
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-The best wayt to install this role is using the command `ansible-galaxy install christiangda.amazon_cloudwatch_agent`, the Ansible Galaxy repository is [christiangda.amazon_cloudwatch_agent](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
+The best way to install this role is using the command `ansible-galaxy install christiangda.amazon_cloudwatch_agent`, the Ansible Galaxy repository is [christiangda.amazon_cloudwatch_agent](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
 
 The repository code is [https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent)
 
@@ -390,7 +390,12 @@ cd christiangda.amazon_cloudwatch_agent
 
 ### Execute the molecule test
 
-Using docker in local
+Scenearios availables:
+* default --> `--driver-name docker`
+* podman --> `--driver-name podman`
+* vagrant --> `--driver-name vagrant`
+
+#### scenario default
 
 Step by step
 
@@ -409,7 +414,26 @@ All in one
 molecule test [--scenario-name default]
 ```
 
-Using vagrant in local
+#### scenario podman
+
+Step by step
+
+```bash
+molecule create --scenario-name podman
+molecule converge --scenario-name podman
+molecule verify --scenario-name podman
+molecule destroy --scenario-name podman
+```
+
+or
+
+All in one
+
+```bash
+molecule test --scenario-name podman
+```
+
+#### scenario vagrant
 
 Step by step
 

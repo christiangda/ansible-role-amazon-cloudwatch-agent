@@ -2,8 +2,7 @@
 language: python
 
 python:
-  - "2.7"
-  - "3.8"
+  - "3.9"
 services: docker
 
 branches:
@@ -16,16 +15,14 @@ env:
     - GITHUB_ROLE_NAME="ansible-role-amazon-cloudwatch-agent"
     - GALAXY_ROLE_NAME="christiangda.amazon_cloudwatch_agent"
   matrix:
+    - ANSIBLE_VERSION=">=2.10,<2.11"
     - ANSIBLE_VERSION=">=2.9,<2.10"
-    - ANSIBLE_VERSION=">=2.8.1,<2.9"
-    # - ANSIBLE_VERSION=">=2.7,<2.8"
-    # - ANSIBLE_VERSION=">=2.6,<2.7"
-    # - ANSIBLE_VERSION=">=2.5,<2.6"
 
 install:
   - pip install ansible"${ANSIBLE_VERSION}"
   - pip install molecule
   - pip install docker
+  - pip install 'molecule[docker]'
   - pip install flake8
   - pip install selinux
   - pip install docker

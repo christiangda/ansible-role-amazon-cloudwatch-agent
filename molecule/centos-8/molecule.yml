@@ -10,7 +10,7 @@ platforms:
 
 provisioner:
   name: ansible
-  #log: true
+  # log: true
 
 verifier:
   name: ansible
