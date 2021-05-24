@@ -15,7 +15,6 @@ env:
     - GITHUB_ROLE_NAME="ansible-role-amazon-cloudwatch-agent"
     - GALAXY_ROLE_NAME="christiangda.amazon_cloudwatch_agent"
   matrix:
-    - ANSIBLE_VERSION=">=2.11,<2.12"
     - ANSIBLE_VERSION=">=2.10,<2.11"
     - ANSIBLE_VERSION=">=2.9,<2.10"
 
