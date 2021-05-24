@@ -34,27 +34,19 @@ More details in [VERSION.md](VERSION.md)
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 * RedHat
-  * 6 (*)
   * 7
   * 8
 * CentOS
-  * 6 (*)
   * 7
   * 8
 * Amazon Linux
-  * 1 (*)
   * 2
 * Ubuntu
-  * 14.04 (*)
-  * 16.04 (*)
   * 18.04
+  * 20-04
 * Debian
-  * jessie (8) (*)
-  * stretch (9)
   * buster (10)
   * sid (unstable)
-
-**(*)** Out of tests, maybe you find problems with this OS
 
 To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 
