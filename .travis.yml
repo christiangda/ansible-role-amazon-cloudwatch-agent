@@ -52,7 +52,7 @@ jobs:
   include:
     - stage: GitHub Release
       python:
-        - "3.7"
+        - "3.9"
       script:
         - skip
       before_deploy:
