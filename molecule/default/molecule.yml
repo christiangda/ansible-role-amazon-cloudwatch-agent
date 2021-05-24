@@ -4,6 +4,17 @@ dependency:
 
 driver:
   name: docker
+
+provisioner:
+  name: ansible
+  #log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: default
+
 platforms:
   - name: redhat-8
     image: registry.access.redhat.com/ubi8/ubi
@@ -28,36 +39,3 @@ platforms:
 
   - name: debian-stretch
     image: debian:stretch
-
-# lint:
-#   name: yamllint
-#   enabled: true
-#   options:
-#     config-data:
-#       ignore: venv
-# provisioner:
-#   name: ansible
-#   lint:
-#     name: ansible-lint
-#     options:
-#       x: ["403"]
-# verifier:
-#   name: testinfra
-#   lint:
-#     name: flake8
-
-# lint: |
-#   set -e
-#   yamllint .
-#   ansible-lint
-#   flake8
-
-provisioner:
-  name: ansible
-  #log: true
-
-verifier:
-  name: ansible
-
-scenario:
-  name: default

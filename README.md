@@ -5,7 +5,7 @@
 
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
 
-The best wayt to install this role is using the command `ansible-galaxy install christiangda.amazon_cloudwatch_agent`, the Ansible Galaxy repository is [christiangda.amazon_cloudwatch_agent](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
+The best way to install this role is using the command `ansible-galaxy install christiangda.amazon_cloudwatch_agent`, the Ansible Galaxy repository is [christiangda.amazon_cloudwatch_agent](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
 
 The repository code is [https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent)
 

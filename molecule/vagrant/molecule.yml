@@ -2,22 +2,20 @@
 dependency:
   name: galaxy
 
-# lint:
-#   name: yamllint
-#   enabled: true
-#   options:
-#     config-data:
-#       ignore: venv
-# provisioner:
-#   name: ansible
-#   lint:
-#     name: ansible-lint
-#     options:
-#       x: ["403"]
-# verifier:
-#   name: testinfra
-#   lint:
-#     name: flake8
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+provisioner:
+  name: ansible
+  #log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: vagrant
 
 lint: |
   set -e
@@ -25,40 +23,28 @@ lint: |
   ansible-lint
   flake8
 
-driver:
-  name: vagrant
-  provider:
-    name: virtualbox
 platforms:
   - name: centos-8
     box: centos/8
     memory: 512
     cpus: 1
-
-  - name: centos-7
-    box: centos/7
-    memory: 512
-    cpus: 1
-
-  - name: amazonlinux-2
-    box: gbailey/amzn2
-    memory: 512
-    cpus: 1
-
-  - name: ubuntu-18.04
-    box: ubuntu/bionic64
-    memory: 512
-    cpus: 1
-
-  - name: debian-10
-    box: debian/buster64
-    memory: 512
-    cpus: 1
-
-  - name: debian-9
-    box: debian/stretch64
-    memory: 512
-    cpus: 1
-
-scenario:
-  name: vagrant
+  # - name: centos-7
+  #   box: centos/7
+  #   memory: 512
+  #   cpus: 1
+  # - name: amazonlinux-2
+  #   box: gbailey/amzn2
+  #   memory: 512
+  #   cpus: 1
+  # - name: ubuntu-18.04
+  #   box: ubuntu/bionic64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-10
+  #   box: debian/buster64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-9
+  #   box: debian/stretch64
+  #   memory: 512
+  #   cpus: 1

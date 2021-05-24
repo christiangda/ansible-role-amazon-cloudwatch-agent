@@ -2,6 +2,19 @@
 - name: Converge
   hosts: all
 
+  tasks:
+    - name: "Include christiangda.epel_repo"
+      include_role:
+        name: christiangda.epel_repo
+
+    - name: "Include christiangda.awscli_configure"
+      include_role:
+        name: christiangda.awscli_configure
+
+    - name: "Include christiangda.awscli_configure"
+      include_role:
+        name: christiangda.awscli_configure
+
   roles:
     - role: christiangda.epel_repo
       when: >
@@ -12,12 +25,12 @@
         )
     - role: christiangda.awscli_configure
       vars:
-        awscliconf_path: '/root'
+        awscliconf_path: "/root"
         awscliconf_files:
           credentials:
             - AmazonCloudWatchAgent:
-                aws_access_key_id: 'AKIAIOSFODNN7EXAMPLE'
-                aws_secret_access_key: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+                aws_access_key_id: "AKIAIOSFODNN7EXAMPLE"
+                aws_secret_access_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
           config:
             - profile AmazonCloudWatchAgent:
                 region: eu-west-1
