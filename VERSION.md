@@ -1,5 +1,12 @@
 # VERSION Details
 
+## 2.0.7
+
+* improved molecule configuration
+* added new molecule scenario for podman
+* improved ansible permissions for files created by templates or copy module
+* updated travis-ci configuration to support latest version of ansible
+
 ## 2.0.6
 
 * Improved the use of the `cwa_aws_region` Variable, resolve issue #24[Leaving the Region Value out of amazon-cloudwatch-agent.json #24](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/issues/24)
