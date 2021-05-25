@@ -375,6 +375,8 @@ pip install ansible-lint
 
 ### Clone the role repository (From your fork) and create symbolic link
 
+NOTE:  Fork the main repository first
+
 ```bash
 git clone https://github.com/<your github user>/ansible-role-amazon-cloudwatch-agent.git
 ln -s ansible-role-amazon-cloudwatch-agent christiangda.amazon_cloudwatch_agent
