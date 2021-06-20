@@ -393,7 +393,8 @@ cd christiangda.amazon_cloudwatch_agent
 
 ### Execute the molecule test
 
-Scenearios availables:
+Scenarios available:
+
 * default --> `--driver-name docker`
 * podman --> `--driver-name podman`
 * vagrant --> `--driver-name vagrant`
