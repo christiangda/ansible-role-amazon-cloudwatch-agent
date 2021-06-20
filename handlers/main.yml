@@ -6,6 +6,7 @@
     - ansible_virtualization_type != "lxc"
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "podman"
+    - ansible_virtualization_type != "container"
     - ansible_virtualization_type != "containerd"
     - ansible_virtualization_type != "openvz"
   tags:
@@ -17,6 +18,7 @@
     - ansible_virtualization_type != "lxc"
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "podman"
+    - ansible_virtualization_type != "container"
     - ansible_virtualization_type != "containerd"
     - ansible_virtualization_type != "openvz"
   tags:
