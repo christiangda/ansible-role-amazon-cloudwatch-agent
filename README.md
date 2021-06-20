@@ -266,10 +266,10 @@ Using INLINE YAML configuration file
                   - sleeping
                   - dead
             append_dimensions:
-              ImageId: "${!aws:ImageId}"
-              InstanceId: "${!aws:InstanceId}"
-              InstanceType: "${!aws:InstanceType}"
-              AutoScalingGroupName: "${!aws:AutoScalingGroupName}"
+              ImageId: "${aws:ImageId}"
+              InstanceId: "${aws:InstanceId}"
+              InstanceType: "${aws:InstanceType}"
+              AutoScalingGroupName: "${aws:AutoScalingGroupName}"
             aggregation_dimensions:
               - - AutoScalingGroupName
               - - InstanceId
@@ -367,6 +367,7 @@ pip install pip --upgrade
 pip install ansible
 pip install molecule
 pip install 'molecule[docker]'
+pip install 'molecule[podman]'
 pip install 'molecule[lint]'
 pip install molecule-vagrant
 pip install python-vagrant

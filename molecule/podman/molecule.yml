@@ -23,22 +23,20 @@ platforms:
     image: registry.access.redhat.com/ubi7/ubi
 
   - name: centos-8
-    image: centos:8
+    image: public.ecr.aws/ukfast-shared-public/centos:8
 
   - name: centos-7
-    image: centos:7
+    image: public.ecr.aws/ukfast-shared-public/centos:7
 
   - name: amazonlinux-2
-    image: amazonlinux:2
+    image: public.ecr.aws/amazonlinux/amazonlinux:2
 
   - name: ubuntu-18.04
-    image: ubuntu:18.04
+    image: public.ecr.aws/ubuntu/ubuntu:18.04
 
   - name: ubuntu-20.04
-    image: ubuntu:20.04
-
-  - name: debian-buster
-    image: debian:buster
-
-  - name: debian-stretch
-    image: debian:stretch
+    image: public.ecr.aws/ubuntu/ubuntu:20.04
+# - name: debian-buster
+#   image: debian:buster
+# - name: debian-stretch
+#   image: debian:stretch

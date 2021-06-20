@@ -2,17 +2,23 @@
 - name: Reload {{ cwa_package }}
   command: "{{ cwa_agent_ctl }} -a fetch-config -m {{ cwa_agent_mode }} -c file:{{ cwa_agent_config_file }} -s"
   notify: Leave a copy of configuration
-  when: >
-    ansible_virtualization_type != "docker" or
-    ansible_virtualization_type != "podman"
+  when:
+    - ansible_virtualization_type != "lxc"
+    - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "podman"
+    - ansible_virtualization_type != "container"
+    - ansible_virtualization_type != "openvz"
   tags:
     - reload
 
 - name: Reload {{ cwa_logrotate_daemon }}
   command: "{{ cwa_logrotate_daemon }} -d {{ cwa_logrotate_config_file }}"
-  when: >
-    ansible_virtualization_type != "docker" or
-    ansible_virtualization_type != "podman"
+  when:
+    - ansible_virtualization_type != "lxc"
+    - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "podman"
+    - ansible_virtualization_type != "container"
+    - ansible_virtualization_type != "openvz"
   tags:
     - reload
 
