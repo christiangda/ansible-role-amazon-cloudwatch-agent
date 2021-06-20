@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        #python: [2.7, 3.9]
         python: [3.9]
         #ansible: ["~=2.9", "~=3.4", "~=4.1"]
         ansible: ["~=4.1"]
