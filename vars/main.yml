@@ -14,7 +14,6 @@ cwa_logrotate_daemon: logrotate
 
 cwa_dependencies_packages:
   - collectd
-  - gpg
 
 cwa_global_downloads_timeout: 240
 cwa_global_downloads_retries: 5
