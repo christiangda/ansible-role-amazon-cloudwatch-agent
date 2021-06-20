@@ -17,12 +17,6 @@ verifier:
 scenario:
   name: vagrant
 
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
-  flake8
-
 platforms:
   - name: centos-8
     box: centos/8

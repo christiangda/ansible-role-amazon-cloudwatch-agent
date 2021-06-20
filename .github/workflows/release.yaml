@@ -1,0 +1,81 @@
+---
+name: Develop branch workflow
+
+on:
+  push:
+    tags:
+      - "*"
+    paths-ignore:
+      - "**.md"
+
+env:
+  ROLE_NAME: christiangda.amazon_cloudwatch_agent
+  GALAXY_ROLE_NAME: amazon_cloudwatch_agent
+
+defaults:
+  run:
+    working-directory: "christiangda.amazon_cloudwatch_agent"
+
+jobs:
+  release:
+    name: "Python ${{ matrix.python }} - Ansible ${{ matrix.ansible }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.9]
+        ansible: ["~=4.1"]
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.ROLE_NAME }}
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python: ${{ matrix.python }}
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install ansible ${{ matrix.ansible }} and dependencies
+        env:
+          ANSIBLE_VERSION: ${{ matrix.ansible }}
+        run: |
+          pip install ansible"$ANSIBLE_VERSION"
+
+      - name: Show versions
+        run: |
+          ansible --version
+          python -VV
+
+      - name: Submit Ansible Galaxy Release
+        run: |
+          ansible-galaxy role import \
+            --api-key ${{ secrets.ANSIBLE_GALAXY_API_KEY }} \
+            --role-name $GALAXY_ROLE_NAME \
+            --branch master \
+            ${{ github.repository_owner }} $GALAXY_ROLE_NAME
+
+  create_github_release:
+    name: Create Github Release
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Release
+        id: create_github_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            See the file: CHANGELOG.md
+          draft: false
+          prerelease: false

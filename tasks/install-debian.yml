@@ -6,6 +6,18 @@
   tags:
     - update-cache
 
+- name: Install gpg dependencies on Debian Family
+  apt:
+    name: "{{ cwa_gpg_dependencies_packages }}"
+    state: present
+    force: true
+  register: package_ok
+  retries: "{{ cwa_global_downloads_retries }}"
+  delay: "{{ cwa_global_downloads_delay }}"
+  until: package_ok is success
+  tags:
+    - install
+
 - name: Add {{ cwa_package }} key
   apt_key:
     id: "{{ cwa_package_gpg_id }}"

@@ -16,13 +16,5 @@ scenario:
   name: default
 
 platforms:
-  - name: redhat-8
-    image: registry.access.redhat.com/ubi8/ubi
-
   - name: centos-8
-    image: public.ecr.aws/ukfast-shared-public/centos:8
-
-  - name: amazonlinux-2
-    image: public.ecr.aws/amazonlinux/amazonlinux:2
-  # - name: ubuntu-20.04
-  #   image: public.ecr.aws/ubuntu/ubuntu:20.04
+    image: centos:8
