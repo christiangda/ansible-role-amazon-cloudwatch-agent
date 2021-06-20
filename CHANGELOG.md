@@ -1,11 +1,12 @@
-# VERSION Details
+# CHANGELOG Details
 
 ## 2.0.7
 
 * improved molecule configuration
 * added new molecule scenario for podman
 * improved ansible permissions for files created by templates or copy module
-* updated travis-ci configuration to support latest version of ansible
+* implemented github actions
+* updated OS versions supported and tested
 
 ## 2.0.6
 

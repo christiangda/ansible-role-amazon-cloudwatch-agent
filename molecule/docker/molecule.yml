@@ -1,0 +1,50 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+provisioner:
+  name: ansible
+  # log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: docker
+
+platforms:
+  - name: redhat-8
+    image: registry.access.redhat.com/ubi8/ubi
+
+  # - name: redhat-7
+  #   image: registry.access.redhat.com/ubi7/ubi
+
+  - name: centos-8
+    image: centos:8
+
+  - name: centos-7
+    image: centos:7
+
+  - name: ubuntu-18.04
+    image: ubuntu:18.04
+
+  - name: ubuntu-20.04
+    image: ubuntu:20.04
+
+  - name: ubuntu-21.04
+    image: ubuntu:21.04
+
+    # 9
+  - name: debian-stretch
+    image: debian:stretch
+
+    # 10
+  - name: debian-buster
+    image: debian:buster
+
+    # 11
+  - name: debian-bullseye
+    image: debian:bullseye

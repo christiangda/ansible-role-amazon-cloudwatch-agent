@@ -1,6 +1,7 @@
 # Ansible Role: christiangda.amazon_cloudwatch_agent
 
-[![Build Status](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
+[![Master branch workflow](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/actions/workflows/master.yaml/badge.svg?branch=master)](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/actions/workflows/master.yaml)
+[![Develop branch workflow](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/actions/workflows/develop.yaml/badge.svg?branch=develop)](https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent/actions/workflows/develop.yaml)
 [![Ansible Role](https://img.shields.io/ansible/role/39191.svg)](https://galaxy.ansible.com/christiangda/amazon_cloudwatch_agent)
 
 This role [Install AWS CloudWatch Agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html)
@@ -12,7 +13,7 @@ The repository code is [https://github.com/christiangda/ansible-role-amazon-clou
 **Features:**
 
 * Works on [AWS EC2 instances](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-EC2-Instance-fleet.html)/[On-Premise Instances](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-premise.html)
-* Support different versions of Python, Ansible and Operating Systems (see the [Continuos integration matrix for details](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent))
+* Support different versions of Python, Ansible and Operating Systems (see the [Continuous integration matrix for details](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent))
 * Downloads and installs CloudWatch Agent from [AWS distribution package](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html)
 * Reload service when configuration is changed
 * Provides a default [agent configuration](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) file (a minimal configuration, It is not recommended)
@@ -34,7 +35,6 @@ More details in [VERSION.md](VERSION.md)
 This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 
 * RedHat
-  * 6 (*)
   * 7
   * 8
 * CentOS
@@ -47,12 +47,14 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 * Ubuntu
   * 14.04 (*)
   * 16.04 (*)
-  * 18.04
+  * 18.*
+  * 20.*
+  * 21.*
 * Debian
   * jessie (8) (*)
   * stretch (9)
   * buster (10)
-  * sid (unstable)
+  * bullseye (11)
 
 **(*)** Out of tests, maybe you find problems with this OS
 

@@ -1,0 +1,75 @@
+---
+name: Master branch workflow
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "**.md"
+
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - "**.md"
+
+env:
+  GALAXY_ROLE_NAME: christiangda.amazon_cloudwatch_agent
+
+defaults:
+  run:
+    working-directory: "christiangda.amazon_cloudwatch_agent"
+
+jobs:
+  test:
+    name: "Python ${{ matrix.python }} - Ansible ${{ matrix.ansible }} - OS ${{ matrix.scenario }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.9]
+        ansible: ["~=4.1"]
+        scenario: ["centos-8"]
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.GALAXY_ROLE_NAME }}
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python: ${{ matrix.python }}
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install ansible ${{ matrix.ansible }} and dependencies
+        env:
+          ANSIBLE_VERSION: ${{ matrix.ansible }}
+        run: |
+          pip install ansible"$ANSIBLE_VERSION"
+          pip install molecule
+          pip install docker
+          pip install 'molecule[docker]'
+          pip install flake8
+          pip install selinux
+          pip install docker
+          pip install pylint
+          pip install rope
+          pip install ansible-lint
+
+      - name: Show versions
+        run: |
+          flake8 --version
+          molecule --version
+          ansible --version
+          python -VV
+
+      - name: Run molecule on ${{ matrix.scenario }}
+        env:
+          SCENARIO: ${{ matrix.scenario }}
+        run: |
+          molecule test --scenario-name $SCENARIO

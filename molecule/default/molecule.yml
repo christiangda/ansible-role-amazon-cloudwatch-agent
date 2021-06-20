@@ -16,26 +16,5 @@ scenario:
   name: default
 
 platforms:
-  - name: redhat-8
-    image: registry.access.redhat.com/ubi8/ubi
-
-  - name: redhat-7
-    image: registry.access.redhat.com/ubi7/ubi
-
   - name: centos-8
     image: centos:8
-
-  - name: centos-7
-    image: centos:7
-
-  - name: amazonlinux-2
-    image: amazonlinux:2
-
-  - name: ubuntu-20.04
-    image: ubuntu:20.04
-
-  - name: debian-buster
-    image: debian:buster
-
-  - name: debian-stretch
-    image: debian:stretch

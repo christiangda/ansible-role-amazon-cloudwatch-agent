@@ -13,8 +13,8 @@ verifier:
   name: ansible
 
 scenario:
-  name: centos-8
+  name: centos-7
 
 platforms:
-  - name: centos-8
-    image: centos:8
+  - name: centos-7
+    image: centos:7

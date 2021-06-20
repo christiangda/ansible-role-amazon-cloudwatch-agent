@@ -4,6 +4,7 @@ galaxy_info:
   namespace: christiangda
   author: Christian González Di Antonio
   description: Ansible Role for AWS CloudWatch Agent
+  issue_tracker_url: https://github.com/christiangda/ansible-role-amazon-cloudwatch-agent
   license: license GPLv3
   company: No Company
   min_ansible_version: 2.9
@@ -21,10 +22,13 @@ galaxy_info:
         - sid
         - buster
         - stretch
+        - buster
+        - bullseye
     - name: Ubuntu
       version:
         - bionic
-        - disco
+        - focal
+        - hirsute
 
   galaxy_tags:
     - aws
