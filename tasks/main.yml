@@ -13,6 +13,10 @@
 # - name: check ansible_virtualization_type
 #   debug: msg="ansible_virtualization_type = {{ ansible_virtualization_type }}"
 
+- name: Set AWS architecture name
+  set_fact:
+    cwa_arch_name: "{{ cwa_arch_names.get(ansible_architecture) }}"
+
 # Selective include of vars
 - name: Include variables for RHEL
   include_vars: "{{ item }}"

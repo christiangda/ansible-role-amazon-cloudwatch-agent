@@ -108,3 +108,8 @@ cwa_logrotate_file_size: "10M"
 # - https://linux.die.net/man/8/logrotate
 # default value: 5
 cwa_logrotate_files: 5
+
+cwa_arch_names: {
+  "x86_64": "amd64",
+  "aarch64": "arm64"
+}
