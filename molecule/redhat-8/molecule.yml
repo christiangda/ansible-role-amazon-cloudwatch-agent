@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+provisioner:
+  name: ansible
+  # log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: redhat-8
+
+platforms:
+  - name: redhat-8
+    image: registry.access.redhat.com/ubi8/ubi
