@@ -19,4 +19,3 @@ platforms:
   - name: centos-8
     image: centos:8
     pre_build_image: true
-
