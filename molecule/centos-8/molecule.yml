@@ -7,7 +7,7 @@ driver:
 
 provisioner:
   name: ansible
-  # log: true
+  log: true
 
 verifier:
   name: ansible
@@ -18,3 +18,5 @@ scenario:
 platforms:
   - name: centos-8
     image: centos:8
+    pre_build_image: true
+
