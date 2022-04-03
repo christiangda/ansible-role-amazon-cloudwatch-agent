@@ -28,8 +28,8 @@ jobs:
     strategy:
       matrix:
         python: [3.9]
-        ansible: ["~=4.1"]
-        scenario: ["centos-8"]
+        ansible: [">=4.1"]
+        scenario: ["redhat-8"]
 
     steps:
       - name: Check out the codebase.

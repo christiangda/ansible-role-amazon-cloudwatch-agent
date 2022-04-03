@@ -7,16 +7,14 @@ driver:
 
 provisioner:
   name: ansible
-  log: true
+  # log: true
 
 verifier:
   name: ansible
 
 scenario:
-  name: centos-8
+  name: redhat-8
 
 platforms:
-  - name: centos-8
-    image: centos:8
-    pre_build_image: true
-
+  - name: redhat-8
+    image: registry.access.redhat.com/ubi8/ubi
