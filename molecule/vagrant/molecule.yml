@@ -18,14 +18,19 @@ scenario:
   name: vagrant
 
 platforms:
+  - name: rockylinux-8
+    #box: rockylinux/8
+    box: generic/rocky8
+    memory: 512
+    cpus: 1
   # - name: centos-7
   #   box: centos/7
   #   memory: 512
   #   cpus: 1
-  - name: centos-8
-    box: centos/8
-    memory: 512
-    cpus: 1
+  # - name: centos-8
+  #   box: centos/8
+  #   memory: 512
+  #   cpus: 1
   # - name: centos-stream8
   #   box: centos/stream8
   #   memory: 512
