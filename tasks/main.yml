@@ -3,21 +3,26 @@
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/verify-CloudWatch-Agent-Package-Signature.html
 
-##debug ansible_distribution
+# debug
 - name: check ansible_os_family
   debug: msg="ansible_os_family = {{ ansible_os_family }}"
+  when: cwa_debug
 
 - name: check ansible_distribution
   debug: msg="ansible_distribution = {{ ansible_distribution }}"
+  when: cwa_debug
 
 - name: check ansible_distribution_major_version
   debug: msg="ansible_distribution_major_version = {{ ansible_distribution_major_version }}"
+  when: cwa_debug
 
 - name: check ansible_distribution_release
   debug: msg="ansible_distribution_release = {{ ansible_distribution_release }}"
+  when: cwa_debug
 
 - name: check ansible_virtualization_type
   debug: msg="ansible_virtualization_type = {{ ansible_virtualization_type }}"
+  when: cwa_debug
 
 - name: Set architecture name
   set_fact:
