@@ -26,9 +26,10 @@ galaxy_info:
         - bullseye
     - name: Ubuntu
       version:
+        - xenial
         - bionic
         - focal
-        - hirsute
+        - impish
 
   galaxy_tags:
     - aws

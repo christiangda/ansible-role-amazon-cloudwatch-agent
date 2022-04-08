@@ -29,3 +29,8 @@ cwa_use_conf_json_template: "{{ false|bool if cwa_conf_json_file_content is defi
 
 # defined in defaults/main.yaml
 cwa_need_credentials: "{{ true|bool if cwa_agent_mode == 'onPremise' else cwa_use_credentials }}"
+
+cwa_arch_names: {
+  "x86_64": "amd64",
+  "aarch64": "arm64"
+}

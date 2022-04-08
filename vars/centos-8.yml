@@ -1,0 +1,3 @@
+---
+cwa_package_url: https://s3.amazonaws.com/amazoncloudwatch-agent/centos/{{ cwa_arch_name }}/latest/amazon-cloudwatch-agent.rpm
+cwa_package_signature: https://s3.amazonaws.com/amazoncloudwatch-agent/centos/{{ cwa_arch_name }}/latest/amazon-cloudwatch-agent.rpm.sig
