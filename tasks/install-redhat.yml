@@ -57,7 +57,7 @@
       tags:
         - install
 
-    - name: Install "{{ cwa_dependencies_packages }}" dependency on ReHat/CentOS 6/7/8
+    - name: Install {{ cwa_dependencies_packages }} dependency on {{ansible_distribution}} 6/7/8
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present
@@ -94,7 +94,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on ReHat/CentOS 6/7
+- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 6/7
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true
@@ -115,7 +115,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on ReHat/CentOS 8
+- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 8
   dnf:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true

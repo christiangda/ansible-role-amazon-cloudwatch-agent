@@ -18,30 +18,51 @@ scenario:
   name: vagrant
 
 platforms:
+  # - name: centos-7
+  #   box: centos/7
+  #   memory: 512
+  #   cpus: 1
   - name: centos-8
     box: centos/8
     memory: 512
     cpus: 1
-  - name: ubuntu-20.04
-    box: generic/ubuntu2004
-    memory: 512
-# - name: centos-7
-#   box: centos/7
-#   memory: 512
-#   cpus: 1
-# - name: amazonlinux-2
-#   box: gbailey/amzn2
-#   memory: 512
-#   cpus: 1
-# - name: ubuntu-18.04
-#   box: ubuntu/bionic64
-#   memory: 512
-#   cpus: 1
-# - name: debian-10
-#   box: debian/buster64
-#   memory: 512
-#   cpus: 1
-# - name: debian-9
-#   box: debian/stretch64
-#   memory: 512
-#   cpus: 1
+  # - name: centos-stream8
+  #   box: centos/stream8
+  #   memory: 512
+  #   cpus: 1
+  # - name: ubuntu-21.04
+  #   box: generic/ubuntu2104
+  #   memory: 1024
+  # - name: ubuntu-20.04
+  #   box: generic/ubuntu2004
+  #   memory: 1024
+  # - name: ubuntu-16.04
+  #   box: generic/ubuntu1604
+  #   memory: 1024
+  # - name: ubuntu-18.04
+  #   box: generic/ubuntu1804
+  #   memory: 1024
+  # - name: amazonlinux-2
+  #   box: gbailey/amzn2
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-12
+  #   box: debian/bookworm64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-11
+  #   box: debian/bullseye64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-10
+  #   box: debian/buster64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-9
+  #   box: debian/stretch64
+  #   memory: 512
+  #   cpus: 1
+  # - name: debian-8
+  #   box: debian/jessie64
+  #   memory: 512
+  #   cpus: 1
