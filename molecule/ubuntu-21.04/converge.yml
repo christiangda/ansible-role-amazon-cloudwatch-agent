@@ -8,12 +8,6 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
-    # - name: Install gpg
-    #   apt:
-    #     name: gpg
-    #     state: present
-    #     update_cache: yes
-
   tasks:
     - name: "Include christiangda.epel_repo"
       include_role:
