@@ -19,6 +19,7 @@ The repository code is [https://github.com/christiangda/ansible-role-amazon-clou
 * Provides a default [agent configuration](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) file (a minimal configuration, It is not recommended)
 * Rotate CloudWatch Agent Log file
 * **Allow you to load your own [JSON file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html) / YAML file or INLINE configuration for agent, metrics and logs sections**
+* Support `amd64` and `arm64` architectures
 
 **Notes:**
 
@@ -40,6 +41,9 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
 * CentOS
   * 7
   * 8
+  * stream8
+* Rocky Linux
+  * 8
 * Amazon Linux
   * 2
 * Ubuntu
@@ -49,8 +53,10 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * 20.*
   * 21.*
 * Debian
+  * Stretch (9)
   * buster (10)
   * bullseye (11)
+  * Bookworm (12)
 
 To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI build matrix](https://travis-ci.org/christiangda/ansible-role-amazon-cloudwatch-agent)
 
@@ -69,6 +75,7 @@ To see the compatibility matrix of Python vs. Ansible versions see [Travis-CI bu
 | cwa_no_proxy               | "169.254.169.254"       |
 | cwa_logrotate_file_size    | "10M"                   |
 | cwa_logrotate_files        | 5                       |
+| cwa_debug                  | false                   |
 
 **More Details:** See the file [defaults/main.yaml](defaults/main.yaml)
 

@@ -43,7 +43,7 @@
 
 - name: Install {{ cwa_package }} dependencies (it depend on EPEL Repositories, you ned to take care of that)
   block:
-    - name: Install "{{ cwa_dependencies_packages }}" dependency on Amazon 1/2
+    - name: Install {{ cwa_dependencies_packages }} dependency on Amazon 1/2
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present
@@ -57,7 +57,7 @@
       tags:
         - install
 
-    - name: Install "{{ cwa_dependencies_packages }}" dependency on ReHat/CentOS 6/7/8
+    - name: Install {{ cwa_dependencies_packages }} dependency on {{ansible_distribution}} 6/7/8
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present
@@ -68,7 +68,8 @@
       when: >
         ansible_os_family == 'RedHat' and (
           ansible_distribution == 'CentOS' or
-          ansible_distribution == 'RedHat'
+          ansible_distribution == 'RedHat' or
+          ansible_distribution == 'Rocky'
         ) and (
           ansible_distribution_major_version == '8' or
           ansible_distribution_major_version == '7' or
@@ -94,7 +95,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on ReHat/CentOS 6/7
+- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 6/7
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true
@@ -106,7 +107,8 @@
   when: >
     ansible_os_family == 'RedHat' and (
       ansible_distribution == 'CentOS' or
-      ansible_distribution == 'RedHat'
+      ansible_distribution == 'RedHat' or
+      ansible_distribution == 'Rocky'
     ) and (
       ansible_distribution_major_version == '7' or
       ansible_distribution_major_version == '6'
@@ -115,7 +117,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on ReHat/CentOS 8
+- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 8
   dnf:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true
@@ -127,7 +129,8 @@
   when: >
     ansible_os_family == 'RedHat' and (
       ansible_distribution == 'CentOS' or
-      ansible_distribution == 'RedHat'
+      ansible_distribution == 'RedHat' or
+      ansible_distribution == 'Rocky'
     ) and
     ansible_distribution_major_version == '8'
   ignore_errors: "{{ ansible_check_mode }}"
