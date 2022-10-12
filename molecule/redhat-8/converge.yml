@@ -2,19 +2,6 @@
 - name: Converge
   hosts: all
 
-  pre_tasks:
-    - name: Update apt cache
-      apt: update_cache=true cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
-    - name: Install gnupg
-      apt:
-        name: gnupg
-        state: latest
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
   tasks:
     - name: "Include christiangda.epel_repo"
       include_role:

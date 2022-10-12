@@ -9,10 +9,6 @@
       changed_when: false
 
   tasks:
-    - name: "Include christiangda.epel_repo"
-      include_role:
-        name: christiangda.epel_repo
-
     - name: "Include christiangda.awscli_configure"
       include_role:
         name: christiangda.awscli_configure

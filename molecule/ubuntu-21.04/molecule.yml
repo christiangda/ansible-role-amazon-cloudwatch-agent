@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 
 driver:
-  name: docker
+  name: podman
 
 provisioner:
   name: ansible
