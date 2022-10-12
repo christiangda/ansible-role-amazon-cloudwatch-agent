@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: podman
+
+provisioner:
+  name: ansible
+  # log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: rocky-8
+
+platforms:
+  - name: rocky-8
+    image: rockylinux:8
+    pre_build_image: true
+
+# lint: |
+#   set -e
+#   yamllint .
+#   ansible-lint .
