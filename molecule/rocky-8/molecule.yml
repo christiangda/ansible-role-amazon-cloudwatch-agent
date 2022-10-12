@@ -13,8 +13,14 @@ verifier:
   name: ansible
 
 scenario:
-  name: centos-7
+  name: rocky-8
 
 platforms:
-  - name: centos-7
-    image: centos:7
+  - name: rocky-8
+    image: rockylinux:8
+    pre_build_image: true
+
+# lint: |
+#   set -e
+#   yamllint .
+#   ansible-lint .

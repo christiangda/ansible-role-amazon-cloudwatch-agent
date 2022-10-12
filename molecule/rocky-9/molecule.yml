@@ -13,8 +13,9 @@ verifier:
   name: ansible
 
 scenario:
-  name: centos-7
+  name: rocky-9
 
 platforms:
-  - name: centos-7
-    image: centos:7
+  - name: rocky-9
+    image: rockylinux:9.0
+    pre_build_image: true

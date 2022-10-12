@@ -57,7 +57,7 @@
       tags:
         - install
 
-    - name: Install {{ cwa_dependencies_packages }} dependency on {{ansible_distribution}} 6/7/8
+    - name: Install {{ cwa_dependencies_packages }} dependency on {{ ansible_distribution }} 6/7/8/9
       yum:
         name: "{{ cwa_dependencies_packages }}"
         state: present
@@ -71,6 +71,7 @@
           ansible_distribution == 'RedHat' or
           ansible_distribution == 'Rocky'
         ) and (
+          ansible_distribution_major_version == '9' or
           ansible_distribution_major_version == '8' or
           ansible_distribution_major_version == '7' or
           ansible_distribution_major_version == '6'
@@ -95,7 +96,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 6/7
+- name: Install {{ cwa_package }}.rpm on {{ ansible_distribution }} 6/7
   yum:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true
@@ -117,7 +118,7 @@
   tags:
     - install
 
-- name: Install {{ cwa_package }}.rpm on {{ansible_distribution}} 8
+- name: Install {{ cwa_package }}.rpm on {{ ansible_distribution }} 8/9
   dnf:
     name: "{{ cwa_temp_path }}/{{ cwa_package }}.rpm"
     disable_gpg_check: true
@@ -131,8 +132,10 @@
       ansible_distribution == 'CentOS' or
       ansible_distribution == 'RedHat' or
       ansible_distribution == 'Rocky'
-    ) and
-    ansible_distribution_major_version == '8'
+    ) and (
+      ansible_distribution_major_version == '9' or
+      ansible_distribution_major_version == '8'
+    )
   ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - install

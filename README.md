@@ -44,6 +44,7 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * stream8
 * Rocky Linux
   * 8
+  * 9
 * Amazon Linux
   * 2
 * Ubuntu
@@ -52,6 +53,7 @@ This role work on RedHat, CentOS, Amazon Linux, Debian and Ubuntu distributions
   * 18.*
   * 20.*
   * 21.*
+  * 22.*
 * Debian
   * Stretch (9)
   * buster (10)

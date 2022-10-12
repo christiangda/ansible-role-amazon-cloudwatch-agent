@@ -13,8 +13,8 @@ verifier:
   name: ansible
 
 scenario:
-  name: centos-7
+  name: ubuntu-22.04
 
 platforms:
-  - name: centos-7
-    image: centos:7
+  - name: ubuntu-22.04
+    image: ubuntu:22.04

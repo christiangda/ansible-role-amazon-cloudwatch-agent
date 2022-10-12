@@ -30,6 +30,7 @@ galaxy_info:
         - bionic
         - focal
         - impish
+        - jammy
 
   galaxy_tags:
     - aws
