@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: podman
+
+provisioner:
+  name: ansible
+  # log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: rocky-9
+
+platforms:
+  - name: rocky-9
+    image: rockylinux:9.0
+    pre_build_image: true

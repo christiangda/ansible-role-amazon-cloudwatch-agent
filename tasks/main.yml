@@ -29,11 +29,11 @@
     cwa_arch_name: "{{ cwa_arch_names.get(ansible_architecture) }}"
 
 # Include of vars
-- name: Include variables for {{ ansible_distribution|lower }}
+- name: Include variables for {{ ansible_distribution | lower }}
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version }}.yml"
-    - "{{ ansible_distribution|lower }}.yml"
+    - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution | lower }}.yml"
     - "main.yml"
   when: >
     ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
@@ -41,15 +41,15 @@
     - include-vars
 
 # Installation tasks
-- name: Include tasks for installation on {{ ansible_os_family|lower }} distribution
-  include_tasks: "install-{{ ansible_os_family|lower }}.yml"
+- name: Include tasks for installation on {{ ansible_os_family | lower }} distribution
+  include_tasks: "install-{{ ansible_os_family | lower }}.yml"
   when: >
     ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
   tags:
     - include-install-task
 
 # Configuration tasks
-- name: Configure {{ cwa_package }} for {{ ansible_distribution|lower }}
+- name: Configure {{ cwa_package }} for {{ ansible_distribution | lower }}
   include_tasks: "configure.yml"
   tags:
     - configure
