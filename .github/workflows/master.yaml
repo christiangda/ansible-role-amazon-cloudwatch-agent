@@ -38,7 +38,7 @@ jobs:
           path: ${{ env.GALAXY_ROLE_NAME }}
 
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python: ${{ matrix.python }}
 
