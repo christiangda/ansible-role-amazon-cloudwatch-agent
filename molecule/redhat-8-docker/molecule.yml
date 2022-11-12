@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 
 driver:
-  name: podman
+  name: docker
 
 provisioner:
   name: ansible
@@ -13,7 +13,7 @@ verifier:
   name: ansible
 
 scenario:
-  name: redhat-8
+  name: redhat-8-docker
 
 platforms:
   - name: redhat-8

@@ -31,12 +31,11 @@ jobs:
         python: [3.9]
         # ansible: ["~=2.9", "~=3.4", "~=4.1"]
         ansible: [">=4.1"]
-        scenario: ["redhat-8", "ubuntu-21.04"]
-        # scenario: ["ubuntu-21.04"]
+        scenario: ["redhat-8-docker", "ubuntu-22.04-docker"]
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ${{ env.GALAXY_ROLE_NAME }}
 

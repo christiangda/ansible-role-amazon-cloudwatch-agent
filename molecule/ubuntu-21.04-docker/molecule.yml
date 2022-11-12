@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 
 driver:
-  name: podman
+  name: docker
 
 provisioner:
   name: ansible
@@ -13,8 +13,8 @@ verifier:
   name: ansible
 
 scenario:
-  name: redhat-8
+  name: ubuntu-21.04-docker
 
 platforms:
-  - name: redhat-8
-    image: registry.access.redhat.com/ubi8/ubi
+  - name: ubuntu-21.04
+    image: ubuntu:21.04
