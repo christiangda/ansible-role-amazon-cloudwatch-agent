@@ -31,8 +31,7 @@ jobs:
         python: [3.9]
         # ansible: ["~=2.9", "~=3.4", "~=4.1"]
         ansible: [">=4.1"]
-        scenario: ["redhat-8", "ubuntu-21.04"]
-        # scenario: ["ubuntu-21.04"]
+        scenario: ["redhat-8-docker", "ubuntu-21.04-docker"]
 
     steps:
       - name: Check out the codebase.
