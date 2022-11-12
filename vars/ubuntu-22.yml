@@ -3,4 +3,5 @@ cwa_package_url: https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/{{ cwa_a
 cwa_package_signature: https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/{{ cwa_arch_name }}/latest/amazon-cloudwatch-agent.deb.sig
 
 cwa_gpg_dependencies_packages:
-  - gpg
+  - ca-certificates
+  - gnupg

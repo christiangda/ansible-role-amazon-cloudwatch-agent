@@ -29,7 +29,7 @@ jobs:
       matrix:
         python: [3.9]
         ansible: [">=4.1"]
-        scenario: ["redhat-8-docker", "ubuntu-21.04-docker"]
+        scenario: ["redhat-8-docker"]
 
     steps:
       - name: Check out the codebase.

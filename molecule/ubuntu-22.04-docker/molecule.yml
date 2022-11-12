@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+provisioner:
+  name: ansible
+  # log: true
+
+verifier:
+  name: ansible
+
+scenario:
+  name: ubuntu-22.04-docker
+
+platforms:
+  - name: ubuntu-22.04
+    image: ubuntu:22.04
