@@ -40,6 +40,11 @@
   tags:
     - include-vars
 
+- name: Ensure OS level variables were loaded
+  ansible.builtin.fail:
+    msg: The distribution {{ ansible_distribution }} is currently not supported
+  when: cwa_package_url is undefined
+
 # Installation tasks
 - name: Include tasks for installation on {{ ansible_os_family | lower }} distribution
   include_tasks: "install-{{ ansible_os_family | lower }}.yml"
