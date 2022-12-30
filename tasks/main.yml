@@ -27,6 +27,8 @@
 - name: Set architecture name
   set_fact:
     cwa_arch_name: "{{ cwa_arch_names.get(ansible_architecture) }}"
+  tags:
+    - include-vars
 
 # Include of vars
 - name: Include variables for {{ ansible_distribution | lower }}
