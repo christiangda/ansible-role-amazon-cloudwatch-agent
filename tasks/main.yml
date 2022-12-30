@@ -42,7 +42,7 @@
 
 # Installation tasks
 - name: Include tasks for installation on {{ ansible_os_family | lower }} distribution
-  include_tasks: "install-{{ ansible_os_family | lower }}.yml"
+  import_tasks: "install-{{ ansible_os_family | lower }}.yml"
   when: >
     ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
   tags:
@@ -50,6 +50,6 @@
 
 # Configuration tasks
 - name: Configure {{ cwa_package }} for {{ ansible_distribution | lower }}
-  include_tasks: "configure.yml"
+  import_tasks: "configure.yml"
   tags:
     - configure
