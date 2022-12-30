@@ -49,6 +49,10 @@
     ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
   tags:
     - include-install-task
+  apply:
+    tags:
+      - include-install-task
+    
 
 # Configuration tasks
 - name: Configure {{ cwa_package }} for {{ ansible_distribution | lower }}
