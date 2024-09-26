@@ -18,32 +18,55 @@
   tags:
     - install
 
-- name: Add {{ cwa_package }} key
-  apt_key:
-    id: "{{ cwa_package_gpg_id }}"
-    state: present
-    url: "{{ cwa_package_gpg }}"
+- name: Download apt {{ cwa_package }} signing key via shell
+  shell: (mkdir -p {{ cwa_package_gpg_path }} && cd {{ cwa_package_gpg_path }} && curl -O {{ cwa_package_gpg }})
+
+- name: Import {{ cwa_package }} repository GPG key
+  command: "gpg --no-default-keyring --keyring gnupg-ring:{{ cwa_package_keyring_path }} --import {{ cwa_package_gpg_filepath }}"
+  args:
+    creates: "{{ cwa_package_keyring_path }}"
+
+- name: Set permissions for {{ cwa_package }} repository GPG key
+  file:
+    path: "{{ cwa_package_keyring_path }}"
+    mode: '0644'
+
   tags:
     - add-key
     - download
     - install
 
+# - name: Download {{ cwa_package }}.deb.sig file
+#   get_url:
+#     url: "{{ cwa_package_signature }}"
+#     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb.sig"
+#     timeout: "{{ cwa_global_downloads_timeout }}"
+#   tags:
+#     - download-signature
+#     - verify-signature
+#     - download
+#     - install
+
 - name: Download {{ cwa_package }}.deb.sig file
-  get_url:
-    url: "{{ cwa_package_signature }}"
-    dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb.sig"
-    timeout: "{{ cwa_global_downloads_timeout }}"
+  shell: (cd {{ cwa_temp_path }} && curl -O {{ cwa_package_signature }})
   tags:
     - download-signature
     - verify-signature
     - download
     - install
 
+# - name: Download {{ cwa_package }}.deb file
+#   get_url:
+#     url: "{{ cwa_package_url }}"
+#     dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"
+#     timeout: "{{ cwa_global_downloads_timeout }}"
+#   tags:
+#     - download
+#     - verify-signature
+#     - install
+
 - name: Download {{ cwa_package }}.deb file
-  get_url:
-    url: "{{ cwa_package_url }}"
-    dest: "{{ cwa_temp_path }}/{{ cwa_package }}.deb"
-    timeout: "{{ cwa_global_downloads_timeout }}"
+  shell: (cd {{ cwa_temp_path }} && curl -O {{ cwa_package_url }})
   tags:
     - download
     - verify-signature
