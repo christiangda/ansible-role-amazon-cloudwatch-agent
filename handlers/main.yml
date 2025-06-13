@@ -1,7 +1,7 @@
 ---
 - name: Reload {{ cwa_package }}
   command: "{{ cwa_agent_ctl }} -a fetch-config -m {{ cwa_agent_mode }} -c file:{{ cwa_agent_config_file }} -s"
-  notify: Leave a copy of configuration
+  notify: "Leave {{ cwa_package }} agent {{ 'configuration file from default template' if cwa_use_conf_json_template else 'custom configuration file from file content' }}"
   when:
     - ansible_virtualization_type != "lxc"
     - ansible_virtualization_type != "docker"
@@ -34,8 +34,6 @@
     dest: "{{ cwa_agent_config_file }}"
     mode: 0644
     force: true
-  listen: Leave a copy of configuration
-  when: cwa_use_conf_json_template
 
 # Use custom file from variable
 - name: Leave {{ cwa_package }} agent custom configuration file from file content
@@ -43,5 +41,3 @@
     content: "{{ cwa_conf_json_file_content | to_nice_json }}"
     dest: "{{ cwa_agent_config_file }}"
     mode: 0644
-  listen: Leave a copy of configuration
-  when: not cwa_use_conf_json_template
