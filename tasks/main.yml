@@ -27,6 +27,8 @@
 - name: Set architecture name
   set_fact:
     cwa_arch_name: "{{ cwa_arch_names.get(ansible_architecture) }}"
+  tags:
+    - include-vars
 
 # Include of vars
 - name: Include variables for {{ ansible_distribution | lower }}
@@ -42,7 +44,11 @@
 
 # Installation tasks
 - name: Include tasks for installation on {{ ansible_os_family | lower }} distribution
-  include_tasks: "install-{{ ansible_os_family | lower }}.yml"
+  include_tasks:
+    file: "install-{{ ansible_os_family | lower }}.yml"
+    apply:
+      tags:
+        - include-install-task
   when: >
     ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
   tags:
@@ -50,6 +56,6 @@
 
 # Configuration tasks
 - name: Configure {{ cwa_package }} for {{ ansible_distribution | lower }}
-  include_tasks: "configure.yml"
+  import_tasks: "configure.yml"
   tags:
     - configure
